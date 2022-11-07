@@ -1,0 +1,1343 @@
+/**
+ * 基础样式
+ *
+ * @author LCTR
+ * @date 2022-09-27
+ */
+
+/*单行文本省略*/
+.single-text-omitted {
+    word-break: break-all;
+    /*属性规定自动换行的处理方法。normal(使用浏览器默认的换行规则。),break-all(允许在单词内换行。),keep-all(只能在半角空格或连字符处换行。)*/
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /** 对象作为伸缩盒子模型显示 **/
+    -webkit-box-orient: vertical;
+    /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+    -webkit-line-clamp: 1;
+    /** 显示的行数 **/
+    overflow: hidden;
+    /** 隐藏超出的内容 **/
+}
+
+/*文件上传部分-起*/
+
+/*容器*/
+.upload-container {
+    width: calc(100% - 15px);
+    height: 100%;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, .65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    font-feature-settings: "tnum";
+}
+
+.upload-container .upload-icon {
+    display: inline-block;
+    color: inherit;
+    font-style: normal;
+    line-height: 0;
+    text-transform: none;
+    vertical-align: -.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.item-info-container {
+    width: 100%;
+    height: 100%;
+}
+
+.upload-list {
+    width: 100%;
+}
+
+/**
+如果使用svg代码，需要将fill中所有的十六进制值转换为RGB值
+ */
+
+.icon-inbox {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M973.815 950.726H50.183C24.783 950.726 4 929.944 4 904.544V558.181l117.763-449.117c5.774-19.628 30.017-35.791 55.42-35.791h669.635c25.4 0 50.8 16.163 55.416 35.791l117.764 449.117v346.363c0 25.4-20.783 46.182-46.183 46.182h-0.001z m-48.491-450.27l-76.2-320.962c-5.774-20.783-31.173-36.945-56.571-36.945H217.59c-25.4 0-49.646 16.163-55.416 36.945l-76.2 320.962c-8.08 31.172 11.544 57.725 45.028 57.725h178.952l53.109 144.318c3.463 9.235 16.164 17.318 27.708 17.318h228.601c12.7 0 25.401-6.927 27.71-17.318L700.19 558.18h177.8c34.638 0 55.416-26.554 47.336-57.725h-0.003z' fill='rgb(64 169 255)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+.icon-plus {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M939.072 597.312H597.312v341.376a85.12 85.12 0 1 1-170.24 0V597.312H85.312a85.312 85.312 0 0 1 0-170.624h341.76V85.312a85.12 85.12 0 1 1 170.24 0v341.376h341.76a85.312 85.312 0 0 1 0 170.624z' fill='rgb(81 81 81)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+.icon-select-file {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1077 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M463.5648 0a89.6 89.6 0 0 1 58.9952 22.1568l2.816 2.5856L817.024 302.6688a89.6 89.6 0 0 1 27.712 61.0048l0.0768 3.8528V537.6a38.4 38.4 0 0 1-76.736 2.2528L768 537.6V396.8H531.2a89.6 89.6 0 0 1-89.5488-86.528L441.6 307.2V76.8H89.6a12.8 12.8 0 0 0-12.7104 11.3024L76.8 89.6v793.6a12.8 12.8 0 0 0 11.3024 12.7104L89.6 896h183.808a38.4 38.4 0 0 1 2.2656 76.736L273.408 972.8H89.6a89.6 89.6 0 0 1-89.5488-86.528L0 883.2V89.6a89.6 89.6 0 0 1 86.528-89.5488L89.6 0h373.9648z m260.3136 320L518.4 124.1728V307.2a12.8 12.8 0 0 0 11.3024 12.7104L531.2 320h192.6784z' fill='rgb(48 49 51)'></path><path d='M620.8 524.8a38.4 38.4 0 0 1 38.336 36.1472L659.2 563.2v153.6H806.4a38.4 38.4 0 0 1 2.2528 76.736L806.4 793.6H659.2v140.8a38.4 38.4 0 0 1-76.736 2.2528L582.4 934.4V793.6H435.2a38.4 38.4 0 0 1-2.2528-76.736L435.2 716.8h147.2V563.2a38.4 38.4 0 0 1 38.4-38.4z' fill='rgb(255 111 38)'></path></svg>");
+    background-blend-mode: screen;
+    background-size: 125% 100%;
+}
+
+.icon-view {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M954.817 912.85L754.565 712.602c54.98-67.646 87.943-153.913 87.943-247.876 0-217.21-176.09-393.292-393.31-393.292-217.21 0-393.305 176.082-393.305 393.292 0 217.202 176.088 393.288 393.305 393.288 93.968 0 180.24-32.962 247.892-87.942l200.253 200.247c15.866 15.873 41.602 15.873 57.474 0 15.872-15.872 15.872-41.603 0-57.47zM138.698 464.726c0-171.485 139.022-310.494 310.501-310.494 171.489 0 310.51 139.009 310.51 310.494 0 81.663-31.553 155.95-83.1 211.376-6.472 6.94-8.948 9.8-16.017 16.023-55.433 51.548-129.725 83.086-211.393 83.086-171.48 0-310.5-139.005-310.5-310.485z m0 0' fill='rgb(180 255 92)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+.icon-download {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M952.8 668.48a40.16 40.16 0 0 0-39.2 39.2c0 86.24-57.6 156.96-130.88 156.96H241.28C168 864 110.4 793.92 110.4 707.68a40.16 40.16 0 0 0-39.2-39.2A40.16 40.16 0 0 0 32 707.68c0 130.72 94.24 235.36 209.28 235.36h541.44C897.76 943.04 992 838.4 992 707.68a40.16 40.16 0 0 0-39.2-39.2z' fill='rgb(116, 194, 255)'></path><path d='M484.48 686.72a45.12 45.12 0 0 0 57.6 0l149.12-149.12a38.88 38.88 0 0 0-54.88-54.88l-81.12 81.12V119.04a39.36 39.36 0 0 0-78.56 0v444.8l-81.12-81.12a38.88 38.88 0 0 0-54.88 54.88z' fill='rgb(116, 194, 255)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+.icon-rename {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M585.0624 729.9584h96v96h-96v-96z m192 0h96v96h-96v-96zM201.5744 201.5744h288.0512v120.0128H201.5232V201.6256z m72.0384 97.024h143.9744v480H273.6128V298.5984z m-72.0384 407.3472h288.0512v120.0128H201.5232v-120.0128z' fill='rgb(249 242 139)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+.icon-remove {
+    background: url("data:image/svg+xml,<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M512 620.544l253.3376 253.3376a76.6976 76.6976 0 1 0 108.544-108.544L620.6464 512l253.2352-253.3376a76.6976 76.6976 0 1 0-108.544-108.544L512 403.3536 258.6624 150.1184a76.6976 76.6976 0 1 0-108.544 108.544L403.3536 512 150.1184 765.3376a76.6976 76.6976 0 1 0 108.544 108.544L512 620.6464z' fill='rgb(255, 154, 147)'></path></svg>");
+    background-blend-mode: screen;
+}
+
+/*文件接收区域*/
+.upload-box-container.single {
+    width: 104px;
+    height: 75px;
+    padding: 0;
+    /*padding: 42px 24px 50px;*/
+}
+
+.upload-box-container {
+    box-sizing: border-box;
+    padding: 16px 0;
+    position: relative;
+    text-align: center;
+    background: #fafafa;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color .3s;
+    /*margin: 10px;*/
+    margin-bottom: 10px;
+    outline: 0;
+    height: auto;
+    width: 100%;
+}
+
+.upload-box-container:hover {
+    border: 1px dashed #40a9ff;
+    background: #ffffff;
+}
+
+.upload-box-container.item-limited {
+    cursor: not-allowed;
+}
+
+.upload-btn {
+    touch-action: manipulation;
+    display: table;
+    height: 100%;
+    width: 100%;
+    outline: none;
+}
+
+.upload-btn input[type=file] {
+    display: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.independent .upload-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.upload-box-content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    /*padding: 30px;*/
+}
+
+.upload-box-content .upload-icon {
+    color: #40a9ff;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.upload-box-content .upload-text {
+    margin: 0 0 4px;
+    color: rgba(0, 0, 0, .85);
+    font-size: 16px;
+}
+
+.upload-box-content .upload-hint {
+    color: rgba(0, 0, 0, .45);
+    font-size: 14px;
+}
+
+.independent .upload-box-content .upload-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+}
+
+.upload-box-container .upload-error-list {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    padding: 5px;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.independent .upload-box-content .error-info {
+    color: rgba(255, 0, 30, 0.65);
+    font-weight: bolder;
+    line-height: 20px;
+    margin: 0 0 5px 0;
+    /*border-bottom: rgba(255, 0, 30, 0.3) solid;*/
+}
+
+.scroll-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 360px;
+    max-height: 500px;
+    /*margin: 10px;*/
+    /*border: 1px solid #d9d9d9;*/
+    border-radius: 4px;
+}
+
+.independent .item-body .upload-icon,
+.scroll-container .upload-icon {
+    width: 20px;
+    height: 20px;
+    margin: 5px 6px 0 0;
+    vertical-align: 3em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 1px;
+    transition: all .3s;
+}
+
+.pretty-scrollbar::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.pretty-scrollbar::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #9e9e9e;
+}
+
+.pretty-scrollbar::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #ededed;
+}
+
+.item-container.item-canceled {
+    display: none !important;
+}
+
+/*文件上传部分-讫*/
+
+/*布局通用样式-起*/
+
+.upload-list {
+    position: sticky;
+    width: 100%;
+}
+
+.independent .item-container:before,
+.upload-list .item-container:before,
+.independent .scroll-container .item-container:before,
+.upload-list .scroll-container .item-container:before {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    z-index: -1;
+}
+
+.independent .item-container:after,
+.upload-list .item-container:after,
+.independent .scroll-container .item-container:after,
+.upload-list .scroll-container .item-container:after {
+    position: absolute;
+    content: '';
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    z-index: -2;
+    filter: blur(7px);
+}
+
+.independent .item-container .item-sub,
+.upload-list .item-container .item-sub,
+.independent .scroll-container .item-container .item-sub,
+.upload-list .scroll-container .item-container .item-sub {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    transform: rotate(45deg);
+    width: 60px;
+    height: 20px;
+    font-weight: bold;
+}
+
+.independent .item-container .item-sub.sub-paused,
+.upload-list .item-container .item-sub.sub-paused,
+.independent .scroll-container .item-container .item-sub.sub-paused,
+.upload-list .scroll-container .item-container .item-sub.sub-paused {
+    display: block;
+    background-color: rgba(244, 154, 3, 0.5);
+}
+
+.independent .item-container .item-sub.sub-done,
+.upload-list .item-container .item-sub.sub-done,
+.independent .scroll-container .item-container .item-sub.sub-done,
+.upload-list .scroll-container .item-container .item-sub.sub-done {
+    display: block;
+    background-color: rgba(3, 169, 244, 0.5);
+}
+
+.independent .item-container .item-sub.sub-error,
+.upload-list .item-container .item-sub.sub-error,
+.independent .scroll-container .item-container .item-sub.sub-error,
+.upload-list .scroll-container .item-container .item-sub.sub-error {
+    display: block;
+    background-color: rgba(232, 31, 31, 0.5);
+}
+
+.independent .item-container.item-checking:before,
+.independent .item-container.item-checking:after,
+.upload-list .item-container.item-checking:before,
+.upload-list .item-container.item-checking:after,
+.independent .scroll-container .item-container.item-checking:before,
+.independent .scroll-container .item-container.item-checking:after,
+.upload-list .scroll-container .item-container.item-checking:before,
+.upload-list .scroll-container .item-container.item-checking:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    /*background: rgba(255, 236, 201, 0.5);*/
+    background: rgba(255, 235, 59, 0.5);
+}
+
+.independent .item-container.item-uploading:before,
+.independent .item-container.item-uploading:after,
+.upload-list .item-container.item-uploading:before,
+.upload-list .item-container.item-uploading:after,
+.independent .scroll-container .item-container.item-uploading:before,
+.independent .scroll-container .item-container.item-uploading:after,
+.upload-list .scroll-container .item-container.item-uploading:before,
+.upload-list .scroll-container .item-container.item-uploading:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    background: rgba(144, 206, 255, 0.5);
+}
+
+.independent .item-container.item-done:before,
+.independent .item-container.item-done:after,
+.upload-list .item-container.item-done:before,
+.upload-list .item-container.item-done:after,
+.independent .scroll-container .item-container.item-done:before,
+.independent .scroll-container .item-container.item-done:after,
+.upload-list .scroll-container .item-container.item-done:before,
+.upload-list .scroll-container .item-container.item-done:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    /*background: rgba(137, 255, 0, 0.3);*/
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.independent .item-container.item-paused:before,
+.independent .item-container.item-paused:after,
+.upload-list .item-container.item-paused:before,
+.upload-list .item-container.item-paused:after,
+.independent .scroll-container .item-container.item-paused:before,
+.independent .scroll-container .item-container.item-paused:after,
+.upload-list .scroll-container .item-container.item-paused:before,
+.upload-list .scroll-container .item-container.item-paused:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    background: rgba(158, 158, 158, 0.5);
+}
+
+.independent .item-container.item-error:before,
+.independent .item-container.item-error:after,
+.upload-list .item-container.item-error:before,
+.upload-list .item-container.item-error:after,
+.independent .scroll-container .item-container.item-error:before,
+.independent .scroll-container .item-container.item-error:after,
+.upload-list .scroll-container .item-container.item-error:before,
+.upload-list .scroll-container .item-container.item-error:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    background: rgba(255, 0, 30, 0.35);
+}
+
+.independent .item-container.item-dragging:before,
+.independent .item-container.item-dragging:after,
+.upload-list .item-container.item-dragging:before,
+.upload-list .item-container.item-dragging:after,
+.independent .scroll-container .item-container.item-dragging:before,
+.independent .scroll-container .item-container.item-dragging:after,
+.upload-list .scroll-container .item-container.item-dragging:before,
+.upload-list .scroll-container .item-container.item-dragging:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    background: rgb(255, 87, 34, 0.5);
+}
+
+.independent .item-container.item-dragging,
+.upload-list .item-container.item-dragging,
+.independent .scroll-container .item-container.item-dragging,
+.upload-list .scroll-container .item-container.item-dragging {
+    cursor: move;
+}
+
+.independent .item-container.item-drag-over,
+.upload-list .item-container.item-drag-over,
+.independent .scroll-container .item-container.item-drag-over,
+.upload-list .scroll-container .item-container.item-drag-over {
+    cursor: progress;
+}
+
+.independent .item-container.item-drag-over:before,
+.independent .item-container.item-drag-over:after,
+.upload-list .item-container.item-drag-over:before,
+.upload-list .item-container.item-drag-over:after,
+.independent .scroll-container .item-container.item-drag-over:before,
+.independent .scroll-container .item-container.item-drag-over:after,
+.upload-list .scroll-container .item-container.item-drag-over:before,
+.upload-list .scroll-container .item-container.item-drag-over:after {
+    /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
+    background: rgba(255, 152, 0, 0.5) !important;
+}
+
+.independent .item-container .item-image,
+.upload-list .item-container .item-image,
+.independent .scroll-container .item-container .item-image,
+.upload-list .scroll-container .item-container .item-image {
+    width: 104px;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.independent .item-container .item-image img,
+.upload-list .item-container .item-image img,
+.independent .scroll-container .item-container .item-image img,
+.upload-list .scroll-container .item-container .item-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
+}
+
+.independent .item-container .item-name,
+.upload-list .item-container .item-name,
+.independent .scroll-container .item-container .item-name,
+.upload-list .scroll-container .item-container .item-name {
+    color: rgba(0, 0, 0, .85);
+    font-size: 13px;
+}
+
+.independent .item-container.item-ready-drag:before,
+.independent .item-container.item-ready-drag:after,
+.upload-list .item-container.item-ready-drag:before,
+.upload-list .item-container.item-ready-drag:after,
+.independent .scroll-container .item-container.item-ready-drag:before,
+.independent .scroll-container .item-container.item-ready-drag:after,
+.upload-list .scroll-container .item-container.item-ready-drag:before,
+.upload-list .scroll-container .item-container.item-ready-drag:after,
+.independent .item-container.item-dragging:before,
+.independent .item-container.item-dragging:after,
+.upload-list .item-container.item-dragging:before,
+.upload-list .item-container.item-dragging:after,
+.independent .scroll-container .item-container.item-dragging:before,
+.independent .scroll-container .item-container.item-dragging:after,
+.upload-list .scroll-container .item-container.item-dragging:before,
+.upload-list .scroll-container .item-container.item-dragging:after,
+.independent .item-container.item-drag-over:before,
+.independent .item-container.item-drag-over:after,
+.upload-list .item-container.item-drag-over:before,
+.upload-list .item-container.item-drag-over:after,
+.independent .scroll-container .item-container.item-drag-over:before,
+.independent .scroll-container .item-container.item-drag-over:after,
+.upload-list .scroll-container .item-container.item-drag-over:before,
+.upload-list .scroll-container .item-container.item-drag-over:after {
+    display: none;
+}
+
+.independent .item-container.item-drag-over,
+.upload-list .item-container.item-drag-over,
+.independent .scroll-container .item-container.item-drag-over,
+.upload-list .scroll-container .item-container.item-drag-over {
+    -webkit-animation: dargOverExpand 1.3s ease forwards 1;
+    -moz-animation: dargOverExpand 1.3s ease forwards 1;
+    -ms-animation: dargOverExpand 1.3s ease forwards 1;
+    animation: dargOverExpand 1.3s ease forwards 1;
+}
+
+/* 1. 声明过渡效果 */
+.independent .scroll-container .fade-move:not(.item-dragging),
+.upload-list .scroll-container .fade-move:not(.item-dragging),
+.independent .scroll-container .fade-enter-active:not(.item-dragging),
+.upload-list .scroll-container .fade-enter-active:not(.item-dragging),
+.independent .scroll-container .fade-leave-active:not(.item-dragging),
+.upload-list .scroll-container .fade-leave-active:not(.item-dragging) {
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. 声明进入和离开的状态 */
+.independent .scroll-container .fade-enter-from:not(.item-dragging),
+.upload-list .scroll-container .fade-enter-from:not(.item-dragging),
+.independent .scroll-container .fade-leave-to:not(.item-dragging),
+.upload-list .scroll-container .fade-leave-to:not(.item-dragging) {
+    opacity: 0;
+    transform: scaleY(0.01) translate(30px, 0);
+}
+
+/* 3. 确保离开的项目被移除出了布局流
+      以便正确地计算移动时的动画效果。 */
+.independent .scroll-container .fade-leave-active:not(.item-dragging),
+.upload-list .scroll-container .fade-leave-active:not(.item-dragging) {
+    position: absolute;
+}
+
+/*布局通用样式-迄*/
+
+/*动画部分-起*/
+
+@keyframes dargExpand {
+    0% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 0%, transparent 1%) repeat scroll 0 0;
+    }
+
+    1% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 1%, transparent 2%) repeat scroll 0 0;
+    }
+
+    2% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 2%, transparent 3%) repeat scroll 0 0;
+    }
+
+    3% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 3%, transparent 4%) repeat scroll 0 0;
+    }
+
+    4% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 4%, transparent 5%) repeat scroll 0 0;
+    }
+
+    5% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 5%, transparent 6%) repeat scroll 0 0;
+    }
+
+    6% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 6%, transparent 7%) repeat scroll 0 0;
+    }
+
+    7% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 7%, transparent 8%) repeat scroll 0 0;
+    }
+
+    8% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 8%, transparent 9%) repeat scroll 0 0;
+    }
+
+    9% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 9%, transparent 10%) repeat scroll 0 0;
+    }
+
+    10% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 10%, transparent 11%) repeat scroll 0 0;
+    }
+
+    11% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 11%, transparent 12%) repeat scroll 0 0;
+    }
+
+    12% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 12%, transparent 13%) repeat scroll 0 0;
+    }
+
+    13% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 13%, transparent 14%) repeat scroll 0 0;
+    }
+
+    14% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 14%, transparent 15%) repeat scroll 0 0;
+    }
+
+    15% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 15%, transparent 16%) repeat scroll 0 0;
+    }
+
+    16% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 16%, transparent 17%) repeat scroll 0 0;
+    }
+
+    17% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 17%, transparent 18%) repeat scroll 0 0;
+    }
+
+    18% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 18%, transparent 19%) repeat scroll 0 0;
+    }
+
+    19% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 19%, transparent 20%) repeat scroll 0 0;
+    }
+
+    20% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 20%, transparent 21%) repeat scroll 0 0;
+    }
+
+    21% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 21%, transparent 22%) repeat scroll 0 0;
+    }
+
+    22% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 22%, transparent 23%) repeat scroll 0 0;
+    }
+
+    23% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 23%, transparent 24%) repeat scroll 0 0;
+    }
+
+    24% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 24%, transparent 25%) repeat scroll 0 0;
+    }
+
+    25% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 25%, transparent 26%) repeat scroll 0 0;
+    }
+
+    26% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 26%, transparent 27%) repeat scroll 0 0;
+    }
+
+    27% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 27%, transparent 28%) repeat scroll 0 0;
+    }
+
+    28% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 28%, transparent 29%) repeat scroll 0 0;
+    }
+
+    29% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 29%, transparent 30%) repeat scroll 0 0;
+    }
+
+    30% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 30%, transparent 31%) repeat scroll 0 0;
+    }
+
+    31% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 31%, transparent 32%) repeat scroll 0 0;
+    }
+
+    32% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 32%, transparent 33%) repeat scroll 0 0;
+    }
+
+    33% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 33%, transparent 34%) repeat scroll 0 0;
+    }
+
+    34% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 34%, transparent 35%) repeat scroll 0 0;
+    }
+
+    35% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 35%, transparent 36%) repeat scroll 0 0;
+    }
+
+    36% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 36%, transparent 37%) repeat scroll 0 0;
+    }
+
+    37% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 37%, transparent 38%) repeat scroll 0 0;
+    }
+
+    38% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 38%, transparent 39%) repeat scroll 0 0;
+    }
+
+    39% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 39%, transparent 40%) repeat scroll 0 0;
+    }
+
+    40% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 40%, transparent 41%) repeat scroll 0 0;
+    }
+
+    41% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 41%, transparent 42%) repeat scroll 0 0;
+    }
+
+    42% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 42%, transparent 43%) repeat scroll 0 0;
+    }
+
+    43% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 43%, transparent 44%) repeat scroll 0 0;
+    }
+
+    44% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 44%, transparent 45%) repeat scroll 0 0;
+    }
+
+    45% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 45%, transparent 46%) repeat scroll 0 0;
+    }
+
+    46% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 46%, transparent 47%) repeat scroll 0 0;
+    }
+
+    47% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 47%, transparent 48%) repeat scroll 0 0;
+    }
+
+    48% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 48%, transparent 49%) repeat scroll 0 0;
+    }
+
+    49% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 49%, transparent 50%) repeat scroll 0 0;
+    }
+
+    50% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 50%, transparent 51%) repeat scroll 0 0;
+    }
+
+    51% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 51%, transparent 52%) repeat scroll 0 0;
+    }
+
+    52% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 52%, transparent 53%) repeat scroll 0 0;
+    }
+
+    53% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 53%, transparent 54%) repeat scroll 0 0;
+    }
+
+    54% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 54%, transparent 55%) repeat scroll 0 0;
+    }
+
+    55% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 55%, transparent 56%) repeat scroll 0 0;
+    }
+
+    56% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 56%, transparent 57%) repeat scroll 0 0;
+    }
+
+    57% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 57%, transparent 58%) repeat scroll 0 0;
+    }
+
+    58% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 58%, transparent 59%) repeat scroll 0 0;
+    }
+
+    59% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 59%, transparent 60%) repeat scroll 0 0;
+    }
+
+    60% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 60%, transparent 61%) repeat scroll 0 0;
+    }
+
+    61% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 61%, transparent 62%) repeat scroll 0 0;
+    }
+
+    62% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 62%, transparent 63%) repeat scroll 0 0;
+    }
+
+    63% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 63%, transparent 64%) repeat scroll 0 0;
+    }
+
+    64% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 64%, transparent 65%) repeat scroll 0 0;
+    }
+
+    65% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 65%, transparent 66%) repeat scroll 0 0;
+    }
+
+    66% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 66%, transparent 67%) repeat scroll 0 0;
+    }
+
+    67% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 67%, transparent 68%) repeat scroll 0 0;
+    }
+
+    68% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 68%, transparent 69%) repeat scroll 0 0;
+    }
+
+    69% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 69%, transparent 70%) repeat scroll 0 0;
+    }
+
+    70% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 70%, transparent 71%) repeat scroll 0 0;
+    }
+
+    71% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 71%, transparent 72%) repeat scroll 0 0;
+    }
+
+    72% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 72%, transparent 73%) repeat scroll 0 0;
+    }
+
+    73% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 73%, transparent 74%) repeat scroll 0 0;
+    }
+
+    74% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 74%, transparent 75%) repeat scroll 0 0;
+    }
+
+    75% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 75%, transparent 76%) repeat scroll 0 0;
+    }
+
+    76% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 76%, transparent 77%) repeat scroll 0 0;
+    }
+
+    77% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 77%, transparent 78%) repeat scroll 0 0;
+    }
+
+    78% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 78%, transparent 79%) repeat scroll 0 0;
+    }
+
+    79% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 79%, transparent 80%) repeat scroll 0 0;
+    }
+
+    80% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 80%, transparent 81%) repeat scroll 0 0;
+    }
+
+    81% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 81%, transparent 82%) repeat scroll 0 0;
+    }
+
+    82% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 82%, transparent 83%) repeat scroll 0 0;
+    }
+
+    83% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 83%, transparent 84%) repeat scroll 0 0;
+    }
+
+    84% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 84%, transparent 85%) repeat scroll 0 0;
+    }
+
+    85% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 85%, transparent 86%) repeat scroll 0 0;
+    }
+
+    86% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 86%, transparent 87%) repeat scroll 0 0;
+    }
+
+    87% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 87%, transparent 88%) repeat scroll 0 0;
+    }
+
+    88% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 88%, transparent 89%) repeat scroll 0 0;
+    }
+
+    89% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 89%, transparent 90%) repeat scroll 0 0;
+    }
+
+    90% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 90%, transparent 91%) repeat scroll 0 0;
+    }
+
+    91% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 91%, transparent 92%) repeat scroll 0 0;
+    }
+
+    92% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 92%, transparent 93%) repeat scroll 0 0;
+    }
+
+    93% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 93%, transparent 94%) repeat scroll 0 0;
+    }
+
+    94% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 94%, transparent 95%) repeat scroll 0 0;
+    }
+
+    95% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 95%, transparent 96%) repeat scroll 0 0;
+    }
+
+    96% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 96%, transparent 97%) repeat scroll 0 0;
+    }
+
+    97% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 97%, transparent 98%) repeat scroll 0 0;
+    }
+
+    98% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 98%, transparent 99%) repeat scroll 0 0;
+    }
+
+    99% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 99%, transparent 100%) repeat scroll 0 0;
+    }
+
+    100% {
+        background: radial-gradient(rgba(255, 152, 0, 0.8) 100%, transparent 100%) repeat scroll 0 0;
+    }
+}
+
+@keyframes dargOverExpand {
+    0% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 0%, transparent 1%) repeat scroll 0 0;
+    }
+
+    1% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 1%, transparent 2%) repeat scroll 0 0;
+    }
+
+    2% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 2%, transparent 3%) repeat scroll 0 0;
+    }
+
+    3% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 3%, transparent 4%) repeat scroll 0 0;
+    }
+
+    4% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 4%, transparent 5%) repeat scroll 0 0;
+    }
+
+    5% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 5%, transparent 6%) repeat scroll 0 0;
+    }
+
+    6% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 6%, transparent 7%) repeat scroll 0 0;
+    }
+
+    7% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 7%, transparent 8%) repeat scroll 0 0;
+    }
+
+    8% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 8%, transparent 9%) repeat scroll 0 0;
+    }
+
+    9% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 9%, transparent 10%) repeat scroll 0 0;
+    }
+
+    10% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 10%, transparent 11%) repeat scroll 0 0;
+    }
+
+    11% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 11%, transparent 12%) repeat scroll 0 0;
+    }
+
+    12% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 12%, transparent 13%) repeat scroll 0 0;
+    }
+
+    13% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 13%, transparent 14%) repeat scroll 0 0;
+    }
+
+    14% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 14%, transparent 15%) repeat scroll 0 0;
+    }
+
+    15% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 15%, transparent 16%) repeat scroll 0 0;
+    }
+
+    16% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 16%, transparent 17%) repeat scroll 0 0;
+    }
+
+    17% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 17%, transparent 18%) repeat scroll 0 0;
+    }
+
+    18% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 18%, transparent 19%) repeat scroll 0 0;
+    }
+
+    19% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 19%, transparent 20%) repeat scroll 0 0;
+    }
+
+    20% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 20%, transparent 21%) repeat scroll 0 0;
+    }
+
+    21% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 21%, transparent 22%) repeat scroll 0 0;
+    }
+
+    22% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 22%, transparent 23%) repeat scroll 0 0;
+    }
+
+    23% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 23%, transparent 24%) repeat scroll 0 0;
+    }
+
+    24% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 24%, transparent 25%) repeat scroll 0 0;
+    }
+
+    25% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 25%, transparent 26%) repeat scroll 0 0;
+    }
+
+    26% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 26%, transparent 27%) repeat scroll 0 0;
+    }
+
+    27% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 27%, transparent 28%) repeat scroll 0 0;
+    }
+
+    28% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 28%, transparent 29%) repeat scroll 0 0;
+    }
+
+    29% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 29%, transparent 30%) repeat scroll 0 0;
+    }
+
+    30% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 30%, transparent 31%) repeat scroll 0 0;
+    }
+
+    31% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 31%, transparent 32%) repeat scroll 0 0;
+    }
+
+    32% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 32%, transparent 33%) repeat scroll 0 0;
+    }
+
+    33% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 33%, transparent 34%) repeat scroll 0 0;
+    }
+
+    34% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 34%, transparent 35%) repeat scroll 0 0;
+    }
+
+    35% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 35%, transparent 36%) repeat scroll 0 0;
+    }
+
+    36% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 36%, transparent 37%) repeat scroll 0 0;
+    }
+
+    37% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 37%, transparent 38%) repeat scroll 0 0;
+    }
+
+    38% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 38%, transparent 39%) repeat scroll 0 0;
+    }
+
+    39% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 39%, transparent 40%) repeat scroll 0 0;
+    }
+
+    40% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 40%, transparent 41%) repeat scroll 0 0;
+    }
+
+    41% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 41%, transparent 42%) repeat scroll 0 0;
+    }
+
+    42% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 42%, transparent 43%) repeat scroll 0 0;
+    }
+
+    43% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 43%, transparent 44%) repeat scroll 0 0;
+    }
+
+    44% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 44%, transparent 45%) repeat scroll 0 0;
+    }
+
+    45% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 45%, transparent 46%) repeat scroll 0 0;
+    }
+
+    46% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 46%, transparent 47%) repeat scroll 0 0;
+    }
+
+    47% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 47%, transparent 48%) repeat scroll 0 0;
+    }
+
+    48% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 48%, transparent 49%) repeat scroll 0 0;
+    }
+
+    49% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 49%, transparent 50%) repeat scroll 0 0;
+    }
+
+    50% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 50%, transparent 51%) repeat scroll 0 0;
+    }
+
+    51% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 51%, transparent 52%) repeat scroll 0 0;
+    }
+
+    52% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 52%, transparent 53%) repeat scroll 0 0;
+    }
+
+    53% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 53%, transparent 54%) repeat scroll 0 0;
+    }
+
+    54% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 54%, transparent 55%) repeat scroll 0 0;
+    }
+
+    55% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 55%, transparent 56%) repeat scroll 0 0;
+    }
+
+    56% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 56%, transparent 57%) repeat scroll 0 0;
+    }
+
+    57% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 57%, transparent 58%) repeat scroll 0 0;
+    }
+
+    58% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 58%, transparent 59%) repeat scroll 0 0;
+    }
+
+    59% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 59%, transparent 60%) repeat scroll 0 0;
+    }
+
+    60% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 60%, transparent 61%) repeat scroll 0 0;
+    }
+
+    61% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 61%, transparent 62%) repeat scroll 0 0;
+    }
+
+    62% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 62%, transparent 63%) repeat scroll 0 0;
+    }
+
+    63% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 63%, transparent 64%) repeat scroll 0 0;
+    }
+
+    64% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 64%, transparent 65%) repeat scroll 0 0;
+    }
+
+    65% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 65%, transparent 66%) repeat scroll 0 0;
+    }
+
+    66% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 66%, transparent 67%) repeat scroll 0 0;
+    }
+
+    67% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 67%, transparent 68%) repeat scroll 0 0;
+    }
+
+    68% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 68%, transparent 69%) repeat scroll 0 0;
+    }
+
+    69% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 69%, transparent 70%) repeat scroll 0 0;
+    }
+
+    70% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 70%, transparent 71%) repeat scroll 0 0;
+    }
+
+    71% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 71%, transparent 72%) repeat scroll 0 0;
+    }
+
+    72% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 72%, transparent 73%) repeat scroll 0 0;
+    }
+
+    73% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 73%, transparent 74%) repeat scroll 0 0;
+    }
+
+    74% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 74%, transparent 75%) repeat scroll 0 0;
+    }
+
+    75% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 75%, transparent 76%) repeat scroll 0 0;
+    }
+
+    76% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 76%, transparent 77%) repeat scroll 0 0;
+    }
+
+    77% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 77%, transparent 78%) repeat scroll 0 0;
+    }
+
+    78% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 78%, transparent 79%) repeat scroll 0 0;
+    }
+
+    79% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 79%, transparent 80%) repeat scroll 0 0;
+    }
+
+    80% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 80%, transparent 81%) repeat scroll 0 0;
+    }
+
+    81% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 81%, transparent 82%) repeat scroll 0 0;
+    }
+
+    82% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 82%, transparent 83%) repeat scroll 0 0;
+    }
+
+    83% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 83%, transparent 84%) repeat scroll 0 0;
+    }
+
+    84% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 84%, transparent 85%) repeat scroll 0 0;
+    }
+
+    85% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 85%, transparent 86%) repeat scroll 0 0;
+    }
+
+    86% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 86%, transparent 87%) repeat scroll 0 0;
+    }
+
+    87% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 87%, transparent 88%) repeat scroll 0 0;
+    }
+
+    88% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 88%, transparent 89%) repeat scroll 0 0;
+    }
+
+    89% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 89%, transparent 90%) repeat scroll 0 0;
+    }
+
+    90% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 90%, transparent 91%) repeat scroll 0 0;
+    }
+
+    91% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 91%, transparent 92%) repeat scroll 0 0;
+    }
+
+    92% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 92%, transparent 93%) repeat scroll 0 0;
+    }
+
+    93% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 93%, transparent 94%) repeat scroll 0 0;
+    }
+
+    94% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 94%, transparent 95%) repeat scroll 0 0;
+    }
+
+    95% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 95%, transparent 96%) repeat scroll 0 0;
+    }
+
+    96% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 96%, transparent 97%) repeat scroll 0 0;
+    }
+
+    97% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 97%, transparent 98%) repeat scroll 0 0;
+    }
+
+    98% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 98%, transparent 99%) repeat scroll 0 0;
+    }
+
+    99% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 99%, transparent 100%) repeat scroll 0 0;
+    }
+
+    100% {
+        background: radial-gradient(rgba(255, 87, 34, 0.8) 100%, transparent 100%) repeat scroll 0 0;
+    }
+}
+
+/*动画部分-迄*/
