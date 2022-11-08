@@ -19,7 +19,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     lib: {
-      entry: resolve(__dirname, 'src/export.ts'),
+      entry: resolve(__dirname, '../src/export.ts'),
       name: 'NaiveUpload',
       fileName: (format) => `naive-upload.${format}.js`
     },
