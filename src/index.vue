@@ -158,7 +158,11 @@ const emit = defineEmits<{
 
   //获取文件上传工具实例
   if (props.readonly) props.settings.readonly = true;
-  upload = await NaiveUpload.getInstance(props.settings, props.apiService);
+  try {
+    upload = await NaiveUpload.getInstance(props.settings, props.apiService);
+  } catch (e) {
+    emit("error", e);
+  }
   upload.getSettings().debug
     ? console.debug("NaiveUpload Instance 已创建", Object.assign({}, upload))
     : !1;
