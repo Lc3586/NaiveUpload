@@ -25,7 +25,7 @@ import "./index.css";
 import { IOpenApi } from "./Extention/IOpenApi";
 import { IConfig } from "./Model/IConfig";
 
-let upload = null as NaiveUpload | null;
+let upload = undefined as NaiveUpload;
 //注册文件上传工具实例
 provide("upload", () => upload);
 
