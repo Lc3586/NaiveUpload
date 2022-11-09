@@ -146,6 +146,7 @@ let drag4sort = {
       renderData.readyDraggingSortKey = sortKey;
 
       drag4sort.startTick = setTimeout(() => {
+        if (!listContainerRef) return;
         renderData.readyDraggingSortKey = null;
         //开始拖动
         renderData.currentDraggingSortKey = sortKey;
@@ -156,10 +157,10 @@ let drag4sort = {
         drag4sort.draggingHelper.start(clientX, clientY);
 
         //将拖动元素置于其他元素的底层
-        for (const key of containerRefMap.keys()) {
+        containerRefMap.forEach((item: HTMLDivElement, key: number) => {
           if (key !== renderData.currentDraggingSortKey)
-            containerRefMap.get(key)!.style.zIndex = "1";
-        }
+            item.style.zIndex = "1";
+        });
       }, 1500);
     }, 500);
   },
@@ -215,10 +216,9 @@ let drag4sort = {
     drag4sort.draggingHelper = null;
 
     //恢复其他元素的zIndex
-    for (const key of containerRefMap.keys()) {
-      if (key !== renderData.currentDraggingSortKey)
-        containerRefMap.get(key)!.style.zIndex = "";
-    }
+    containerRefMap.forEach((item: HTMLDivElement, key: number) => {
+      if (key !== renderData.currentDraggingSortKey) item.style.zIndex = "";
+    });
 
     renderData.lastDraggingSortKey = null;
     renderData.currentDraggingSortKey = null;
@@ -321,8 +321,9 @@ const containerMouseLeave = (sortKey: number, event: MouseEvent) => {
       if (!container) return;
 
       //列表容器滚动至当前正在处理中的文件之处
-      listContainerRef.scrollTop =
-        container.offsetTop - listContainerRef.offsetTop - 20;
+      if (listContainerRef)
+        listContainerRef.scrollTop =
+          container.offsetTop - listContainerRef.offsetTop - 20;
     });
   };
 

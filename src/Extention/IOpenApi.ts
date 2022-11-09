@@ -1,7 +1,7 @@
 import { IUserFileInfo } from "../Model/IUserFileInfo";
 
 /**
- * 组件开放的接口
+ * 组件开放接口
  *
  * @author LCTR
  * @date 2022-10-11

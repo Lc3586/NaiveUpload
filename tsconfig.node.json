@@ -5,14 +5,14 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true
   },
-  // "include": [
-  //   "*.ts",
-  //   "src/**/*.ts",
-  //   "src/**/*.d.ts",
-  //   "src/**/*.tsx",
-  //   "src/**/*.vue"
-  // ],
-  // "exclude": [
-  //   "*.json"
-  // ]
+  "include": [
+    "*.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "*.json"
+  ]
 }

@@ -5,7 +5,7 @@ import { IApiService } from "../Core/IApiService";
 import { Canceler } from "axios";
 import { IUserFileInfo } from "../Model/IUserFileInfo";
 import { UploadWorkerMessageType } from "../Model/UploadWorkerMessageType";
-import { IValidationMD5Response } from "../Model/IValidationMD5Response";
+import { IPreUploadFileResponse } from "../Model/IPreUploadFileResponse";
 import { IProgress } from "../Model/IProgress";
 import { PreUploadChunkFileState } from "../Model/PreUploadChunkFileState";
 import { IPreUploadChunkFileResponse } from "../Model/IPreUploadChunkFileResponse";
@@ -400,7 +400,7 @@ export default class UploadHelper {
             }
 
             //文件MD5校验
-            let validation: IValidationMD5Response;
+            let validation: IPreUploadFileResponse;
             try {
                 if (file.needSection)
                     validation = await this.apiService.preUploadFile(
@@ -660,9 +660,9 @@ export default class UploadHelper {
                 this.debug ? console.debug('UploadHelper > WebWoeker子线程计算单元 已取消', Object.assign({}, this.workerUnits[i].worker)) : !1;
             }
         } else {
-            for (const cancelToken of this.cancelTokenList.values()) {
+            this.cancelTokenList.forEach(cancelToken => {
                 cancelToken();
-            }
+            });
         }
 
         this.debug ? console.debug('UploadHelper 已取消') : !1;

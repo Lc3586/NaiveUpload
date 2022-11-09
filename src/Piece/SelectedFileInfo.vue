@@ -324,7 +324,7 @@ const setContainerRef = (el: Element | ComponentPublicInstance | null) => {
  * @param el 引用对象
  */
 const setRenameInputRef = (el: Element | ComponentPublicInstance | null) => {
-  renameInputRef = el as HTMLInputElement;
+  if (el) renameInputRef = el as HTMLInputElement;
 };
 
 /**
@@ -375,7 +375,7 @@ const rename = () => {
   renderData.rename.active = true;
 
   proxy.$nextTick(() => {
-    renameInputRef.focus();
+    if (renameInputRef) renameInputRef.focus();
   });
 };
 

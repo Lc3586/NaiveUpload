@@ -52,7 +52,7 @@ const chosingFile = (e: MouseEvent) => {
   if (upload.limited()) return;
 
   //隐式触发文件选择事件
-  fileInputRef!.click();
+  fileInputRef?.click();
 };
 
 /**
@@ -61,13 +61,13 @@ const chosingFile = (e: MouseEvent) => {
  * @param {any} e
  */
 const choseFile = (e: Event) => {
-  if (fileInputRef!.files)
+  if (fileInputRef && fileInputRef.files)
     for (let i = 0; i < fileInputRef.files.length; i++) {
       upload.append(fileInputRef.files[i]);
     }
 
   //清空
-  fileInputRef!.value = "";
+  if (fileInputRef) fileInputRef.value = "";
 };
 
 /**

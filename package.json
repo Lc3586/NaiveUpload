@@ -17,8 +17,10 @@
   ],
   "scripts": {
     "dev": "vite --config ./build/dev.config.ts",
-    "build:doc": "vue-tsc --noEmit && vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:publish": "vue-tsc --noEmit && vite build --config ./build/publish.config.ts"
+    "dts": "vue-tsc --declaration --emitDeclarationOnly ",
+    "build:doc": "vite build --config ./build/doc.config.ts && node script/copyDir.js",
+    "build:generatedts": "vite build --config ./build/generatedts.config.ts",
+    "build:publish": "vite build --config ./build/publish.config.ts"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
