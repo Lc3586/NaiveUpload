@@ -4,7 +4,7 @@ const routes = [{
     title: '说明文档',
     name: '说明文档',
     path: '/readme',
-    component: () => import('../README.md'),
+    component: () => import('@README.md'),
 }, {
     title: 'Demo演示',
     name: 'Demo演示',

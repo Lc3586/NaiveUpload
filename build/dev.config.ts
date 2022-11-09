@@ -4,9 +4,10 @@ import vue from '@vitejs/plugin-vue';
 
 // 文档: https://vitejs.dev/config/
 export default defineConfig({
+  root: 'docs',
   resolve: {
     alias: {
-      docs: resolve(__dirname, '../docs')
+      '@': resolve(__dirname, './src')
     }
   },
   plugins: [

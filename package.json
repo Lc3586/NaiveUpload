@@ -2,8 +2,15 @@
   "name": "naive-upload",
   "author": "LCTR",
   "license": "Apache License 2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lc3586/NaiveUpload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lc3586/NaiveUpload/issues"
+  },
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "keywords": [
     "naiveupload",
@@ -13,15 +20,36 @@
     "file upload"
   ],
   "files": [
-    "dist"
+    "dist",
+    "es",
+    "lib"
   ],
+  "main": "lib/export.js",
+  "module": "es/export.js",
+  "exports": {
+    ".": {
+      "require": "./lib/export.js",
+      "import": "./es/export.js"
+    },
+    "./es": "./es/export.js",
+    "./lib": "./lib/export.js",
+    "./es/*.js": "./es/*.js",
+    "./es/*": "./es/*.js",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "unpkg": "dist/export.full.js",
+  "jsdelivr": "dist/export.full.js",
+  "style": "dist/style.css",
+  "types": "lib/export.d.ts",
+  "typings": "lib/export.d.ts",
   "scripts": {
     "dev": "vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
     "build:doc": "vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:generatedts": "yarn dts && vite build --config ./build/generatedts.config.ts",
-    "build:publish": "yarn dts && vite build --config ./build/publish.config.ts"
+    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
