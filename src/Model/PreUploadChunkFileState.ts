@@ -4,7 +4,7 @@
  * @author LCTR
  * @date 2022-09-22
  */
-export const enum PreUploadChunkFileState {
+export enum PreUploadChunkFileState {
     允许上传 = "允许上传",
     推迟上传 = "推迟上传",
     跳过 = "跳过",

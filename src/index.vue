@@ -25,7 +25,7 @@ import "./index.css";
 import { IOpenApi } from "./Extention/IOpenApi";
 import { IConfig } from "./Model/IConfig";
 
-let upload = undefined as NaiveUpload;
+let upload = null as NaiveUpload | null;
 //注册文件上传工具实例
 provide("upload", () => upload);
 
@@ -158,11 +158,14 @@ const emit = defineEmits<{
 
   //获取文件上传工具实例
   if (props.readonly) props.settings.readonly = true;
+
   try {
     upload = await NaiveUpload.getInstance(props.settings, props.apiService);
-  } catch (e) {
+  } catch (e: any) {
     emit("error", e);
+    return;
   }
+
   upload.getSettings().debug
     ? console.debug("NaiveUpload Instance 已创建", Object.assign({}, upload))
     : !1;

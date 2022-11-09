@@ -4,7 +4,7 @@
  * @author LCTR
  * @date 2022-09-21
  */
-export declare const enum FileType {
+export declare enum FileType {
     电子文档 = "\u7535\u5B50\u6587\u6863",
     电子表格 = "\u7535\u5B50\u8868\u683C",
     文本文件 = "\u6587\u672C\u6587\u4EF6",

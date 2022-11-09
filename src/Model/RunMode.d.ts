@@ -4,7 +4,7 @@
  * @author LCTR
  * @date 2022-06-24
  */
-export declare const enum RunMode {
+export declare enum RunMode {
     /**
      * 添加文件后会自动校验，自动上传
      */

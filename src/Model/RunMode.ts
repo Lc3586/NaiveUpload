@@ -1,10 +1,10 @@
 ﻿/**
- * 上传组件运行模型
+ * 上传组件运行模式
  *
  * @author LCTR
  * @date 2022-06-24
  */
-export const enum RunMode {
+export enum RunMode {
     /**
      * 添加文件后会自动校验，自动上传
      */

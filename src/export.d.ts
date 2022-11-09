@@ -82,7 +82,7 @@ export {
     PreUploadChunkFileState,
 
     /**
-     * 上传组件运行模型
+     * 上传组件运行模式
      */
     RunMode,
 

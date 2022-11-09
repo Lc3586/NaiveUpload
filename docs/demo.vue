@@ -321,6 +321,8 @@
 </template>
 <script setup lang="ts">
 import { reactive } from "vue";
+//局部引用示例
+// import { NaiveUpload } from "../src/export";
 import NaiveApiService from "./NaiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";

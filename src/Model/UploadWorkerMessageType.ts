@@ -4,7 +4,7 @@
  * @author LCTR
  * @date 2022-09-27
  */
-export const enum UploadWorkerMessageType {
+export enum UploadWorkerMessageType {
     下行_上传 = 'DOWN_UPLOAD',
     下行_取消 = 'DOWN_CANCEL',
     下行_关闭 = 'DOWN_CLOSE',

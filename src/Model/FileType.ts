@@ -4,7 +4,7 @@
  * @author LCTR
  * @date 2022-09-21
  */
-export const enum FileType {
+export enum FileType {
     电子文档 = '电子文档',
     电子表格 = '电子表格',
     文本文件 = '文本文件',

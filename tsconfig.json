@@ -15,8 +15,7 @@
       "ESNext",
       "DOM"
     ],
-    "skipLibCheck": true,
-    "noEmit": true
+    "skipLibCheck": true
   },
   "references": [
     {

@@ -43,7 +43,7 @@ let renderData = reactive({
 (async () => {
   const changLayout = (layout?: Layout) => {
     renderData.loading = true;
-    switch (upload.getSettings().layout) {
+    switch (layout) {
       case Layout.卡片:
         renderData.currentThemeIndex = shallowRef(Card);
         break;
@@ -62,7 +62,7 @@ let renderData = reactive({
   upload.registerLayoutChanged(changLayout);
 
   //初始化布局
-  changLayout();
+  changLayout(upload.getSettings().layout);
 
   upload.getSettings().debug
     ? console.debug("Layout: Index Component 已加载")

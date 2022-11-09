@@ -61,7 +61,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { ElTag, ElInput, ElButton } from "element-plus";
+import { ComponentPublicInstance, reactive } from "vue";
 
 /**
  * 渲染数据
@@ -122,15 +123,15 @@ const getText = (value: unknown): string => {
 };
 
 // 数据输入组件引用对象
-let inputRef;
+let inputRef: HTMLInputElement;
 
 /**
  * 设置数据输入组件引用对象
  *
  * @param el 引用对象
  */
-const setInputRef = (el) => {
-  inputRef = el;
+const setInputRef = (el: Element | ComponentPublicInstance | null) => {
+  inputRef = el as HTMLInputElement;
 };
 
 /**
