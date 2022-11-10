@@ -15,7 +15,21 @@
       "ESNext",
       "DOM"
     ],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@": [
+        "./src"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "filetypes": [
+        "./dist/filetypes"
+      ],
+      "filetypes/*": [
+        "./dist/filetypes/*"
+      ]
+    }
   },
   "references": [
     {

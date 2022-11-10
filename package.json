@@ -2,6 +2,8 @@
   "name": "naive-upload",
   "author": "LCTR",
   "license": "Apache License 2.0",
+  "version": "0.0.2",
+  "description": "",
   "repository": {
     "type": "git",
     "url": "https://github.com/Lc3586/NaiveUpload.git"
@@ -10,8 +12,6 @@
     "url": "https://github.com/Lc3586/NaiveUpload/issues"
   },
   "private": false,
-  "version": "0.0.2",
-  "description": "",
   "keywords": [
     "naiveupload",
     "naive",
@@ -21,35 +21,35 @@
   ],
   "files": [
     "dist",
-    "es",
-    "lib"
+    "lib",
+    "naive-upload.d.ts"
   ],
   "main": "lib/export.js",
-  "module": "es/export.js",
+  "module": "lib/export.js",
   "exports": {
     ".": {
-      "require": "./lib/export.js",
-      "import": "./es/export.js"
+      "require": "./dist/node/export.cjs",
+      "import": "./lib/export.js"
     },
-    "./es": "./es/export.js",
+    "./es": "./dist/ems/export.js",
     "./lib": "./lib/export.js",
-    "./es/*.js": "./es/*.js",
-    "./es/*": "./es/*.js",
+    "./es/*.js": "./dist/ems/*.js",
+    "./es/*": "./dist/ems/*.js",
     "./lib/*.js": "./lib/*.js",
     "./lib/*": "./lib/*.js",
-    "./*": "./*"
+    "./*": "./*",
+    "./package.json": "./package.json"
   },
-  "unpkg": "dist/export.full.js",
-  "jsdelivr": "dist/export.full.js",
-  "style": "dist/style.css",
-  "types": "lib/export.d.ts",
-  "typings": "lib/export.d.ts",
+  "unpkg": "dist/naive-upload.min.js",
+  "jsdelivr": "dist/naive-upload.min.js",
+  "types": "naive-upload.d.ts",
+  "typings": "./naive-upload.d.ts",
   "scripts": {
     "dev": "vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
     "build:doc": "vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts"
+    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts && rm -rf dist/imgs"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
@@ -61,6 +61,7 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "@volar-plugins/vetur": "^0.1.0",
     "element-plus": "^2.2.20",
+    "rollup-plugin-dts": "^5.0.0",
     "tern": "^0.24.3",
     "typescript": "^4.6.4",
     "vite": "^3.2.0",

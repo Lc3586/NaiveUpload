@@ -318,6 +318,7 @@
       </el-col>
     </el-row>
   </div>
+  <img src="../filetypes/7z.png" />
 </template>
 <script setup lang="ts">
 import { reactive } from "vue";
@@ -328,7 +329,7 @@ import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
 import { IDetail as UploadConfigDetail } from "./fileUploadConfig/IDetail";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { IOpenApi, RawFile, Settings, UploadError } from "../src/export";
+import { IOpenApi, RawFile, Settings, UploadError } from "@/export";
 
 /**
  * 渲染数据

@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 
 // 文档: https://vitejs.dev/config/
 export default defineConfig({
-  root: 'docs',
+  // root: 'docs',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src')
