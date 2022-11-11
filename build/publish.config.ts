@@ -9,17 +9,11 @@ const banner = `// NaiveUpload v${lib.version} Copyright (c) ${year} ${lib.autho
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      'filetypes': resolve(__dirname, './dist/filetypes')
-    }
-  },
   plugins: [
     vue(),
     dts({
       root: "src",
       outputDir: "../lib",
-      // compilerOptions:,
       tsConfigFilePath: "../tsconfig.json",
       insertTypesEntry: true,
       skipDiagnostics: true,

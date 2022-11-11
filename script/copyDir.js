@@ -4,5 +4,4 @@ const copyDir = (src, dist) => {
     child_process.spawn('cp', ['-r', , src, dist]);
 };
 
-copyDir('./src', './es');
-copyDir('./src', './lib');
+copyDir('./public/filetypes', './dist/filetypes');

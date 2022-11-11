@@ -22,12 +22,6 @@
       ],
       "@/*": [
         "./src/*"
-      ],
-      "filetypes": [
-        "./dist/filetypes"
-      ],
-      "filetypes/*": [
-        "./dist/filetypes/*"
       ]
     }
   },

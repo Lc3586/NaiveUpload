@@ -49,7 +49,7 @@
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
     "build:doc": "vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts && rm -rf dist/imgs"
+    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
