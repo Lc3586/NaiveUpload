@@ -21,6 +21,7 @@
 <script lang="ts" setup>  
 import {reactive} from "vue";
 import {NaiveUpload} from 'naive-upload';
+import 'naive-upload/dist/style.css';
 import NaiveApiService from "@/api/service/common/NaiveApiService";
 
 //已经上传好的文件id集合
@@ -29,7 +30,7 @@ const apiService = new NaiveApiService();
 </script>
 ````
 
-2. 极简（只读模式）
+1. 极简（只读模式）
 
    - 直接使用默认配置进行上传操作
    - 只能查看不能操作，一般用于详情等信息展示页面
@@ -44,6 +45,7 @@ const apiService = new NaiveApiService();
 <script lang="ts" setup>  
 import {reactive} from "vue";
 import NaiveUpload from 'naive-upload';
+import 'naive-upload/dist/style.css';
 import NaiveApiService from "@/api/service/common/NaiveApiService";
 
 //已经上传好的文件id集合
@@ -66,6 +68,7 @@ const apiService = new NaiveApiService();
 <script lang="ts" setup>
 import {reactive} from "vue";
 import {NaiveUpload, Settings} from 'naive-upload';
+import 'naive-upload/dist/style.css';
 import NaiveApiService from "@/api/service/common/NaiveApiService";
 
 
@@ -100,6 +103,7 @@ const apiService = new NaiveApiService();
 <script lang="ts" setup>
 import {reactive} from "vue";
 import {NaiveUpload, Settings} from 'naive-upload';
+import 'naive-upload/dist/style.css';
 import NaiveApiService from "@/api/service/common/NaiveApiService";
 
 

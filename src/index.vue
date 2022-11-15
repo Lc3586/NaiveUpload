@@ -21,7 +21,6 @@ import SingleUpload from "./Piece/SingleUpload.vue";
 import MultipleUpload from "./Piece/MultipleUpload.vue";
 import NaiveUpload from "./Core/NaiveUpload";
 import RawFile from "./Model/RawFile";
-import "./index.css";
 import { IOpenApi } from "./Extention/IOpenApi";
 import { IConfig } from "./Model/IConfig";
 
@@ -258,3 +257,7 @@ const emit = defineEmits<{
     : !1;
 })();
 </script>
+
+<style lang="scss" type="text/scss">
+@import "index.scss";
+</style>

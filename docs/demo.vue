@@ -318,7 +318,6 @@
       </el-col>
     </el-row>
   </div>
-  <img src="../filetypes/7z.png" />
 </template>
 <script setup lang="ts">
 import { reactive } from "vue";
@@ -557,7 +556,7 @@ const start = () => {
   // });
 })();
 </script>
-  <style scoped>
+<style scoped>
 .scroll-container {
   border: none;
 }

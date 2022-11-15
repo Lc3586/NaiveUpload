@@ -48,8 +48,9 @@
     "dev": "vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
-    "build:doc": "vite build --config ./build/doc.config.ts && node script/copyDir.js",
-    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts"
+    "build:doc": "vite build --config ./build/doc.config.ts && node script/copyFile.js",
+    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts && node script/copyFile.js",
+    "build:publish1": "node script/copyFile.js"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
@@ -62,6 +63,7 @@
     "@volar-plugins/vetur": "^0.1.0",
     "element-plus": "^2.2.20",
     "rollup-plugin-dts": "^5.0.0",
+    "sass": "^1.56.1",
     "tern": "^0.24.3",
     "typescript": "^4.6.4",
     "vite": "^3.2.0",

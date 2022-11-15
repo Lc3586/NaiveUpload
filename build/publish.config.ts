@@ -20,6 +20,13 @@ export default defineConfig({
       noEmitOnError: true
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+
+      }
+    }
+  },
   optimizeDeps: {
     disabled: true,
   },
@@ -27,7 +34,8 @@ export default defineConfig({
     //关闭压缩
     minify: false,
     //css分离
-    cssCodeSplit: true,
+    cssCodeSplit: false,
+    //源码映射
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, '../src/export.ts'),
@@ -54,7 +62,7 @@ export default defineConfig({
         },
         {
           format: 'cjs',
-          entryFileNames: '[name].cjs',
+          entryFileNames: 'naive-upload.cjs',
           //配置打包根目录
           dir: 'dist/node',
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
@@ -67,7 +75,7 @@ export default defineConfig({
         },
         {
           format: 'esm',
-          entryFileNames: '[name].js',
+          entryFileNames: 'naive-upload.js',
           //配置打包根目录
           dir: 'dist/esm',
           banner

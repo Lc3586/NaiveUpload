@@ -33,18 +33,18 @@
     line-height: 1.5;
     list-style: none;
     font-feature-settings: "tnum";
-}
 
-.upload-container .upload-icon {
-    display: inline-block;
-    color: inherit;
-    font-style: normal;
-    line-height: 0;
-    text-transform: none;
-    vertical-align: -.125em;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    .upload-icon {
+        display: inline-block;
+        color: inherit;
+        font-style: normal;
+        line-height: 0;
+        text-transform: none;
+        vertical-align: -.125em;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 }
 
 .item-info-container {
@@ -97,13 +97,6 @@
 }
 
 /*文件接收区域*/
-.upload-box-container.single {
-    width: 104px;
-    height: 75px;
-    padding: 0;
-    /*padding: 42px 24px 50px;*/
-}
-
 .upload-box-container {
     box-sizing: border-box;
     padding: 16px 0;
@@ -119,15 +112,35 @@
     outline: 0;
     height: auto;
     width: 100%;
-}
 
-.upload-box-container:hover {
-    border: 1px dashed #40a9ff;
-    background: #ffffff;
-}
+    &.single {
+        width: 104px;
+        height: 75px;
+        padding: 0;
+        /*padding: 42px 24px 50px;*/
+    }
 
-.upload-box-container.item-limited {
-    cursor: not-allowed;
+    &:hover {
+        border: 1px dashed #40a9ff;
+        background: #ffffff;
+    }
+
+    &.item-limited {
+        cursor: not-allowed;
+    }
+
+    .upload-error-list {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: flex-start;
+        padding: 5px;
+        overflow-y: auto;
+        max-height: 100%;
+    }
 }
 
 .upload-btn {
@@ -136,24 +149,40 @@
     height: 100%;
     width: 100%;
     outline: none;
+
+    input[type=file] {
+        display: none;
+        cursor: pointer;
+        touch-action: manipulation;
+        margin: 0;
+        color: inherit;
+        font-size: inherit;
+        font-family: inherit;
+        line-height: inherit;
+    }
 }
 
-.upload-btn input[type=file] {
-    display: none;
-    cursor: pointer;
-    touch-action: manipulation;
-    margin: 0;
-    color: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-}
+.independent {
+    .upload-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
-.independent .upload-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    .upload-box-content .upload-icon {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+    }
+
+    .upload-box-content .error-info {
+        color: rgba(255, 0, 30, 0.65);
+        font-weight: bolder;
+        line-height: 20px;
+        margin: 0 0 5px 0;
+        /*border-bottom: rgba(255, 0, 30, 0.3) solid;*/
+    }
 }
 
 .upload-box-content {
@@ -161,51 +190,24 @@
     vertical-align: middle;
     text-align: center;
     /*padding: 30px;*/
-}
 
-.upload-box-content .upload-icon {
-    color: #40a9ff;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-}
+    .upload-icon {
+        color: #40a9ff;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
 
-.upload-box-content .upload-text {
-    margin: 0 0 4px;
-    color: rgba(0, 0, 0, .85);
-    font-size: 16px;
-}
+    .upload-text {
+        margin: 0 0 4px;
+        color: rgba(0, 0, 0, .85);
+        font-size: 16px;
+    }
 
-.upload-box-content .upload-hint {
-    color: rgba(0, 0, 0, .45);
-    font-size: 14px;
-}
-
-.independent .upload-box-content .upload-icon {
-    width: 50px;
-    height: 50px;
-    margin: 0;
-}
-
-.upload-box-container .upload-error-list {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: flex-start;
-    padding: 5px;
-    overflow-y: auto;
-    max-height: 100%;
-}
-
-.independent .upload-box-content .error-info {
-    color: rgba(255, 0, 30, 0.65);
-    font-weight: bolder;
-    line-height: 20px;
-    margin: 0 0 5px 0;
-    /*border-bottom: rgba(255, 0, 30, 0.3) solid;*/
+    .upload-hint {
+        color: rgba(0, 0, 0, .45);
+        font-size: 14px;
+    }
 }
 
 .scroll-container {
@@ -231,24 +233,27 @@
     transition: all .3s;
 }
 
-.pretty-scrollbar::-webkit-scrollbar {
-    /*滚动条整体样式*/
-    width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
-    height: 1px;
-}
+.pretty-scrollbar {
+    &::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 10px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
 
-.pretty-scrollbar::-webkit-scrollbar-thumb {
-    /*滚动条里面小方块*/
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #9e9e9e;
-}
+    &::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #9e9e9e;
+    }
 
-.pretty-scrollbar::-webkit-scrollbar-track {
-    /*滚动条里面轨道*/
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background: #ededed;
+    &::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background: #ededed;
+    }
 }
 
 .item-container.item-canceled {
