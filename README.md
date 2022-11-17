@@ -23,11 +23,11 @@
   <a href="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/style.css?compression=gzip&label=gzip%20size:%20CSS">
     <img src="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/style.css?compression=gzip&label=gzip%20size:%20CSS">
   </a>
-  <a href="LICENSE">
+  <a href="https://github.com/Lc3586/NaiveUpload/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg">
   </a>
-  <a href="[LICENSE](https://996.icu/#/zh_CN)">
-    <img src="[https://img.shields.io/badge/License-Apache 2.0-green.svg](https://img.shields.io/badge/link-996.icu-red.svg)">
+  <a href="https://996.icu/#/zh_CN">
+    <img src="https://img.shields.io/badge/link-996.icu-red.svg">
   </a>
 </p>
 
@@ -50,9 +50,9 @@
 ## 兼容浏览器 Browser Support
 
 | ![Chrome](https://www.google.cn/chrome/static/images/chrome-logo-m100.svg) | ![Firefox](https://www.firefox.com.cn/media/protocol/img/logos/firefox/logo.svg) | ![Safari](https://www.apple.com.cn/favicon.ico) | ![Opera](https://cdn-production-opera-website.operacdn.com/staticfiles/assets/images/logo/logo-o.64d9b43037de.svg) | ![Edge](https://edgefrecdn.azureedge.net/welcome/static/favicon.png) |
---- | --- | --- | --- | --- |
-Chrome | Firefox | Safari | Opera | Edge |
-Latest ✔ | Latest ❓ | Latest ❓ | Latest ❓ | Latest ❓ |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| Chrome                                                                     | Firefox                                                                          | Safari                                          | Opera                                                                                                              | Edge                                                                 |
+| Latest ✔                                                                   | Latest ❓                                                                         | Latest ❓                                        | Latest ❓                                                                                                           | Latest ❓                                                             |
 
 [![Browser Matrix](https://saucelabs.com/open_sauce/build_matrix/naive-upload.svg)](https://saucelabs.com/u/naive-upload)
 
