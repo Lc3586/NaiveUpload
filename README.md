@@ -24,7 +24,7 @@
     <img src="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/style.css?compression=gzip&label=gzip%20size:%20CSS">
   </a>
   <a href="https://github.com/Lc3586/NaiveUpload/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache-2.0-green.svg">
+    <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg">
   </a>
   <a href="https://996.icu/#/zh_CN">
     <img src="https://img.shields.io/badge/link-996.icu-red.svg">
