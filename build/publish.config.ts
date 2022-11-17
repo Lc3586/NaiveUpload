@@ -32,7 +32,7 @@ export default defineConfig({
   },
   build: {
     //关闭压缩
-    minify: false,
+    minify: true,
     //css分离
     cssCodeSplit: false,
     //源码映射
@@ -62,7 +62,7 @@ export default defineConfig({
         },
         {
           format: 'cjs',
-          entryFileNames: 'naive-upload.cjs',
+          entryFileNames: 'naive-upload.min.cjs',
           //配置打包根目录
           dir: 'dist/node',
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量

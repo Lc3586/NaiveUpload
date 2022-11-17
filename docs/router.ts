@@ -1,15 +1,19 @@
-import { createRouter, createWebHashHistory, RouterOptions } from 'vue-router'
+import { createRouter, createWebHashHistory, RouterOptions } from 'vue-router';
 
 const routes = [
+    {
+        path: '/',
+        redirect: '/readme'
+    },
     {
         title: '说明文档',
         name: '说明文档',
         path: '/readme',
-        component: () => import('./readme.md'),
+        component: () => import('./readme.vue'),
     },
     {
-        title: 'Demo演示',
-        name: 'Demo演示',
+        title: '演示Demo',
+        name: '演示Demo',
         path: '/demo',
         component: () => import('./demo.vue'),
     }

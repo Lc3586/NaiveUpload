@@ -2,7 +2,7 @@
   "name": "naive-upload",
   "author": "LCTR",
   "license": "Apache License 2.0",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "repository": {
     "type": "git",
@@ -28,10 +28,10 @@
   "module": "lib/export.js",
   "exports": {
     ".": {
-      "require": "./dist/node/export.cjs",
+      "require": "./dist/node/naive-upload.min.cjs",
       "import": "./lib/export.js"
     },
-    "./es": "./dist/ems/export.js",
+    "./es": "./dist/ems/naive-upload.js",
     "./lib": "./lib/export.js",
     "./es/*.js": "./dist/ems/*.js",
     "./es/*": "./dist/ems/*.js",
@@ -40,16 +40,23 @@
     "./*": "./*",
     "./package.json": "./package.json"
   },
-  "unpkg": "dist/naive-upload.min.js",
+  "bundlesize": [
+    {
+      "path": "./dist/naive-upload.min.js",
+      "threshold": "5kB"
+    }
+  ],
   "jsdelivr": "dist/naive-upload.min.js",
+  "unpkg": "dist/naive-upload.min.js",
   "types": "naive-upload.d.ts",
   "typings": "./naive-upload.d.ts",
   "scripts": {
     "dev": "vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
-    "build:doc": "vite build --config ./build/doc.config.ts && node script/copyFile.js",
-    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts && node script/copyFile.js",
+    "build:doc": "vite build --config ./build/doc.config.ts",
+    "preview:doc": "vite preview --config ./build/doc.config.ts",
+    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts",
     "build:publish1": "node script/copyFile.js"
   },
   "dependencies": {
@@ -58,18 +65,21 @@
     "vue": "^3.2.41"
   },
   "devDependencies": {
+    "@types/marked": "^4.0.7",
     "@types/node": "^18.11.9",
     "@vitejs/plugin-vue": "^3.2.0",
     "@volar-plugins/vetur": "^0.1.0",
     "element-plus": "^2.2.20",
+    "marked": "^4.2.2",
     "rollup-plugin-dts": "^5.0.0",
     "sass": "^1.56.1",
     "tern": "^0.24.3",
     "typescript": "^4.6.4",
+    "unplugin-vue-components": "^0.22.9",
     "vite": "^3.2.0",
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-dts": "^1.7.0",
-    "vite-plugin-md": "^0.20.4",
+    "vite-plugin-markdown": "^2.1.0",
     "vue-router": "^4.1.6",
     "vue-tsc": "^1.0.9"
   }

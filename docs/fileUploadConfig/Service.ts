@@ -27,7 +27,7 @@ export default class FileUploadConfigService {
                 return;
             }
 
-            axios.get('./fileUploadConfig/data.json').then((response: { data: ITreeList[] }) => {
+            axios.get('../data.json').then((response: { data: ITreeList[] }) => {
                 const addData = (data: ITreeList[], deep: boolean = false) => {
                     data.forEach(item => {
                         !deep && FileUploadConfigService.treeListData.push(item);

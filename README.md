@@ -1,18 +1,141 @@
-# 初级上传组件
+# 初级上传组件（NaiveUpload）
 
-### 支持大文件上传、多文件上传、文件秒传、断点续传，以及文件数量校验、文件大小校验、文件类型校验
+<p align="center">
+  <a href="https://cdnjs.com/libraries/naive-upload">
+    <img src="https://img.shields.io/cdnjs/v/naive-upload.svg">
+  </a>
+  <a href="https://www.npmjs.org/package/naive-upload">
+    <img src="https://img.shields.io/npm/v/naive-upload.svg">
+  </a>
+  <a href="https://packagephobia.com/result?p=naive-upload@latest">
+    <img src="https://packagephobia.com/badge?p=naive-upload@latest">
+  </a>
+  <a href="https://bundlephobia.com/package/naive-upload@latest">
+    <img src="https://img.shields.io/bundlephobia/minzip/naive-upload?style=flat-square">
+  </a>
+  <a href="https://npmcharts.com/compare/naive-upload?minimal=true">
+    <img src="https://img.shields.io/npm/dm/naive-upload.svg">
+  </a>
+  <br>
+  <a href="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/naive-upload.min.js?compression=gzip&label=gzip%20size:%20JS">
+    <img src="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/naive-upload.min.js?compression=gzip&label=gzip%20size:%20JS">
+  </a>
+  <a href="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/style.css?compression=gzip&label=gzip%20size:%20CSS">
+    <img src="http://img.badgesize.io/https://unpkg.com/naive-upload/dist/style.css?compression=gzip&label=gzip%20size:%20CSS">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache 2.0-green.svg">
+  </a>
+  <a href="[LICENSE](https://996.icu/#/zh_CN)">
+    <img src="[https://img.shields.io/badge/License-Apache 2.0-green.svg](https://img.shields.io/badge/link-996.icu-red.svg)">
+  </a>
+</p>
 
-**_LCTR 2022_**
+## 目录（Table of Contents）
 
-***
+  - [概述 Features](#概述-features)
+  - [兼容浏览器 Browser Support](#兼容浏览器-browser-support)
+  - [安装 Installing](#安装-installing)
+    - [包管理器 Package manager](#包管理器-package-manager)
+    - [静态资源引入 CDN](#静态资源引入-cdn)
+  - [使用示例 Example](#使用示例-example)
+  - [贡献者 Contributors](#贡献者-contributors)
+  - [开源协议 License](#开源协议-license)
 
-## 使用示例：
+## 概述 Features
+  - 基于TS+Vue3.0开发。
+  - 支持大文件上传、多文件上传、文件秒传、断点续传，以及文件数量校验、文件大小校验、文件类型校验。
+
+
+## 兼容浏览器 Browser Support
+
+| ![Chrome](https://www.google.cn/chrome/static/images/chrome-logo-m100.svg) | ![Firefox](https://www.firefox.com.cn/media/protocol/img/logos/firefox/logo.svg) | ![Safari](https://www.apple.com.cn/favicon.ico) | ![Opera](https://cdn-production-opera-website.operacdn.com/staticfiles/assets/images/logo/logo-o.64d9b43037de.svg) | ![Edge](https://edgefrecdn.azureedge.net/welcome/static/favicon.png) |
+--- | --- | --- | --- | --- |
+Chrome | Firefox | Safari | Opera | Edge |
+Latest ✔ | Latest ❓ | Latest ❓ | Latest ❓ | Latest ❓ |
+
+[![Browser Matrix](https://saucelabs.com/open_sauce/build_matrix/naive-upload.svg)](https://saucelabs.com/u/naive-upload)
+
+## 安装 Installing
+
+### 包管理器 Package manager
+
+使用npm（Using npm）:
+
+```bash
+$ npm install naive-upload
+```
+
+使用bower（Using bower）:
+
+```bash
+$ bower install naive-upload
+```
+
+使用yarn（Using yarn）:
+
+```bash
+$ yarn add naive-upload
+```
+
+使用pnpm（Using pnpm）:
+
+```bash
+$ pnpm add naive-upload
+```
+
+安装之后导入组件（Once the package is installed, you can import the library using `import` or `require` approach）:
+
+```js
+import { NaiveUpload } from 'naive-upload';
+import 'naive-upload/dist/style.css';
+```
+
+也可以使用默认导出全局安装插件（You can also use the default export, since the named export is just a re-export from the NaiveUploadPlugin factory）:
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import NaiveUploadPlugin from 'naive-upload';
+import 'naive-upload/dist/style.css';
+
+createApp(App).use(NaiveUploadPlugin).mount('#app');
+```
+
+使用require导入（If you use `require` for importing）:
+
+```js
+const NaiveUploadPlugin = require('naive-upload');
+```
+
+在某些环境下也可直接导入commonJS模块包（For cases where something went wrong when trying to import a module into a custom or legacy environment,
+you can try importing the module package directly）:
+
+```js
+const NaiveUploadPlugin = require('naive-upload/dist/node/naive-upload.min.cjs'); // node commonJS bundle (ES2017)
+```
+
+### 静态资源引入 CDN
+
+使用jsDelivr链接（支持ES5/UMD/浏览器模块）（Using jsDelivr CDN (ES5 UMD browser module)）:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/naive-upload@latest/dist/naive-upload.min.js"></script>
+```
+
+使用unpkg链接（Using unpkg CDN）:
+
+```html
+<script src="https://unpkg.com/naive-upload@latest/dist/naive-upload.min.js"></script>
+```
+
+## 使用示例 Example
 
 1. 极简
 
    - 直接使用默认配置进行上传操作
 
-````
+```html
 <template>
     <naive-upload v-model="fileIds"
                   :api-service="apiService"/>
@@ -28,14 +151,14 @@ import NaiveApiService from "@/api/service/common/NaiveApiService";
 const fileIds = reactive([] as string[]);
 const apiService = new NaiveApiService();  
 </script>
-````
+```
 
 1. 极简（只读模式）
 
    - 直接使用默认配置进行上传操作
    - 只能查看不能操作，一般用于详情等信息展示页面
 
-````
+```html
 <template>
     <naive-upload v-model="fileIds"
                   :api-service="apiService"
@@ -52,13 +175,13 @@ import NaiveApiService from "@/api/service/common/NaiveApiService";
 const fileIds = reactive(['fleId1', 'fleId2', 'fleId3'] as string[]);
 const apiService = new NaiveApiService();  
 </script>
-````
+```
 
 3. 普通
 
    - 使用指定的上传配置
 
-````
+```html
 <template>
     <naive-upload v-model="fileIds"
                   :settings="settings"
@@ -78,7 +201,7 @@ const fileIds = reactive([] as string[]);
 const settings = Settings.defaultWithConfigCode('ContentFile');
 const apiService = new NaiveApiService();
 </script>
-````
+```
 
 1. 进阶（主动处理异常信息，手动控制）
 
@@ -86,7 +209,7 @@ const apiService = new NaiveApiService();
    - 主动处理异常信息
    - 手动控制上传操作
 
-````
+```html
 <template>
     <naive-upload v-model="fileIds"
                   :settings="settings"
@@ -188,4 +311,23 @@ const handlerError = (e: Error) => {
   UploadError.consoleWrite(e);
 }
 </script>
-````
+```
+
+## 贡献者 Contributors
+
+This project exists thanks to all the people who contribute.
+
+And thank you to all our backers! 🙏
+
+<a href="https://github.com/Lc3586/NaiveUpload/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Lc3586/NaiveUpload" />
+</a>
+
+## 开源协议 License
+
+[https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+
+<p align="right">
+  <span>—— LCTR 2022</span>
+</p>
