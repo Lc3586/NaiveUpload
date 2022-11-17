@@ -1,6 +1,6 @@
 # 初级上传组件（NaiveUpload）
 
-<p align="center">
+<p align="left">
   <a href="https://cdnjs.com/libraries/naive-upload">
     <img src="https://img.shields.io/cdnjs/v/naive-upload.svg">
   </a>
@@ -45,6 +45,7 @@
 ## 概述 Features
   - 基于TS+Vue3.0开发。
   - 支持大文件上传、多文件上传、文件秒传、断点续传，以及文件数量校验、文件大小校验、文件类型校验。
+  - 在线预览 https://naive-upload.lctr.top
 
 
 ## 兼容浏览器 Browser Support
