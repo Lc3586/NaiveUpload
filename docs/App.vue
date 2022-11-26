@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive } from "vue-demi";
 import router from "./router";
 
 const data = reactive({

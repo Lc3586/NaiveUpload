@@ -60,7 +60,7 @@ import {
   inject,
   getCurrentInstance,
   ComponentPublicInstance,
-} from "vue";
+} from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import DropFileInput from "../Piece/DropFileInput.vue";
 import SelectedFileInfo from "../Piece/SelectedFileInfo.vue";

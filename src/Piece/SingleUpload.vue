@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from "vue";
+import { inject } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import FileInput from "../Piece/FileInput.vue";
 import SelectedFileInfo from "../Piece/SelectedFileInfo.vue";

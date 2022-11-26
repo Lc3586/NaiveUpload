@@ -45,7 +45,7 @@ export default defineConfig({
     rollupOptions: {
       input: ['src/export.ts'],
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ['vue', 'axios', 'spark-md5'],
+      external: ['vue', 'vue-demi', 'axios', 'spark-md5'],
       output: [
         {
           format: "umd",
@@ -55,6 +55,7 @@ export default defineConfig({
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             vue: 'Vue',
+            vue_demi: 'vue-demi',
             axios: 'axios',
             SparkMD5: 'SparkMD5'
           },
@@ -68,6 +69,7 @@ export default defineConfig({
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             vue: 'Vue',
+            vue_demi: 'vue-demi',
             axios: 'axios',
             SparkMD5: 'SparkMD5'
           },

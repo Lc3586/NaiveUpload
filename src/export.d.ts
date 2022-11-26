@@ -1,5 +1,5 @@
 import NaiveUpload from './index.vue';
-import type { Plugin } from "vue";
+import type { Plugin } from "vue-demi";
 import Settings from "./Model/Settings";
 import { IApiService } from "./Core/IApiService";
 import { IConfig } from "./Model/IConfig";

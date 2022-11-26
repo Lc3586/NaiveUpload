@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ComponentPublicInstance, inject, reactive } from "vue";
+import { ComponentPublicInstance, inject, reactive } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 
 //注入文件上传工具实例

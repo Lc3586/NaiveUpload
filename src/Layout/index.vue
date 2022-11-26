@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, reactive, ShallowRef, shallowRef } from "vue";
+import { inject, reactive, ShallowRef, shallowRef } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import Card from "../Layout/Card/index.vue";
 import Detailedly from "../Layout/Detailedly/index.vue";

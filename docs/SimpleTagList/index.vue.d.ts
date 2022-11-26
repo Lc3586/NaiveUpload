@@ -1,4 +1,4 @@
-import { ComponentPublicInstance } from "vue";
+import { ComponentPublicInstance } from "vue-demi";
 /**
  * 渲染数据
  */

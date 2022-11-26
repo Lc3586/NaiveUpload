@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ComponentPublicInstance, inject, reactive } from "vue";
+import { ComponentPublicInstance, inject, reactive } from "vue-demi";
 import NaiveUpload from "../../Core/NaiveUpload";
 import SelectedFile from "../../Model/SelectedFile";
 

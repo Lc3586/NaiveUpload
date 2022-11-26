@@ -33,6 +33,8 @@
 
 ## 目录（Table of Contents）
 
+- [初级上传组件（NaiveUpload）](#初级上传组件naiveupload)
+  - [目录（Table of Contents）](#目录table-of-contents)
   - [概述 Features](#概述-features)
   - [兼容浏览器 Browser Support](#兼容浏览器-browser-support)
   - [安装 Installing](#安装-installing)
@@ -43,7 +45,7 @@
   - [开源协议 License](#开源协议-license)
 
 ## 概述 Features
-  - 基于TS+Vue3.0开发。
+  - 基于TS+Vue3.0开发，同时兼容Vue2.0、Vue3.0
   - 支持大文件上传、多文件上传、文件秒传、断点续传，以及文件数量校验、文件大小校验、文件类型校验。
   - 在线预览 https://naive-upload.lctr.top
 

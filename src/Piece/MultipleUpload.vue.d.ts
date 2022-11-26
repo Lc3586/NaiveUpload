@@ -1,4 +1,4 @@
-import { ComponentPublicInstance } from "vue";
+import { ComponentPublicInstance } from "vue-demi";
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;

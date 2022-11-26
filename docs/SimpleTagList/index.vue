@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import { ElTag, ElInput, ElButton } from "element-plus";
-import { ComponentPublicInstance, reactive } from "vue";
+import { ComponentPublicInstance, reactive } from "vue-demi";
 
 /**
  * 渲染数据

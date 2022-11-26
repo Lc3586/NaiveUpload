@@ -320,7 +320,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive } from "vue-demi";
 //局部引用示例
 // import { NaiveUpload } from "../src/export";
 import NaiveApiService from "./NaiveApiService";

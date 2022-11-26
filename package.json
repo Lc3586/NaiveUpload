@@ -2,7 +2,7 @@
   "name": "naive-upload",
   "author": "LCTR",
   "license": "Apache License 2.0",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "repository": {
     "type": "git",
@@ -63,7 +63,8 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "spark-md5": "^3.0.2",
-    "vue": "^3.2.41"
+    "vue": "^3.2.41",
+    "vue-demi": "^0.13.11"
   },
   "devDependencies": {
     "@types/marked": "^4.0.7",
@@ -83,5 +84,14 @@
     "vite-plugin-markdown": "^2.1.0",
     "vue-router": "^4.1.6",
     "vue-tsc": "^1.0.9"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.7.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   }
 }

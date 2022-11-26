@@ -12,7 +12,7 @@ import {
   reactive,
   ShallowRef,
   shallowRef,
-} from "vue";
+} from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import Card from "../Layout/Card/info.vue";
 import Detailedly from "../Layout/Detailedly/info.vue";

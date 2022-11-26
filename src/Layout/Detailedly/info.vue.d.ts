@@ -1,4 +1,4 @@
-import { ComponentPublicInstance } from "vue";
+import { ComponentPublicInstance } from "vue-demi";
 import SelectedFile from "../../Model/SelectedFile";
 declare const _default: {
     new (...args: any[]): {

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, reactive, ShallowRef, shallowRef } from "vue";
+import { provide, reactive, ShallowRef, shallowRef } from "vue-demi";
 import Settings from "./Model/Settings";
 import { IApiService } from "./Core/IApiService";
 import SingleUpload from "./Piece/SingleUpload.vue";

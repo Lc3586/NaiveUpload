@@ -70,7 +70,7 @@ import {
   getCurrentInstance,
   inject,
   reactive,
-} from "vue";
+} from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
