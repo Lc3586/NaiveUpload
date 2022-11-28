@@ -2,7 +2,7 @@
   "name": "naive-upload",
   "author": "LCTR",
   "license": "Apache License 2.0",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "repository": {
     "type": "git",
@@ -14,6 +14,9 @@
   "homepage": "https://naive-upload.lctr.top",
   "private": false,
   "keywords": [
+    "vue",
+    "vue2",
+    "vue3",
     "naiveupload",
     "naive",
     "upload",
@@ -23,10 +26,19 @@
   "files": [
     "dist",
     "lib",
-    "naive-upload.d.ts"
+    "naive-upload.d.ts",
+    "bin",
+    "scripts"
   ],
+  "bin": {
+    "vue-fix": "bin/vue-fix.js",
+    "vue-switch": "bin/vue-switch.js"
+  },
+  "types": "naive-upload.d.ts",
+  "typings": "./naive-upload.d.ts",
   "main": "lib/export.js",
   "module": "lib/export.js",
+  "style": "dist/style.css",
   "exports": {
     ".": {
       "require": "./dist/node/naive-upload.min.cjs",
@@ -49,19 +61,23 @@
   ],
   "jsdelivr": "dist/naive-upload.min.js",
   "unpkg": "dist/naive-upload.min.js",
-  "types": "naive-upload.d.ts",
-  "typings": "./naive-upload.d.ts",
   "scripts": {
-    "dev": "vite --config ./build/dev.config.ts",
+    "postinstall": "node ./scripts/postinstall.js",
+    "switch:v2": "node bin/vue-switch.js 2 && vue-demi-switch 2",
+    "switch:v3": "node bin/vue-switch.js 3 && vue-demi-switch 3",
+    "dev": "npm run switch3 && vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
     "build:doc": "vite build --config ./build/doc.config.ts",
     "preview:doc": "vite preview --config ./build/doc.config.ts",
-    "build:publish": "yarn typecheck && vite build --config ./build/publish.config.ts",
-    "build:publish1": "node script/copyFile.js"
+    "build": "yarn run build:vue2 && yarn run build:vue3",
+    "build:vue2": "npx vue-demi-switch 2 && vite build --config ./build/build.vue2.config.ts",
+    "build:vue3": "npx vue-demi-switch 3 && vite build --config ./build/build.vue3.config.ts",
+    "build:publish": "yarn typecheck && yarn run build && node build/copyIcon4Build.js "
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@vue/composition-api": "^1.7.1",
     "spark-md5": "^3.0.2",
     "vue": "^3.2.41",
     "vue-demi": "^0.13.11"
@@ -82,6 +98,7 @@
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-dts": "^1.7.0",
     "vite-plugin-markdown": "^2.1.0",
+    "vite-plugin-vue2": "^2.0.2",
     "vue-router": "^4.1.6",
     "vue-tsc": "^1.0.9"
   },
@@ -90,6 +107,9 @@
     "vue": "^2.0.0 || >=3.0.0"
   },
   "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    },
     "@vue/composition-api": {
       "optional": true
     }

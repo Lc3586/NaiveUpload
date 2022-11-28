@@ -29,21 +29,22 @@ export default defineConfig({
   },
   optimizeDeps: {
     disabled: true,
+    exclude: ['vue-demi']
   },
   build: {
-    //关闭压缩
+    //压缩
     minify: true,
     //css分离
     cssCodeSplit: false,
     //源码映射
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, '../src/export.ts'),
+      entry: resolve(__dirname, '../src/export.vue3.ts'),
       name: 'NaiveUpload',
       // fileName: (format) => `naive-upload.${format}.js`
     },
     rollupOptions: {
-      input: ['src/export.ts'],
+      input: ['src/export.vue3.ts'],
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue', 'vue-demi', 'axios', 'spark-md5'],
       output: [
@@ -51,7 +52,7 @@ export default defineConfig({
           format: "umd",
           entryFileNames: 'naive-upload.min.js',
           //配置打包根目录
-          dir: 'dist',
+          dir: 'dist/vue3',
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             vue: 'Vue',
@@ -65,7 +66,7 @@ export default defineConfig({
           format: 'cjs',
           entryFileNames: 'naive-upload.min.cjs',
           //配置打包根目录
-          dir: 'dist/node',
+          dir: 'dist/vue3/node',
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             vue: 'Vue',
@@ -79,7 +80,7 @@ export default defineConfig({
           format: 'esm',
           entryFileNames: 'naive-upload.js',
           //配置打包根目录
-          dir: 'dist/esm',
+          dir: 'dist/vue3/esm',
           banner
         },
         {
@@ -88,7 +89,7 @@ export default defineConfig({
           //让打包目录和我们目录对应
           preserveModules: true,
           //配置打包根目录
-          dir: 'lib',
+          dir: 'lib/vue3',
           preserveModulesRoot: 'src',
           banner
         }

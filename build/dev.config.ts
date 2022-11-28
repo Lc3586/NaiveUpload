@@ -17,5 +17,8 @@ export default defineConfig({
     mdPlugin({
       mode: [Mode.VUE]
     })
-  ]
+  ],
+  optimizeDeps: {
+    exclude: ['vue-demi']
+  },
 });
