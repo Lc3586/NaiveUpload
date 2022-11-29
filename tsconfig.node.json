@@ -9,9 +9,10 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue3.vue"
   ],
   "exclude": [
-    "*.json"
+    "*.json",
+    "src/**/*.vue2.vue"
   ]
 }

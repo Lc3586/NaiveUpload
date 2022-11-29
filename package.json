@@ -1,8 +1,8 @@
 {
   "name": "naive-upload",
   "author": "LCTR",
-  "license": "Apache License 2.0",
-  "version": "0.0.8",
+  "license": "Apache-2.0",
+  "version": "0.0.11",
   "description": "",
   "repository": {
     "type": "git",
@@ -67,19 +67,17 @@
     "switch:v3": "node bin/vue-switch.js 3 && vue-demi-switch 3",
     "dev": "npm run switch3 && vite --config ./build/dev.config.ts",
     "typecheck": "vue-tsc --noEmit",
-    "dts": "yarn typecheck && vue-tsc --declaration --emitDeclarationOnly ",
+    "dts": "vue-tsc --declaration --emitDeclarationOnly ",
     "build:doc": "vite build --config ./build/doc.config.ts",
     "preview:doc": "vite preview --config ./build/doc.config.ts",
     "build": "yarn run build:vue2 && yarn run build:vue3",
-    "build:vue2": "npx vue-demi-switch 2 && vite build --config ./build/build.vue2.config.ts",
+    "build:vue2": "npx vue-demi-switch 2 && cd vue2 && vite build --config ./build/build.vue2.config.ts && cd ../",
     "build:vue3": "npx vue-demi-switch 3 && vite build --config ./build/build.vue3.config.ts",
-    "build:publish": "yarn typecheck && yarn run build && node build/copyIcon4Build.js "
+    "build:copyIcons": "node ./build/copyIcon4Build.js "
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
-    "@vue/composition-api": "^1.7.1",
     "spark-md5": "^3.0.2",
-    "vue": "^3.2.41",
     "vue-demi": "^0.13.11"
   },
   "devDependencies": {
@@ -94,6 +92,8 @@
     "tern": "^0.24.3",
     "typescript": "^4.6.4",
     "unplugin-vue-components": "^0.22.9",
+    "vue": "^3.2.45",
+    "@vue/composition-api": "^1.7.1",
     "vite": "^3.2.0",
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-dts": "^1.7.0",

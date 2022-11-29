@@ -1,0 +1,24 @@
+{
+  "name": "naive-upload",
+  "author": "LCTR",
+  "license": "Apache-2.0",
+  "description": "",
+  "scripts": {
+    "dev": "npx vue-demi-switch 2 && vite --config ./build/dev.vue2.config.ts ",
+    "build": "vite build --config ./build/build.vue2.config.ts"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@vue/composition-api": "^1.7.1",
+    "spark-md5": "^3.0.2",
+    "vue": "2.6.14",
+    "vue-demi": "^0.13.11"
+  },
+  "devDependencies": {
+    "sass": "^1.56.1",
+    "vite": "^2.9.12",
+    "vite-plugin-dts": "^1.7.0",
+    "vite-plugin-vue2": "^2.0.2",
+    "vue-template-compiler": "2.6.14"
+  }
+}

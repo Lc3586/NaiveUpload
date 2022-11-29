@@ -17,8 +17,8 @@
 import { provide, reactive, ShallowRef, shallowRef } from "vue-demi";
 import Settings from "./Model/Settings";
 import { IApiService } from "./Core/IApiService";
-import SingleUpload from "./Piece/SingleUpload.vue";
-import MultipleUpload from "./Piece/MultipleUpload.vue";
+import SingleUpload from "./Piece/SingleUpload.vue3.vue";
+import MultipleUpload from "./Piece/MultipleUpload.vue3.vue";
 import NaiveUpload from "./Core/NaiveUpload";
 import RawFile from "./Model/RawFile";
 import { IOpenApi } from "./Extention/IOpenApi";
@@ -253,7 +253,7 @@ const emit = defineEmits<{
   renderData.loading = false;
 
   upload.getSettings().debug
-    ? console.debug("Naive Upload Component 已加载")
+    ? console.debug("Naive Upload Component(Vue3) 已加载")
     : !1;
 })();
 </script>

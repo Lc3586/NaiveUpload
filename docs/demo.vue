@@ -328,7 +328,7 @@ import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
 import { IDetail as UploadConfigDetail } from "./fileUploadConfig/IDetail";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { IOpenApi, RawFile, Settings, UploadError } from "@/export";
+import { IOpenApi, RawFile, Settings, UploadError } from "@/export.base";
 
 /**
  * 渲染数据

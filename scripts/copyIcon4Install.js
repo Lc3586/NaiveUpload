@@ -8,7 +8,7 @@ const { copyDir } = require('./copy');
 const copyIcon = () => {
     const dir = path.resolve(__dirname, '..');
     const srcDir = path.join(dir, 'dist', 'filetypes');
-    const destDir = path.join(dir, 'public');
+    const destDir = path.join(dir, 'public', 'filetypes');
     copyDir(srcDir, destDir);
 };
 

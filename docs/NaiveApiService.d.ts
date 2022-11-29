@@ -1,5 +1,5 @@
 import { Canceler } from "axios";
-import { DefaultApiService, IConfig, IPreUploadChunkFileResponse, IPreUploadFileResponse, IProgress, IUserFileInfo } from "@/export";
+import { DefaultApiService, IConfig, IPreUploadChunkFileResponse, IPreUploadFileResponse, IProgress, IUserFileInfo } from "@/export.vue3";
 export default class NaiveApiService extends DefaultApiService {
     config(code: string): Promise<IConfig>;
     rename(id: string, fileName: string): Promise<void>;
