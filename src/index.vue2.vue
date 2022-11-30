@@ -14,13 +14,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  reactive,
-  ShallowRef,
-  shallowRef,
-} from "vue-demi";
+import { defineComponent, PropType, ShallowRef, shallowRef } from "vue-demi";
 import Settings from "./Model/Settings";
 import { IApiService } from "./Core/IApiService";
 import SingleUpload from "./Piece/SingleUpload.vue2.vue";
@@ -154,162 +148,159 @@ export default defineComponent({
      */
     "error",
   ],
-  provide: function () {
+  provide() {
     return {
       /**
        * 注册文件上传工具实例
        */
-      upload: this.upload,
+      upload: () => this.renderData.upload,
     };
   },
   /**
-   * 初始化方法
-   * @param props
-   * @param param1
+   * 渲染数据
    */
-  setup(props, { emit }) {
-    let upload = null as NaiveUpload | null;
+  data() {
+    return {
+      renderData: {
+        /**
+         * 加载状态
+         */
+        loading: true,
 
-    /**
-     * 渲染数据
-     */
-    const renderData = reactive({
-      /**
-       * 加载状态
-       */
-      loading: true,
+        /**
+         * 当前的上传组件
+         */
+        currentUpload: null as ShallowRef<any> | null,
 
-      /**
-       * 当前的上传组件
-       */
-      currentUpload: null as ShallowRef<any> | null,
-    });
-
-    if (props.apiService == null)
+        /**
+         * 文件上传工具实例
+         */
+        upload: null as NaiveUpload | null,
+      },
+    };
+  },
+  created() {
+    this.settings.debug
+      ? console.debug("Naive Upload Component(Vue2) 已加载")
+      : !1;
+  },
+  mounted() {
+    if (this.apiService == null)
       throw new Error("必须设置一个IApiService的实现类");
 
     //获取文件上传工具实例
-    if (props.readonly) props.settings.readonly = true;
+    if (this.readonly) this.settings.readonly = true;
 
-    NaiveUpload.getInstance(props.settings, props.apiService)
+    NaiveUpload.getInstance(this.settings, this.apiService)
       .then((instance) => {
-        upload = instance;
-
-        upload.getSettings().debug
+        instance.getSettings().debug
           ? console.debug(
               "NaiveUpload Instance 已创建",
-              Object.assign({}, upload)
+              Object.assign({}, instance)
             )
           : !1;
 
         //设置各个回调事件
-        upload.setupBeforeCheck((file: File) => {
-          upload!.getSettings().debug
+        instance.setupBeforeCheck((file: File) => {
+          instance!.getSettings().debug
             ? console.debug("BeforeCheck => ", Object.assign({}, file))
             : !1;
 
           let flagResolve: (flag: boolean) => void;
-          emit("beforeCheck", file, (flag?: boolean) => {
+          this.$emit("beforeCheck", file, (flag?: boolean) => {
             flagResolve(flag ?? true);
           });
           return new Promise<boolean>((resolve) => {
             flagResolve = resolve;
           });
         });
-        upload.setupAfterCheck(async (rawFile: RawFile) => {
-          upload!.getSettings().debug
+        instance.setupAfterCheck(async (rawFile: RawFile) => {
+          instance!.getSettings().debug
             ? console.debug("AfterCheck => ", Object.assign({}, rawFile))
             : !1;
 
-          emit("afterCheck", rawFile);
+          this.$emit("afterCheck", rawFile);
         });
-        upload.setupAfterCheckAll(async (rawFileList: RawFile[]) => {
-          upload!.getSettings().debug
+        instance.setupAfterCheckAll(async (rawFileList: RawFile[]) => {
+          instance!.getSettings().debug
             ? console.debug("AfterCheckAll => ", Object.assign({}, rawFileList))
             : !1;
 
-          emit("afterCheckAll", rawFileList);
+          this.$emit("afterCheckAll", rawFileList);
         });
-        upload.setupAfterUpload(async (rawFile: RawFile) => {
-          upload!.getSettings().debug
+        instance.setupAfterUpload(async (rawFile: RawFile) => {
+          instance!.getSettings().debug
             ? console.debug("AfterUpload => ", Object.assign({}, rawFile))
             : !1;
 
-          emit(
+          this.$emit(
             "update:modelValue",
-            upload!.getUserFileInfoList(true).map((x) => x.id)
+            instance!.getUserFileInfoList(true).map((x) => x.id)
           );
 
-          upload!.getSettings().debug
+          instance!.getSettings().debug
             ? console.debug(
                 "ModelValue UserFileIdList => ",
-                Object.assign({}, props.modelValue)
+                Object.assign({}, this.modelValue)
               )
             : !1;
 
-          emit("afterUpload", rawFile);
+          this.$emit("afterUpload", rawFile);
         });
-        upload.setupAfterUploadAll(async (rawFileList: RawFile[]) => {
-          upload!.getSettings().debug
+        instance.setupAfterUploadAll(async (rawFileList: RawFile[]) => {
+          instance!.getSettings().debug
             ? console.debug(
                 "AfterUploadAll => ",
                 Object.assign({}, rawFileList)
               )
             : !1;
 
-          emit("afterUploadAll", rawFileList);
+          this.$emit("afterUploadAll", rawFileList);
         });
-        upload.setupHandlerError(async (error: Error) => {
-          upload!.getSettings().debug
+        instance.setupHandlerError(async (error: Error) => {
+          instance!.getSettings().debug
             ? console.debug("HandlerError => ", Object.assign({}, error))
             : !1;
 
-          emit("error", error);
+          this.$emit("error", error);
         });
 
         const changConfig = (config?: IConfig) => {
-          renderData.loading = true;
+          this.renderData.loading = true;
           //根据文件数量上限配置相应的上传组件
-          if (upload!.getConfig().upperLimit == 1)
-            renderData.currentUpload = shallowRef(SingleUpload);
-          else renderData.currentUpload = shallowRef(MultipleUpload);
+          if (instance!.getConfig().upperLimit == 1)
+            this.renderData.currentUpload = shallowRef(SingleUpload);
+          else this.renderData.currentUpload = shallowRef(MultipleUpload);
 
-          renderData.loading = false;
-          upload!.getSettings().debug
+          this.renderData.loading = false;
+          instance!.getSettings().debug
             ? console.debug("Layout：index Component(Vue2) 已变更")
             : !1;
         };
 
         //注册配置变更事件
-        upload.registerConfigChanged(changConfig);
+        instance.registerConfigChanged(changConfig);
 
         //初始化
         changConfig();
 
         //设置组件开发的接口
-        emit("setOpenApi", upload.getOpenApi());
+        this.$emit("setOpenApi", instance.getOpenApi());
 
         //添加之前已上传过的文件
-        if (props.modelValue && props.modelValue.length > 0) {
-          props.modelValue.forEach(async (id) => {
-            await upload?.appendById(id);
+        if (this.modelValue && this.modelValue.length > 0) {
+          this.modelValue.forEach(async (id) => {
+            await instance.appendById(id);
           });
         }
 
-        renderData.loading = false;
+        this.renderData.upload = instance;
 
-        upload.getSettings().debug
-          ? console.debug("Naive Upload Component(Vue2) 已加载")
-          : !1;
+        this.renderData.loading = false;
       })
       .catch((e) => {
-        emit("error", e);
+        this.$emit("error", e);
       });
-
-    return {
-      renderData: renderData,
-      upload: upload,
-    };
   },
 });
 </script>

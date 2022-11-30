@@ -1,4 +1,4 @@
-import NaiveUpload from '../src/index.vue2.vue';
+import NaiveUpload from './index.vue2.vue';
 import type { Plugin } from "vue-demi";
 declare const installer: Plugin;
 /**
@@ -14,4 +14,4 @@ export {
      */
     NaiveUpload
 };
-export * from '../src/export.base';
+export * from './export.base';

@@ -1,9 +1,9 @@
 <template>
   <div
-    :class="upload?.getSelectCLass()"
+    :class="uploadInstance.getSelectCLass()"
     v-on:drop="dropFile"
     v-on:dragover="allowDrop"
-    :title="upload?.getSelectFileAlarmInfo()"
+    :title="uploadInstance.getSelectFileAlarmInfo()"
   >
     <file-input>
       <slot></slot>
@@ -12,33 +12,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue-demi";
+import { defineComponent } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import FileInput from "../Piece/FileInput.vue2.vue";
 
 export default defineComponent({
   name: "Card",
-  /**
-   * 组件属性
-   */
-  props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
-  },
   inject: [
     /**
      * 注入文件上传工具实例
      */
     "upload",
   ],
+  computed: {
+    /**
+     * 文件上传工具实例
+     */
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
+  },
   // data() {
   //   return {
   //     files: [] as File[],
@@ -54,12 +47,8 @@ export default defineComponent({
   //     }
   //   },
   // },
-  /**
-   * 初始化方法
-   */
-  setup(props) {},
   created() {
-    (this.upload as NaiveUpload).getSettings().debug
+    this.uploadInstance.getSettings().debug
       ? console.debug("Piece: Drop File Input Component(vue2) 已加载")
       : !1;
   },
@@ -81,7 +70,7 @@ export default defineComponent({
       e.preventDefault();
       if (e.dataTransfer)
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-          (this.upload as NaiveUpload).append(e.dataTransfer.files[i]);
+          this.uploadInstance.append(e.dataTransfer.files[i]);
         }
     },
   },

@@ -28,7 +28,7 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    disabled: true,
+    // disabled: true,
     exclude: ['vue-demi']
   },
   build: {
@@ -39,12 +39,12 @@ export default defineConfig({
     //源码映射
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, '../src/export.ts'),
+      entry: resolve(__dirname, '../src/export.vue3.ts'),
       name: 'NaiveUpload',
       // fileName: (format) => `naive-upload.${format}.js`
     },
     rollupOptions: {
-      input: ['src/export.ts'],
+      input: ['src/export.vue3.ts'],
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue', 'vue-demi', 'axios', 'spark-md5'],
       output: [

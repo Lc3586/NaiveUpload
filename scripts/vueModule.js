@@ -1,5 +1,6 @@
 const path = require('path');
 const { copyDir } = require('./copy');
+const { createMainScript } = require('./createMainScript');
 
 
 /**
@@ -28,14 +29,16 @@ const copyToVersionDir = (version) => {
   //根目录
   const dir = path.resolve(__dirname, '..');
   const distDir = path.join(dir, 'dist');
-  const libDir = path.join(dir, 'lib');
+  // const libDir = path.join(dir, 'lib');
 
   const distVDir = path.join(distDir, version);
-  const libVDir = path.join(libDir, version);
+  // const libVDir = path.join(libDir, version);
 
   copyDir(distVDir, distDir);
-  copyDir(libVDir, libDir);
+  // copyDir(libVDir, libDir);
+  createMainScript(version);
 };
 
 module.exports.loadModule = loadModule;
 module.exports.copyToVersionDir = copyToVersionDir;
+module.exports.createMainScript = createMainScript;

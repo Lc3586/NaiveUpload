@@ -1,10 +1,13 @@
 <template>
   <layout-index>
-    <template v-if="!upload?.getSettings().readonly" v-slot:uploadContainer>
+    <template
+      v-if="uploadInstance.getSettings().readonly"
+      v-slot:uploadContainer
+    >
       <drop-file-input class="upload-box-container">
         <p class="upload-icon icon-inbox"></p>
-        <p class="upload-text" v-html="upload?.getConfig().explain"></p>
-        <p class="upload-hint" v-html="upload?.getSettings().tip"></p>
+        <p class="upload-text" v-html="uploadInstance.getConfig().explain"></p>
+        <p class="upload-hint" v-html="uploadInstance.getSettings().tip"></p>
         <div class="upload-error-list pretty-scrollbar">
           <p
             class="error-info"
@@ -26,9 +29,9 @@
       >
         <TransitionGroup name="fade">
           <selected-file-info
-            v-for="sortKey in upload?.getSelectedFileSortMap().size"
-            :key="upload?.getSelectedFileSortMap().get(sortKey) ?? -1"
-            :selectedFile="upload?.getSelectedFile(sortKey)"
+            v-for="sortKey in uploadInstance.getSelectedFileSortMap().size"
+            :key="uploadInstance.getSelectedFileSortMap().get(sortKey) ?? -1"
+            :selectedFile="uploadInstance.getSelectedFile(sortKey)"
             :readyDrag="renderData.readyDraggingSortKey === sortKey"
             :startDrag="renderData.currentDraggingSortKey !== null"
             :dragging="renderData.currentDraggingSortKey === sortKey"
@@ -55,12 +58,7 @@
 </template>
 
 <script lang="ts">
-import {
-  reactive,
-  defineComponent,
-  PropType,
-  ComponentPublicInstance,
-} from "vue-demi";
+import { defineComponent, ComponentPublicInstance } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import DropFileInput from "../Piece/DropFileInput.vue2.vue";
 import SelectedFileInfo from "../Piece/SelectedFileInfo.vue2.vue";
@@ -78,169 +76,81 @@ export default defineComponent({
     LayoutInfo,
     SelectedFile,
   },
-  /**
-   * 组件属性
-   */
-  props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
-  },
   inject: [
     /**
      * 注入文件上传工具实例
      */
     "upload",
   ],
-  /**
-   * 初始化方法
-   */
-  setup(props) {
+  computed: {
     /**
-     * 渲染数据
+     * 文件上传工具实例
      */
-    const renderData = reactive({
-      /**
-       * 锁定滚动条
-       */
-      scrollLock: false,
-
-      /**
-       * 准备拖动的索引
-       */
-      readyDraggingSortKey: null as number | null,
-
-      /**
-       * 当前正在拖动中的索引
-       */
-      currentDraggingSortKey: null as number | null,
-
-      /**
-       * 上一个接收拖动对象的索引
-       */
-      lastDraggingSortKey: null as number | null,
-
-      /**
-       * 异常信息
-       */
-      errors: [] as string[],
-
-      /**
-       * 列表容器引用对象
-       */
-      listContainerRef: null as HTMLDivElement | null,
-
-      /**
-       * 容器引用对象集合
-       */
-      containerRefMap: new Map<number, HTMLDivElement>(),
-
-      /**
-       * 拖动排序功能
-       */
-      drag4sort: {
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
+  },
+  /**
+   * 渲染数据
+   */
+  data() {
+    return {
+      renderData: {
         /**
-         * 延时开启拖动功能的计时器
+         * 锁定滚动条
          */
-        startTick: null as NodeJS.Timeout | null,
+        scrollLock: false,
 
         /**
-         * 延时更改排序的计时器
+         * 准备拖动的索引
          */
-        changeTick: null as NodeJS.Timeout | null,
+        readyDraggingSortKey: null as number | null,
 
         /**
-         * 当前拖动对象
+         * 当前正在拖动中的索引
          */
-        draggingHelper: null as DraggingHelper | null,
+        currentDraggingSortKey: null as number | null,
 
         /**
-         * 延时开启拖动功能
-         *
-         * @param sortKey
-         * @param clientX
-         * @param clientY
+         * 上一个接收拖动对象的索引
          */
-        ready2start: (sortKey: number, clientX: number, clientY: number) => {
-          renderData.drag4sort.startTick = setTimeout(() => {
-            //准备拖动
-            renderData.readyDraggingSortKey = sortKey;
-
-            renderData.drag4sort.startTick = setTimeout(() => {
-              if (!renderData.listContainerRef) return;
-              renderData.readyDraggingSortKey = null;
-              //开始拖动
-              renderData.currentDraggingSortKey = sortKey;
-              renderData.drag4sort.draggingHelper = DraggingHelper.getInstance(
-                renderData.listContainerRef as HTMLElement,
-                renderData.containerRefMap.get(
-                  renderData.currentDraggingSortKey
-                )!
-              );
-              (renderData.drag4sort.draggingHelper as DraggingHelper).start(
-                clientX,
-                clientY
-              );
-
-              //将拖动元素置于其他元素的底层
-              renderData.containerRefMap.forEach(
-                (item: HTMLDivElement, key: number) => {
-                  if (key !== renderData.currentDraggingSortKey)
-                    item.style.zIndex = "1";
-                }
-              );
-            }, 1500);
-          }, 500);
-        },
+        lastDraggingSortKey: null as number | null,
 
         /**
-         * 取消重新排序
+         * 异常信息
          */
-        cancelChange: () => {
-          renderData.drag4sort.changeTick &&
-            clearTimeout(renderData.drag4sort.changeTick);
-          renderData.lastDraggingSortKey = null;
-        },
+        errors: [] as string[],
 
         /**
-         * 结束拖动并复原容器位置
+         * 列表容器引用对象
          */
-        end: () => {
-          renderData.drag4sort.startTick &&
-            clearTimeout(renderData.drag4sort.startTick);
-          renderData.drag4sort.changeTick &&
-            clearTimeout(renderData.drag4sort.changeTick);
-          renderData.readyDraggingSortKey = null;
+        listContainerRef: null as HTMLDivElement | null,
 
-          if (!renderData.drag4sort.draggingHelper) return;
+        /**
+         * 容器引用对象集合
+         */
+        containerRefMap: new Map<number, HTMLDivElement>(),
 
-          //结束拖动并复原位置
-          (renderData.drag4sort.draggingHelper as DraggingHelper).end(true);
-          renderData.drag4sort.draggingHelper = null;
+        /**
+         * 拖动排序功能
+         */
+        drag4sort: {
+          /**
+           * 延时开启拖动功能的计时器
+           */
+          startTick: null as NodeJS.Timeout | null,
 
-          //恢复其他元素的zIndex
-          renderData.containerRefMap.forEach(
-            (item: HTMLDivElement, key: number) => {
-              if (key !== renderData.currentDraggingSortKey)
-                item.style.zIndex = "";
-            }
-          );
+          /**
+           * 延时更改排序的计时器
+           */
+          changeTick: null as NodeJS.Timeout | null,
 
-          renderData.lastDraggingSortKey = null;
-          renderData.currentDraggingSortKey = null;
+          /**
+           * 当前拖动对象
+           */
+          draggingHelper: null as DraggingHelper | null,
         },
       },
-    });
-
-    return {
-      renderData: renderData,
     };
   },
   created() {
@@ -284,7 +194,7 @@ export default defineComponent({
     };
 
     //注册选择的文件集合变更事件
-    (this.upload as NaiveUpload).registerSelectedFileListChanged(scroll);
+    this.uploadInstance.registerSelectedFileListChanged(scroll);
 
     const alertError = (error: Error) => {
       this.renderData.errors.push(error.message);
@@ -294,10 +204,10 @@ export default defineComponent({
     };
 
     //注册提示异常的事件
-    if ((this.upload as NaiveUpload).getSettings().alertErrorInfo)
-      (this.upload as NaiveUpload).registerAlertError(alertError);
+    if (this.uploadInstance.getSettings().alertErrorInfo)
+      this.uploadInstance.registerAlertError(alertError);
 
-    (this.upload as NaiveUpload).getSettings().debug
+    this.uploadInstance.getSettings().debug
       ? console.debug("Piece: Multiple Upload Component(vue2) 已加载")
       : !1;
   },
@@ -330,11 +240,7 @@ export default defineComponent({
      * @param event
      */
     containerMouseDown(sortKey: number, event: MouseEvent) {
-      this.renderData.drag4sort.ready2start(
-        sortKey,
-        event.clientX,
-        event.clientY
-      );
+      this.ready2start(sortKey, event.clientX, event.clientY);
     },
 
     /**
@@ -344,7 +250,7 @@ export default defineComponent({
      * @param event
      */
     containerMouseUp(sortKey: number, event: MouseEvent) {
-      this.renderData.drag4sort.end();
+      this.end();
     },
 
     /**
@@ -373,12 +279,12 @@ export default defineComponent({
 
       this.renderData.drag4sort.changeTick = setTimeout(() => {
         //重新排序
-        (this.upload as NaiveUpload).changeSort(
+        this.uploadInstance.changeSort(
           this.renderData.currentDraggingSortKey!,
           this.renderData.lastDraggingSortKey!
         );
-        this.renderData.drag4sort.end();
-      }, 1300);
+        this.end();
+      }, this.uploadInstance.getSettings().dragChangePositionTime);
     },
 
     /**
@@ -388,7 +294,83 @@ export default defineComponent({
      * @param event
      */
     containerMouseLeave(sortKey: number, event: MouseEvent) {
-      this.renderData.drag4sort.cancelChange();
+      this.cancelChange();
+    },
+
+    /**
+     * 延时开启拖动功能
+     *
+     * @param sortKey
+     * @param clientX
+     * @param clientY
+     */
+    ready2start(sortKey: number, clientX: number, clientY: number) {
+      this.renderData.drag4sort.startTick = setTimeout(() => {
+        //准备拖动
+        this.renderData.readyDraggingSortKey = sortKey;
+
+        this.renderData.drag4sort.startTick = setTimeout(() => {
+          if (!this.renderData.listContainerRef) return;
+          this.renderData.readyDraggingSortKey = null;
+          //开始拖动
+          this.renderData.currentDraggingSortKey = sortKey;
+          this.renderData.drag4sort.draggingHelper = DraggingHelper.getInstance(
+            this.renderData.listContainerRef as HTMLElement,
+            this.renderData.containerRefMap.get(
+              this.renderData.currentDraggingSortKey
+            )!
+          );
+          (<DraggingHelper>this.renderData.drag4sort.draggingHelper).start(
+            clientX,
+            clientY
+          );
+
+          //将拖动元素置于其他元素的底层
+          this.renderData.containerRefMap.forEach(
+            (item: HTMLDivElement, key: number) => {
+              if (key !== this.renderData.currentDraggingSortKey)
+                item.style.zIndex = "1";
+            }
+          );
+        }, this.uploadInstance.getSettings().dragPreparationTime);
+      }, 500);
+    },
+
+    /**
+     * 取消重新排序
+     */
+    cancelChange() {
+      this.renderData.drag4sort.changeTick &&
+        clearTimeout(this.renderData.drag4sort.changeTick);
+      this.renderData.lastDraggingSortKey = null;
+    },
+
+    /**
+     * 结束拖动并复原容器位置
+     */
+    end() {
+      this.renderData.drag4sort.startTick &&
+        clearTimeout(this.renderData.drag4sort.startTick);
+      this.renderData.drag4sort.changeTick &&
+        clearTimeout(this.renderData.drag4sort.changeTick);
+      this.renderData.readyDraggingSortKey = null;
+
+      if (!this.renderData.drag4sort.draggingHelper) return;
+
+      //结束拖动并复原位置
+      (<DraggingHelper>this.renderData.drag4sort.draggingHelper).end(true);
+      this.renderData.drag4sort.draggingHelper = null;
+
+      //恢复其他元素的zIndex
+      this.renderData.containerRefMap.forEach(
+        (item: HTMLDivElement, key: number) => {
+          if (key !== this.renderData.currentDraggingSortKey)
+            item.style.zIndex = "";
+        }
+      );
+
+      this.renderData.lastDraggingSortKey = null;
+      this.renderData.currentDraggingSortKey = null;
     },
   },
 });

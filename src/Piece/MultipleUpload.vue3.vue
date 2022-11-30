@@ -161,7 +161,7 @@ let drag4sort = {
           if (key !== renderData.currentDraggingSortKey)
             item.style.zIndex = "1";
         });
-      }, 1500);
+      }, upload.getSettings().dragPreparationTime);
     }, 500);
   },
 
@@ -190,7 +190,7 @@ let drag4sort = {
         renderData.lastDraggingSortKey!
       );
       drag4sort.end();
-    }, 1300);
+    }, upload.getSettings().dragChangePositionTime);
   },
 
   /**

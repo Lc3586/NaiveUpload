@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="containerStyle()"
-    :title="containerInfo()"
+    :class="containerStyle"
+    :title="containerInfo"
     v-on:mouseenter="mouseEnter"
     v-on:mouseleave="mouseLeave"
     v-on:mousedown="mouseDown"
@@ -17,30 +17,30 @@
         />
       </div>
 
-      <span class="item-tools" v-if="toolsShow()">
+      <span class="item-tools" v-if="toolsShow">
         <span
           class="upload-icon icon-rename"
           title="重命名"
           v-on:click="rename()"
-          v-if="renameEnable() && !upload?.getSettings().readonly"
+          v-if="renameEnable && uploadInstance.getSettings().readonly"
         ></span>
         <span
           class="upload-icon icon-view"
           title="查看"
-          v-if="viewEnable()"
+          v-if="viewEnable"
           v-on:click="view()"
         ></span>
         <span
           class="upload-icon icon-download"
           title="保存"
-          v-if="saveEnable()"
+          v-if="saveEnable"
           v-on:click="save()"
         ></span>
         <span
           class="upload-icon icon-remove"
           title="删除"
           v-on:click="remove()"
-          v-if="!upload?.getSettings().readonly"
+          v-if="uploadInstance.getSettings().readonly"
         ></span>
       </span>
 
@@ -52,8 +52,8 @@
           renameKeydown: renameKeydown,
           renameDone: renameDone,
         }"
-        :loadingInfo="loadingInfo()"
-        :loadingShow="loadingShow()"
+        :loadingInfo="loadingInfo"
+        :loadingShow="loadingShow"
       ></slot>
 
       <div v-if="selectedFile?.paused" class="item-sub sub-paused">暂停</div>
@@ -80,16 +80,6 @@ export default defineComponent({
    * 组件属性
    */
   props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
     /**
      *
      */
@@ -180,57 +170,17 @@ export default defineComponent({
      */
     "upload",
   ],
-  /**
-   * 初始化方法
-   */
-  setup(props) {
+  computed: {
     /**
-     * 渲染数据
+     * 文件上传工具实例
      */
-    const renderData = reactive({
-      /**
-       * 文件重命名输入框
-       */
-      renameInputRef: null as HTMLInputElement | null,
-      /**
-       * 鼠标悬浮
-       */
-      hover: false,
-      /**
-       * 重命名
-       */
-      rename: {
-        /**
-         * 正在重命名
-         */
-        active: false,
-
-        /**
-         * 值
-         */
-        value: "",
-      },
-    });
-
-    return {
-      renderData: renderData,
-    };
-  },
-  created() {
-    (this.upload as NaiveUpload).getSettings().debug
-      ? console.debug("Piece: Selected File Info Component(vue2) 已加载")
-      : !1;
-  },
-  // watch: {
-  //   selectedFile: function (newValue, oldValue) {
-  //     this.renderData.selectedFile = newValue;
-  //   },
-  // },
-  methods: {
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
     /**
      * 容器样式
      */
-    containerStyle() {
+    containerStyle(): string {
       return `item-container ${this.selectedFile?.done ? " item-done" : ""} ${
         this.selectedFile?.error ? " item-error" : ""
       } ${
@@ -253,7 +203,7 @@ export default defineComponent({
     /**
      * 容器信息
      */
-    containerInfo() {
+    containerInfo(): string {
       return `${this.selectedFile?.done ? "上传成功" : ""} ${
         this.selectedFile?.error ? this.selectedFile.errorMessage : ""
       } ${this.selectedFile?.paused ? "已暂停" : ""}`;
@@ -261,16 +211,16 @@ export default defineComponent({
     /**
      * 显示/隐藏 加载层
      */
-    loadingShow() {
+    loadingShow(): boolean {
       return (
-        !this.renderData.rename.active &&
-        (this.selectedFile?.checking || this.selectedFile?.uploading)
+        this.renderData.rename.active &&
+        (this.selectedFile!.checking || this.selectedFile!.uploading)
       );
     },
     /**
      * 加载层信息
      */
-    loadingInfo() {
+    loadingInfo(): string {
       return `${
         this.selectedFile?.checking
           ? "扫描中..." + this.selectedFile.percent + "%"
@@ -284,7 +234,7 @@ export default defineComponent({
     /**
      * 显示/隐藏 工具栏
      */
-    toolsShow() {
+    toolsShow(): boolean {
       return (
         this.renderData.hover &&
         this.dragging === false &&
@@ -296,13 +246,13 @@ export default defineComponent({
     /**
      * 启用/禁用 重命名
      */
-    renameEnable() {
+    renameEnable(): boolean {
       return !this.selectedFile?.uploading;
     },
     /**
      * 启用/禁用 浏览
      */
-    viewEnable() {
+    viewEnable(): boolean {
       switch (this.selectedFile?.fileType) {
         case FileType.图片:
         case FileType.音频:
@@ -324,9 +274,47 @@ export default defineComponent({
     /**
      * 启用/禁用 保存
      */
-    saveEnable() {
+    saveEnable(): boolean {
       return true;
     },
+  },
+  /**
+   * 渲染数据
+   */
+  data() {
+    return {
+      renderData: {
+        /**
+         * 文件重命名输入框
+         */
+        renameInputRef: null as HTMLInputElement | null,
+        /**
+         * 鼠标悬浮
+         */
+        hover: false,
+        /**
+         * 重命名
+         */
+        rename: {
+          /**
+           * 正在重命名
+           */
+          active: false,
+
+          /**
+           * 值
+           */
+          value: "",
+        },
+      },
+    };
+  },
+  created() {
+    this.uploadInstance.getSettings().debug
+      ? console.debug("Piece: Selected File Info Component(vue2) 已加载")
+      : !1;
+  },
+  methods: {
     /**
      * 设置文件选择框引用对象
      *
@@ -405,7 +393,7 @@ export default defineComponent({
      * 重命名结束
      */
     renameDone() {
-      (this.upload as NaiveUpload)
+      this.uploadInstance
         .rename(
           (this.selectedFile as SelectedFile).token!,
           this.renderData.rename.value
@@ -421,7 +409,7 @@ export default defineComponent({
      * 查看
      */
     view() {
-      const file = (this.upload as NaiveUpload).getRawFile(
+      const file = this.uploadInstance.getRawFile(
         this.selectedFile as SelectedFile
       );
       const bodyStyle =
@@ -485,13 +473,13 @@ export default defineComponent({
      * 保存
      */
     save() {
-      const file = (this.upload as NaiveUpload).getRawFile(
+      const file = this.uploadInstance.getRawFile(
         this.selectedFile as SelectedFile
       );
 
       const a = document.createElement("a");
       a.style.display = "none";
-      a.href = (this.upload as NaiveUpload).getDownloadUrl(
+      a.href = this.uploadInstance.getDownloadUrl(
         this.selectedFile as SelectedFile
       )!;
       if (file.file)
@@ -504,9 +492,7 @@ export default defineComponent({
      * 删除
      */
     remove() {
-      (this.upload as NaiveUpload).remove(
-        (this.selectedFile as SelectedFile).token!
-      );
+      this.uploadInstance.remove((this.selectedFile as SelectedFile).token!);
     },
   },
 });

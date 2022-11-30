@@ -96,4 +96,16 @@ export default class Settings {
      * 显示错误信息
      */
     alertErrorInfo: boolean;
+    /**
+     * 准备开始拖动的时间（单位ms）
+     * 
+     * @默认值 1500
+     */
+    dragPreparationTime: number;
+    /**
+     * 拖动时变换位置的等待时间（单位ms）
+     * 
+     * @默认值 1300
+     */
+    dragChangePositionTime: number;
 }

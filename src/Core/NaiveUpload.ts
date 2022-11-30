@@ -1,4 +1,4 @@
-import { reactive, watch } from "vue-demi";
+import { reactive, watch } from "@vue/composition-api";
 import { IApiService } from "../Core/IApiService";
 import { IConfig } from "../Model/IConfig";
 import Settings from "../Model/Settings";

@@ -10,7 +10,6 @@ import {
   defineComponent,
   PropType,
   ComponentPublicInstance,
-  reactive,
   ShallowRef,
   shallowRef,
 } from "vue-demi";
@@ -26,16 +25,6 @@ export default defineComponent({
    * 组件属性
    */
   props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
     /**
      * 插槽属性
      */
@@ -111,33 +100,36 @@ export default defineComponent({
      */
     "upload",
   ],
-  /**
-   * 初始化方法
-   */
-  setup(props) {
+  computed: {
     /**
-     * 渲染数据
+     * 文件上传工具实例
      */
-    const renderData = reactive({
-      /**
-       * 加载状态
-       */
-      loading: true,
-
-      /**
-       * 当前的主题组件
-       */
-      currentThemeInfo: null as ShallowRef<any> | null,
-    });
-
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
+  },
+  /**
+   * 渲染数据
+   */
+  data() {
     return {
-      renderData: renderData,
+      renderData: {
+        /**
+         * 加载状态
+         */
+        loading: true,
+
+        /**
+         * 当前的主题组件
+         */
+        currentThemeInfo: null as ShallowRef<any> | null,
+      },
     };
   },
   created() {
     const changLayout = (layout?: Layout) => {
       this.renderData.loading = true;
-      switch ((this.upload as NaiveUpload).getSettings().layout) {
+      switch (this.uploadInstance.getSettings().layout) {
         case Layout.卡片:
           this.renderData.currentThemeInfo = shallowRef(Card);
           break;
@@ -147,7 +139,7 @@ export default defineComponent({
       }
       this.renderData.loading = false;
 
-      (this.upload as NaiveUpload).getSettings().debug
+      this.uploadInstance.getSettings().debug
         ? console.debug("Layout: Info Component(vue2) 已变更")
         : !1;
     };
@@ -158,7 +150,7 @@ export default defineComponent({
     //初始化布局
     changLayout();
 
-    (this.upload as NaiveUpload).getSettings().debug
+    this.uploadInstance.getSettings().debug
       ? console.debug("Layout: Info Component(vue2) 已加载")
       : !1;
   },

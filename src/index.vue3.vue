@@ -23,6 +23,7 @@ import NaiveUpload from "./Core/NaiveUpload";
 import RawFile from "./Model/RawFile";
 import { IOpenApi } from "./Extention/IOpenApi";
 import { IConfig } from "./Model/IConfig";
+import SelectedFile from "./Model/SelectedFile";
 
 let upload = null as NaiveUpload | null;
 //注册文件上传工具实例
@@ -42,6 +43,10 @@ let renderData = reactive({
    */
   currentUpload: null as ShallowRef<any> | null,
 });
+
+let rawFileList = reactive([] as RawFile[]);
+let selectedFileList = reactive([] as SelectedFile[]);
+let selectedFileSortMap = reactive(new Map<number, number>());
 
 /**
  * 组件属性
@@ -159,7 +164,13 @@ const emit = defineEmits<{
   if (props.readonly) props.settings.readonly = true;
 
   try {
-    upload = await NaiveUpload.getInstance(props.settings, props.apiService);
+    upload = await NaiveUpload.getInstance(
+      props.settings,
+      props.apiService,
+      rawFileList,
+      selectedFileList,
+      selectedFileSortMap
+    );
   } catch (e: any) {
     emit("error", e);
     return;

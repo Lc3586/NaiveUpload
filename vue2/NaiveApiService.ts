@@ -1,5 +1,5 @@
 import { Canceler } from "axios";
-import { DefaultApiService, IConfig, IPreUploadChunkFileResponse, IPreUploadFileResponse, IProgress, IUserFileInfo } from "@/export.base";
+import { DefaultApiService, IConfig, IPreUploadChunkFileResponse, IPreUploadFileResponse, IProgress, IUserFileInfo } from "../src/export.base";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 
 export default class NaiveApiService extends DefaultApiService {

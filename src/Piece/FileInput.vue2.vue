@@ -2,14 +2,14 @@
   <div
     class="upload-btn"
     v-on:click="chosingFile"
-    :title="upload?.getSettings().tip"
+    :title="uploadInstance.getSettings().tip"
   >
     <div @click.stop="() => {}">
       <input
         type="file"
-        :multiple="(upload?.getConfig().upperLimit ?? 0) > 1"
+        :multiple="(uploadInstance.getConfig().upperLimit ?? 0) > 1"
         :ref="setFileInputRef"
-        :accept="upload?.getAllowedTypes()"
+        :accept="uploadInstance.getAllowedTypes()"
         v-on:change="choseFile"
       />
     </div>
@@ -20,40 +20,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ComponentPublicInstance } from "vue-demi";
+import { defineComponent, ComponentPublicInstance } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 
-// 文件选择框引用对象
-let fileInputRef: HTMLInputElement;
 export default defineComponent({
   name: "Card",
-  /**
-   * 组件属性
-   */
-  props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
-  },
   inject: [
     /**
      * 注入文件上传工具实例
      */
     "upload",
   ],
+  computed: {
+    /**
+     * 文件上传工具实例
+     */
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
+  },
   /**
-   * 初始化方法
+   * 渲染数据
    */
-  setup(props) {},
+  data() {
+    return {
+      /**
+       * 文件选择框引用对象
+       */
+      fileInputRef: null as HTMLInputElement | null,
+    };
+  },
   created() {
-    (this.upload as NaiveUpload).getSettings().debug
+    this.uploadInstance.getSettings().debug
       ? console.debug("Piece: File Input Component(vue2) 已加载")
       : !1;
   },
@@ -64,7 +62,7 @@ export default defineComponent({
      * @param el 引用对象
      */
     setFileInputRef(el: Element | ComponentPublicInstance | null) {
-      if (el) fileInputRef = el as HTMLInputElement;
+      if (el) this.fileInputRef = el as HTMLInputElement;
     },
 
     /**
@@ -73,10 +71,10 @@ export default defineComponent({
      * @param e
      */
     chosingFile(e: MouseEvent) {
-      if ((this.upload as NaiveUpload).limited()) return;
+      if (this.uploadInstance.limited()) return;
 
       //隐式触发文件选择事件
-      fileInputRef?.click();
+      this.fileInputRef?.click();
     },
 
     /**
@@ -85,13 +83,13 @@ export default defineComponent({
      * @param {any} e
      */
     choseFile(e: Event) {
-      if (fileInputRef && fileInputRef.files)
-        for (let i = 0; i < fileInputRef.files.length; i++) {
-          (this.upload as NaiveUpload).append(fileInputRef.files[i]);
+      if (this.fileInputRef && this.fileInputRef.files)
+        for (let i = 0; i < this.fileInputRef.files.length; i++) {
+          this.uploadInstance.append(this.fileInputRef.files[i]);
         }
 
       //清空
-      if (fileInputRef) fileInputRef.value = "";
+      if (this.fileInputRef) this.fileInputRef.value = "";
     },
   },
 });

@@ -13,20 +13,19 @@
                     <el-button class="item" title="点击切换">{{
                       settings.configCode
                     }}</el-button>
-                    <span v-if="renderData.config.error">{{
-                      renderData.config.error
-                    }}</span>
+                    <span v-if="config.error">{{ config.error }}</span>
                   </template>
                   <el-input
                     placeholder="输入名称进行筛选"
-                    v-model="renderData.config.filter"
+                    v-model="config.filter"
                   ></el-input>
                   <el-tree
-                    :props="renderData.config.props"
+                    :props="config.props"
                     :load="loadConfig"
-                    v-loading="renderData.config.loading"
+                    v-loading="config.loading"
                     :filter-node-method="filterConfig"
                     lazy
+                    ref="configTree"
                     node-key="id"
                     :expand-on-click-node="false"
                   >
@@ -35,11 +34,11 @@
                         <span>
                           {{ node.label }}
                         </span>
-                        (<span>
+                        （<span>
                           {{
                             data.childrenCount > 99 ? "99+" : data.childrenCount
                           }} </span
-                        >)
+                        >）
                         <span class="tools">
                           <el-link
                             class="button"
@@ -62,19 +61,13 @@
                               >
                             </template>
 
-                            <span
-                              v-show="renderData.config.detail.error !== null"
-                            >
-                              <span>{{ renderData.config.detail.error }}</span>
+                            <span v-show="config.detail.error !== null">
+                              <span>{{ config.detail.error }}</span>
                             </span>
 
                             <span
-                              v-if="
-                                renderData.config.detail.dataMap.has(data.id)
-                              "
-                              v-loading="
-                                renderData.config.detail.loadingMap.get(data.id)
-                              "
+                              v-if="config.detail.dataMap.has(data.id)"
+                              v-loading="config.detail.loadingMap.get(data.id)"
                               class="config-detail"
                             >
                               <el-descriptions title="基础信息" :column="1">
@@ -95,6 +88,16 @@
                                 }}</el-descriptions-item>
                               </el-descriptions>
                               <el-descriptions title="配置信息" :column="1">
+                                <el-descriptions-item label="公共配置">{{
+                                  getConfigDetail(data).public_ ? "是" : "否"
+                                }}</el-descriptions-item>
+                                <el-descriptions-item
+                                  label="级联引用编码"
+                                  v-if="getConfigDetail(data).referenceTree"
+                                  >{{
+                                    getConfigDetail(data).referenceCode
+                                  }}</el-descriptions-item
+                                >
                                 <el-descriptions-item label="文件数量下限">{{
                                   getConfigDetail(data).lowerLimit
                                 }}</el-descriptions-item>
@@ -141,6 +144,23 @@
                                     :readonly="true"
                                   ></simple-tag-list>
                                 </el-descriptions-item>
+                              </el-descriptions>
+                              <el-descriptions title="其他信息" :column="1">
+                                <el-descriptions-item label="备注">{{
+                                  getConfigDetail(data).remark
+                                }}</el-descriptions-item>
+                                <el-descriptions-item label="创建时间">{{
+                                  getConfigDetail(data).createTime
+                                }}</el-descriptions-item>
+                                <el-descriptions-item label="创建者">{{
+                                  getConfigDetail(data).createBy
+                                }}</el-descriptions-item>
+                                <el-descriptions-item label="更新时间">{{
+                                  getConfigDetail(data).updateTime
+                                }}</el-descriptions-item>
+                                <el-descriptions-item label="更新者">{{
+                                  getConfigDetail(data).updateBy
+                                }}</el-descriptions-item>
                               </el-descriptions>
                             </span>
                           </el-popover>
@@ -304,7 +324,7 @@
       <el-col :span="4" class="label">组件预览</el-col>
       <el-col :span="20" class="content">
         <naive-upload
-          v-model="renderData.fileIds"
+          v-model="fileIds"
           :settings="settings"
           :api-service="apiService"
           @setOpenApi="setUploadApi"
@@ -319,242 +339,251 @@
     </el-row>
   </div>
 </template>
-<script setup lang="ts">
-import { reactive } from "vue-demi";
+<script>
 //局部引用示例
-// import { NaiveUpload } from "../src/export.vue3";
-import NaiveApiService from "./NaiveApiService";
+// import { NaiveUpload } from "../src/export.vue2";
+import NaiveApiService from "./naiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
-import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
-import { IDetail as UploadConfigDetail } from "./fileUploadConfig/IDetail";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { IOpenApi, RawFile, Settings, UploadError } from "@/export.base";
+import { Settings, UploadError } from "../src/export.base";
 
-/**
- * 渲染数据
- */
-let renderData = reactive({
-  fileIds: [] as string[],
-  config: {
-    loading: true,
-    props: {
-      label: "displayName",
-      children: "children",
-      isLeaf: "leaf",
-    },
-    data: [] as UploadConfigTreeList[],
-    detail: {
-      loadingMap: new Map<string, boolean>(),
-      dataMap: new Map<string, UploadConfigDetail>(),
-      error: null as string | null,
-    },
-    filter: "",
-    error: null as string | null,
+export default {
+  name: "FileUploadDemo",
+  components: {
+    // NaiveUpload,
+    SimpleTagList,
   },
-  activeConfigName: "Functional",
-});
+  /**
+   * 渲染数据
+   */
+  data() {
+    const renderData = {
+      fileIds: [],
+      config: {
+        loading: true,
+        props: {
+          label: "displayName",
+          children: "children",
+          isLeaf: "leaf",
+        },
+        data: [],
+        detail: {
+          loadingMap: new Map(),
+          dataMap: new Map(),
+          error: null,
+        },
+        filter: "",
+        error: null,
+      },
+      activeConfigName: "Functional",
 
-/**
- * 上传组件的设置
- */
-const settings = reactive(Settings.defaultWithConfigCode("multiple-file"));
-settings.debug = true;
+      /**
+       * 上传组件的设置
+       */
+      settings: Settings.defaultWithConfigCode("multiple-file"),
+      /**
+       * 上传服务
+       */
+      apiService: new NaiveApiService(),
+      /**
+       * 组件开放的接口
+       */
+      uploadOpenApi: null,
+    };
 
-/**
- * 上传服务
- */
-const apiService = new NaiveApiService();
+    renderData.debug = true;
 
-/**
- * 组件开放的接口
- */
-let uploadOpenApi = null as IOpenApi | null;
+    return renderData;
+  },
+  watch: {},
+  /**
+   * 初始化方法
+   */
+  created() {
+    // console.debug('settings:', settings);
+    // console.debug('Index OK');
+    // SSOHub.handlerMessage(message => {
+    //   console.debug(message);
+    // });
+  },
+  methods: {
+    /**
+     * 获取组件开放的接口
+     *
+     * @param openApi 组件开放的接口
+     */
+    setUploadApi(openApi) {
+      this.uploadOpenApi = openApi;
+    },
 
-/**
- * 获取组件开放的接口
- *
- * @param openApi 组件开放的接口
- */
-const setUploadApi = (openApi: IOpenApi) => {
-  uploadOpenApi = openApi;
-};
-
-/**
- * 文件校验前执行
- *
- * @param file 文件
- * @return 是否处理并上传该文件
- */
-const beforeCheck = (file: File): Promise<boolean> => {
-  return new Promise<boolean>(async (resolve, reject) => {
-    resolve(true);
-  });
-};
-
-/**
- * 文件校验结束后执行
- *
- * @param rawFile 文件
- */
-const afterCheck = (rawFile: RawFile) => {
-  // console.debug(rawFile);
-};
-
-/**
- * 文件校验全部校验结束后执行
- *
- * @param rawFiles 文件集合
- */
-const afterCheckAll = (rawFiles: RawFile[]) => {
-  // console.debug(rawFiles);
-};
-
-/**
- * 文件上传后执行
- *
- * @param rawFile 文件
- */
-const afterUpload = (rawFile: RawFile) => {
-  // console.debug(rawFile);
-};
-
-/**
- * 所有文件上传后执行
- * <p>此方法不会等待</p>
- *
- * @param rawFiles 文件集合
- */
-const afterUploadAll = (rawFiles: RawFile[]) => {
-  // console.debug('已经上传好的文件id集合', Object.assign({}, renderData.fileIds));
-};
-
-/**
- * 组件异常
- *
- * @param e 异常
- */
-const handlerError = (e: Error) => {
-  UploadError.consoleWrite(e);
-};
-
-/**
- * 加载文件上传配置下拉选择框数据
- *
- * @param node 当前触发的节点
- * @param resolve 回调函数
- */
-const loadConfig = (node: any, resolve: (list: any[]) => void) => {
-  renderData.config.loading = true;
-  renderData.config.error = null;
-  FileUploadConfigService.getTreeList()
-    .then((result: UploadConfigTreeList[]) => {
-      renderData.config.loading = false;
-      resolve(
-        result.map((x: UploadConfigTreeList) =>
-          Object.assign(x, { leaf: !x.hasChildren })
-        )
+    /**
+     * 文件校验前执行
+     *
+     * @param file 文件
+     * @return 是否处理并上传该文件
+     */
+    beforeCheck(file) {
+      return (
+        new Promise() <
+        boolean >
+        (async (resolve, reject) => {
+          resolve(true);
+        })
       );
-      console.debug(result);
-    })
-    .catch((e: any) => {
-      renderData.config.loading = false;
-      renderData.config.error = `加载文件上传配置时发生异常：${e.message}`;
-    });
+    },
+
+    /**
+     * 文件校验结束后执行
+     *
+     * @param rawFile 文件
+     */
+    afterCheck(rawFile) {
+      // console.debug(rawFile);
+    },
+
+    /**
+     * 文件校验全部校验结束后执行
+     *
+     * @param rawFiles 文件集合
+     */
+    afterCheckAll(rawFiles) {
+      // console.debug(rawFiles);
+    },
+
+    /**
+     * 文件上传后执行
+     *
+     * @param rawFile 文件
+     */
+    afterUpload(rawFile) {
+      // console.debug(rawFile);
+    },
+
+    /**
+     * 所有文件上传后执行
+     * <p>此方法不会等待</p>
+     *
+     * @param rawFiles 文件集合
+     */
+    afterUploadAll(rawFiles) {
+      // console.debug('已经上传好的文件id集合', Object.assign({}, this.fileIds));
+    },
+
+    /**
+     * 组件异常
+     *
+     * @param e 异常
+     */
+    handlerError(e) {
+      UploadError.consoleWrite(e);
+    },
+
+    /**
+     * 加载文件上传配置下拉选择框数据
+     *
+     * @param node 当前触发的节点
+     * @param resolve 回调函数
+     */
+    loadConfig(node, resolve) {
+      this.config.loading = true;
+      this.config.error = null;
+      FileUploadConfigService.getTreeList()
+        .then((result) => {
+          this.config.loading = false;
+          resolve(
+            result.rows.map((x) => Object.assign(x, { leaf: !x.hasChildren }))
+          );
+        })
+        .catch((e) => {
+          this.config.loading = false;
+          this.config.error = `加载文件上传配置时发生异常：${e.message}`;
+        });
+    },
+
+    /**
+     * 筛选文件上传配置
+     *
+     * @param value 输入值
+     * @param data 当前数据
+     */
+    filterConfig(value, data) {
+      if (!value) return true;
+      return (
+        data.name.indexOf(value) !== -1 ||
+        data.code.indexOf(value) !== -1 ||
+        data.displayName.indexOf(value) !== -1
+      );
+    },
+
+    /**
+     * 加载文件上传配置详情
+     *
+     * @param node
+     * @param data 当前数据
+     */
+    loadConfigDetail(node, data) {
+      if (this.config.detail.loadingMap.get(data.id) === false) return;
+
+      this.config.detail.loadingMap.set(data.id, true);
+      FileUploadConfigService.getDetail(data.id)
+        .then((result) => {
+          this.config.detail.loadingMap.set(data.id, false);
+          this.config.detail.dataMap.set(data.id, result);
+        })
+        .catch((e) => {
+          this.config.detail.loadingMap.set(data.id, false);
+          this.config.detail.error = `加载文件上传配置详情时发生异常：${e.message}`;
+        });
+    },
+
+    /**
+     * 获取文件上传配置详情
+     *
+     * @param data 当前数据
+     */
+    getConfigDetail(data) {
+      return this.config.detail.dataMap.get(data.id);
+    },
+
+    /**
+     * 应用文件上传配置
+     *
+     * @param data
+     */
+    applyConfig(data) {
+      this.settings.configCode = data.code;
+    },
+
+    /**
+     * 清空
+     */
+    clean() {
+      this.uploadOpenApi.clean();
+    },
+
+    /**
+     * 暂停
+     */
+    pause() {
+      this.uploadOpenApi.pause();
+    },
+
+    /**
+     * 恢复
+     */
+    continue_() {
+      this.uploadOpenApi.continue();
+    },
+
+    /**
+     * 开始
+     */
+    start() {
+      this.uploadOpenApi.startCheck();
+      this.uploadOpenApi.startUpload();
+    },
+  },
 };
-
-/**
- * 筛选文件上传配置
- *
- * @param value 输入值
- * @param data 当前数据
- */
-const filterConfig = (value: string, data: UploadConfigTreeList) => {
-  if (!value) return true;
-  return (
-    data.name.indexOf(value) !== -1 ||
-    data.code.indexOf(value) !== -1 ||
-    data.displayName.indexOf(value) !== -1
-  );
-};
-
-/**
- * 加载文件上传配置详情
- *
- * @param node
- * @param data 当前数据
- */
-const loadConfigDetail = (node: any, data: UploadConfigTreeList) => {
-  if (renderData.config.detail.loadingMap.get(data.id) === false) return;
-
-  renderData.config.detail.loadingMap.set(data.id, true);
-  FileUploadConfigService.getDetail(data.id)
-    .then((result: UploadConfigDetail) => {
-      renderData.config.detail.loadingMap.set(data.id, false);
-      renderData.config.detail.dataMap.set(data.id, result);
-    })
-    .catch((e: any) => {
-      renderData.config.detail.loadingMap.set(data.id, false);
-      renderData.config.detail.error = `加载文件上传配置详情时发生异常：${e.message}`;
-    });
-};
-
-/**
- * 获取文件上传配置详情
- *
- * @param data 当前数据
- */
-const getConfigDetail = (data: UploadConfigTreeList) => {
-  return renderData.config.detail.dataMap.get(data.id)!;
-};
-
-/**
- * 应用文件上传配置
- *
- * @param data
- */
-const applyConfig = (data: UploadConfigTreeList) => {
-  settings.configCode = data.code;
-};
-
-/**
- * 清空
- */
-const clean = () => {
-  uploadOpenApi?.clean();
-};
-
-/**
- * 暂停
- */
-const pause = () => {
-  uploadOpenApi?.pause();
-};
-
-/**
- * 恢复
- */
-const continue_ = () => {
-  uploadOpenApi?.continue();
-};
-
-/**
- * 开始
- */
-const start = () => {
-  uploadOpenApi?.startCheck();
-  uploadOpenApi?.startUpload();
-};
-
-/**
- * 初始化方法
- */
-(async () => {
-  // console.debug('settings:', settings);
-  // console.debug('Index OK');
-  // SSOHub.handlerMessage(message => {
-  //   console.debug(message);
-  // });
-})();
 </script>
 <style scoped>
 .scroll-container {

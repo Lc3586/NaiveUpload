@@ -20,7 +20,7 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    disabled: true,
+    // disabled: true,
     exclude: ['vue-demi']
   },
   build: {
@@ -31,12 +31,12 @@ export default defineConfig({
     //源码映射
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, './export.ts'),
+      entry: resolve(__dirname, '../src/export.vue2.ts'),
       name: 'NaiveUpload',
       // fileName: (format) => `naive-upload.${format}.js`
     },
     rollupOptions: {
-      input: ['./export.ts'],
+      input: ['../src/export.vue2.ts'],
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue', 'vue-demi', 'axios', 'spark-md5'],
       output: [
@@ -79,7 +79,7 @@ export default defineConfig({
           format: 'module',
           entryFileNames: '[name].js',
           //让打包目录和我们目录对应
-          preserveModules: false,
+          preserveModules: true,
           //配置打包根目录
           dir: '../lib/vue2',
           preserveModulesRoot: 'src',

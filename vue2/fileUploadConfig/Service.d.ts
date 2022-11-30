@@ -1,5 +1,5 @@
-import { IDetail } from "./IDetail";
-import { ITreeList } from "./ITreeList";
+import { IDetail } from "../../docs/fileUploadConfig/IDetail";
+import { ITreeList } from "../../docs/fileUploadConfig/ITreeList";
 import { IConfig } from "../../src/export.base";
 /**
  * 文件上传配置信息服务

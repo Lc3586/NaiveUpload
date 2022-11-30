@@ -1,43 +1,40 @@
 <template>
-  <div class="item-info">
-    <span
-      class="single-text-omitted item-name"
-      :title="
-        slotProps?.selectedFile.fileType +
-        '\r\n' +
-        slotProps?.selectedFile.size +
-        '\r\n' +
-        slotProps?.selectedFile.fullname()
-      "
-      v-html="slotProps?.selectedFile.fullname()"
-      v-if="!slotProps?.rename.active"
-    ></span>
-    <input
-      class="item-rename-input"
-      type="text"
-      v-if="slotProps?.rename.active"
-      v-model="slotProps.rename.value"
-      :ref="slotProps.funs.setRenameInputRef"
-      v-on:keydown="slotProps?.funs.renameKeydown($event)"
-      v-on:blur="slotProps?.funs.renameDone()"
-    />
-  </div>
+  <div>
+    <div class="item-info">
+      <span
+        class="single-text-omitted item-name"
+        :title="
+          slotProps?.selectedFile.fileType +
+          '\r\n' +
+          slotProps?.selectedFile.size +
+          '\r\n' +
+          slotProps?.selectedFile.fullname()
+        "
+        v-html="slotProps?.selectedFile.fullname()"
+        v-if="!slotProps?.rename.active"
+      ></span>
+      <input
+        class="item-rename-input"
+        type="text"
+        v-if="slotProps?.rename.active"
+        v-model="slotProps.rename.value"
+        :ref="slotProps.funs.setRenameInputRef"
+        v-on:keydown="slotProps?.funs.renameKeydown($event)"
+        v-on:blur="slotProps?.funs.renameDone()"
+      />
+    </div>
 
-  <div
-    class="item-loading"
-    v-if="slotProps?.loadingShow"
-    :style="lodingStyle()"
-    :title="slotProps.loadingInfo"
-  ></div>
+    <div
+      class="item-loading"
+      v-if="slotProps?.loadingShow"
+      :style="lodingStyle"
+      :title="slotProps.loadingInfo"
+    ></div>
+  </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  ComponentPublicInstance,
-  reactive,
-} from "vue-demi";
+import { defineComponent, PropType, ComponentPublicInstance } from "vue-demi";
 import NaiveUpload from "../../Core/NaiveUpload";
 import SelectedFile from "../../Model/SelectedFile";
 
@@ -47,16 +44,6 @@ export default defineComponent({
    * 组件属性
    */
   props: {
-    /**
-     * 文件上传工具实例
-     */
-    upload: {
-      type: Object as PropType<NaiveUpload>,
-      default() {
-        return (this as any).upload;
-      },
-      require: false,
-    },
     /**
      * 插槽属性
      */
@@ -132,40 +119,26 @@ export default defineComponent({
      */
     "upload",
   ],
-  /**
-   * 初始化方法
-   */
-  setup(props) {
+  computed: {
     /**
-     * 渲染数据
+     * 文件上传工具实例
      */
-    const renderData = reactive({
-      /**
-       * 选择的文件排序值映射表
-       */
-      selectedFileSortMap: props.upload?.getSelectedFileSortMap() as Map<
-        number,
-        number
-      >,
-    });
-
-    return {
-      renderData: renderData,
-    };
-  },
-  created() {
-    (this.upload as NaiveUpload).getSettings().debug
-      ? console.debug("Layout: Card Info Component(vue2) 已加载")
-      : !1;
-  },
-  methods: {
+    uploadInstance(): NaiveUpload {
+      return <NaiveUpload>(<any>this).upload();
+    },
+    /**
+     * 选择的文件排序值映射表
+     */
+    selectedFileSortMap(): Map<number, number> {
+      return this.uploadInstance.getSelectedFileSortMap();
+    },
     /**
      *加载层样式
      */
-    lodingStyle() {
+    lodingStyle(): string {
       return `${
         this.slotProps?.selectedFile.checking
-          ? this.upload?.getGradientStyle(
+          ? this.uploadInstance.getGradientStyle(
               "conic",
               "rgba(255, 236, 201, 0.5)",
               this.slotProps.selectedFile.percent,
@@ -174,7 +147,7 @@ export default defineComponent({
           : ""
       } ${
         this.slotProps?.selectedFile.uploading
-          ? this.upload?.getGradientStyle(
+          ? this.uploadInstance.getGradientStyle(
               "conic",
               "rgba(144, 206, 255, 0.5)",
               this.slotProps.selectedFile.percent,
@@ -183,7 +156,7 @@ export default defineComponent({
           : ""
       } ${
         this.slotProps?.selectedFile.paused
-          ? this.upload?.getGradientStyle(
+          ? this.uploadInstance.getGradientStyle(
               "conic",
               "rgba(158, 158, 158, 0.5)",
               this.slotProps.selectedFile.percent,
@@ -192,6 +165,11 @@ export default defineComponent({
           : ""
       }`;
     },
+  },
+  created() {
+    this.uploadInstance.getSettings().debug
+      ? console.debug("Layout: Card Info Component(vue2) 已加载")
+      : !1;
   },
 });
 </script>

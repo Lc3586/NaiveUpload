@@ -1,5 +1,5 @@
-import { IDetail } from "./IDetail";
-import { ITreeList } from "./ITreeList";
+import { IDetail } from "../../docs/fileUploadConfig/IDetail";
+import { ITreeList } from "../../docs/fileUploadConfig/ITreeList";
 import axios from "axios";
 import { IConfig } from "../../src/export.base";
 
@@ -11,16 +11,16 @@ import { IConfig } from "../../src/export.base";
  * @date 2022-09-22
  */
 export default class FileUploadConfigService {
-    private static readonly treeListData: ITreeList[] = [];
-    private static readonly detailData: Map<string, IDetail> = new Map<string, IDetail>();
-    private static readonly configData: Map<string, IConfig> = new Map<string, IConfig>();
+    static readonly treeListData: ITreeList[] = [];
+    static readonly detailData: Map<string, IDetail> = new Map<string, IDetail>();
+    static readonly configData: Map<string, IConfig> = new Map<string, IConfig>();
 
     /**
      * 获取树状列表数据
      *
      * @return 树状列表数据
      */
-    public static async getTreeList(): Promise<ITreeList[]> {
+    static async getTreeList(): Promise<ITreeList[]> {
         return new Promise<ITreeList[]>((resolve, reject) => {
             if (FileUploadConfigService.detailData.size != 0) {
                 resolve(FileUploadConfigService.treeListData);
@@ -54,7 +54,7 @@ export default class FileUploadConfigService {
      * @param id 主键
      * @return 详情数据
      */
-    public static async getDetail(id: string): Promise<IDetail> {
+    static async getDetail(id: string): Promise<IDetail> {
         if (FileUploadConfigService.detailData.size == 0)
             await this.getTreeList();
 
@@ -74,7 +74,7 @@ export default class FileUploadConfigService {
      * @param code 编码
      * @return 配置数据
      */
-    public static async getConfig(code: string): Promise<IConfig> {
+    static async getConfig(code: string): Promise<IConfig> {
         if (FileUploadConfigService.configData.size == 0)
             await this.getTreeList();
 

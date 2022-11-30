@@ -9,7 +9,7 @@ export default defineConfig({
   root: 'docs',
   resolve: {
     alias: {
-      '@': '../lib'
+      '@': '../src'
     }
   },
   plugins: [
