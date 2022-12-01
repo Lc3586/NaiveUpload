@@ -89,7 +89,7 @@
         "lowerSingleSize": 0,
         "lowerTotalSize": 0,
         "name": "多文件上传",
-        "upperLimit": 0,
+        "upperLimit": 999,
         "upperSingleSize": 0,
         "upperTotalSize": 0,
         "allowedTypeList": [],
@@ -103,7 +103,7 @@
             ".bat",
             ".sh"
         ],
-        "explain": "上传多个文件",
+        "explain": "上传多个文件，允许上传任意多个文件\r\nPDF、WORD、PPT",
         "hasChildren": true,
         "childrenCount": 3,
         "children": [

@@ -26,5 +26,5 @@ const upload = (inject("upload") as () => NaiveUpload)();
 </script>
 
 <style scoped lang="scss" type="text/scss">
-@import "index.scss";
+@import "index.vue3.scss";
 </style>

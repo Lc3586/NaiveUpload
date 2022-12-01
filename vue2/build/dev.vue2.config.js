@@ -13,7 +13,14 @@ export default defineConfig({
   plugins: [
     createVuePlugin()
   ],
-  optimizeDeps: {
-    exclude: ['vue-demi']
-  }
+  css: {
+    preprocessorOptions: {
+      scss: {
+
+      }
+    }
+  },
+  // optimizeDeps: {
+  //   exclude: ['vue-demi']
+  // }
 })

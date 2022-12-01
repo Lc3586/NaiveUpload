@@ -18,7 +18,7 @@
         type="text"
         v-if="slotProps?.rename.active"
         v-model="slotProps.rename.value"
-        :ref="slotProps.funs.setRenameInputRef"
+        ref="renameInputRef"
         v-on:keydown="slotProps?.funs.renameKeydown($event)"
         v-on:blur="slotProps?.funs.renameDone()"
       />
@@ -34,12 +34,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ComponentPublicInstance } from "vue-demi";
+import { defineComponent, PropType } from "vue-demi";
 import NaiveUpload from "../../Core/NaiveUpload";
 import SelectedFile from "../../Model/SelectedFile";
 
 export default defineComponent({
-  name: "Card",
+  name: "CardInfo",
   /**
    * 组件属性
    */
@@ -83,9 +83,7 @@ export default defineComponent({
            *
            * @param el 引用对象
            */
-          setRenameInputRef: (
-            el: Element | ComponentPublicInstance | null
-          ) => void;
+          setRenameInputRef: (el: HTMLInputElement | null) => void;
 
           /**
            * 确认重命名
@@ -135,38 +133,54 @@ export default defineComponent({
     /**
      *加载层样式
      */
-    lodingStyle(): string {
-      return `${
+    lodingStyle(): Array<Record<string, string>> {
+      return (
         this.slotProps?.selectedFile.checking
-          ? this.uploadInstance.getGradientStyle(
-              "conic",
-              "rgba(255, 236, 201, 0.5)",
-              this.slotProps.selectedFile.percent,
-              this.slotProps.selectedFile.virtualPercent
-            )
-          : ""
-      } ${
-        this.slotProps?.selectedFile.uploading
-          ? this.uploadInstance.getGradientStyle(
-              "conic",
-              "rgba(144, 206, 255, 0.5)",
-              this.slotProps.selectedFile.percent,
-              this.slotProps.selectedFile.virtualPercent
-            )
-          : ""
-      } ${
-        this.slotProps?.selectedFile.paused
-          ? this.uploadInstance.getGradientStyle(
-              "conic",
-              "rgba(158, 158, 158, 0.5)",
-              this.slotProps.selectedFile.percent,
-              this.slotProps.selectedFile.virtualPercent
-            )
-          : ""
-      }`;
+          ? [
+              this.uploadInstance.getGradientStyleObject(
+                "conic",
+                "rgba(255, 236, 201, 0.5)",
+                this.slotProps.selectedFile.percent,
+                this.slotProps.selectedFile.virtualPercent
+              )[0],
+            ]
+          : []
+      )
+        .concat(
+          this.slotProps?.selectedFile.uploading
+            ? [
+                this.uploadInstance.getGradientStyleObject(
+                  "conic",
+                  "rgba(144, 206, 255, 0.5)",
+                  this.slotProps.selectedFile.percent,
+                  this.slotProps.selectedFile.virtualPercent
+                )[0],
+              ]
+            : []
+        )
+        .concat(
+          this.slotProps?.selectedFile.paused
+            ? [
+                this.uploadInstance.getGradientStyleObject(
+                  "conic",
+                  "rgba(158, 158, 158, 0.5)",
+                  this.slotProps.selectedFile.percent,
+                  this.slotProps.selectedFile.virtualPercent
+                )[0],
+              ]
+            : []
+        );
     },
   },
   created() {
+    this.$nextTick(() => {
+      this.slotProps?.funs.setRenameInputRef(
+        <HTMLInputElement>this.$refs.renameInputRef
+      );
+    });
+
+    console.warn(this.slotProps);
+
     this.uploadInstance.getSettings().debug
       ? console.debug("Layout: Card Info Component(vue2) 已加载")
       : !1;

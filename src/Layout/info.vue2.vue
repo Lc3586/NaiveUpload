@@ -6,21 +6,19 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  ComponentPublicInstance,
-  ShallowRef,
-  shallowRef,
-} from "vue-demi";
+import { defineComponent, PropType } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
-import Card from "../Layout/Card/info.vue2.vue";
-import Detailedly from "../Layout/Detailedly/info.vue2.vue";
+import CardInfo from "../Layout/Card/info.vue2.vue";
+import DetailedlyInfo from "../Layout/Detailedly/info.vue2.vue";
 import SelectedFile from "../Model/SelectedFile";
 import { Layout } from "../Model/Layout";
 
 export default defineComponent({
   name: "LayoutInfo",
+  components: {
+    CardInfo,
+    DetailedlyInfo,
+  },
   /**
    * 组件属性
    */
@@ -65,7 +63,7 @@ export default defineComponent({
            * @param el 引用对象
            */
           setRenameInputRef: (
-            el: Element | ComponentPublicInstance | null
+            el: HTMLInputElement | null
           ) => void;
 
           /**
@@ -122,7 +120,7 @@ export default defineComponent({
         /**
          * 当前的主题组件
          */
-        currentThemeInfo: null as ShallowRef<any> | null,
+        currentThemeInfo: null as string | null,
       },
     };
   },
@@ -131,10 +129,10 @@ export default defineComponent({
       this.renderData.loading = true;
       switch (this.uploadInstance.getSettings().layout) {
         case Layout.卡片:
-          this.renderData.currentThemeInfo = shallowRef(Card);
+          this.renderData.currentThemeInfo = "CardInfo";
           break;
         case Layout.清单:
-          this.renderData.currentThemeInfo = shallowRef(Detailedly);
+          this.renderData.currentThemeInfo = "DetailedlyInfo";
           break;
       }
       this.renderData.loading = false;

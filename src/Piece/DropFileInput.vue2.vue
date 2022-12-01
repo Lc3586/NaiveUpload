@@ -17,7 +17,10 @@ import NaiveUpload from "../Core/NaiveUpload";
 import FileInput from "../Piece/FileInput.vue2.vue";
 
 export default defineComponent({
-  name: "Card",
+  name: "DropFileInput",
+  components: {
+    FileInput,
+  },
   inject: [
     /**
      * 注入文件上传工具实例
@@ -32,21 +35,6 @@ export default defineComponent({
       return <NaiveUpload>(<any>this).upload();
     },
   },
-  // data() {
-  //   return {
-  //     files: [] as File[],
-  //   };
-  // },
-  // watch: {
-  //   files: function (newValue: File[], oldValue: File[]) {
-  //     if (newValue != null && newValue.length > 0) {
-  //       for (let i = 0; i < newValue.length; i++) {
-  //         this.upload.append(newValue[i]);
-  //       }
-  //       newValue.length = 0;
-  //     }
-  //   },
-  // },
   created() {
     this.uploadInstance.getSettings().debug
       ? console.debug("Piece: Drop File Input Component(vue2) 已加载")

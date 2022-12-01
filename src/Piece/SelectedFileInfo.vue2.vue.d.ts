@@ -166,13 +166,6 @@ declare const _default: import("vue-demi").DefineComponent<{
         require: boolean;
     };
     /**
-     *
-     */
-    key: {
-        type: NumberConstructor;
-        require: boolean;
-    };
-    /**
      * 选择的文件
      */
     selectedFile: {

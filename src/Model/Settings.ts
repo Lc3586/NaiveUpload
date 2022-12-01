@@ -14,7 +14,17 @@ export default class Settings {
      *
      * @param action 此方法的参数为当前示例
      */
-    public readonly setup: (action: (model: Settings) => void) => Settings = (action) => {
+    public readonly build: (action: (model: Settings) => void) => Settings = (action) => {
+        action(this);
+        return this;
+    };
+
+    /**
+     * 设置
+     *
+     * @param action 此方法的参数为当前示例
+     */
+    public readonly setup: (this: Settings, action: (model: Settings) => void) => Settings = (action) => {
         action(this);
         return this;
     };

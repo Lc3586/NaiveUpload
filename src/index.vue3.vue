@@ -78,7 +78,7 @@ const props = withDefaults(
     settings: () => {
       return Settings.default();
     },
-    readonly: false,
+    readonly: true,
   }
 );
 
@@ -164,13 +164,7 @@ const emit = defineEmits<{
   if (props.readonly) props.settings.readonly = true;
 
   try {
-    upload = await NaiveUpload.getInstance(
-      props.settings,
-      props.apiService,
-      rawFileList,
-      selectedFileList,
-      selectedFileSortMap
-    );
+    upload = await NaiveUpload.getInstance(props.settings, props.apiService);
   } catch (e: any) {
     emit("error", e);
     return;
@@ -207,10 +201,14 @@ const emit = defineEmits<{
     upload!.getSettings().debug
       ? console.debug("AfterUpload => ", Object.assign({}, rawFile))
       : !1;
-    emit(
-      "update:modelValue",
-      upload!.getUserFileInfoList(true).map((x) => x.id)
-    );
+
+    props.modelValue.length = 0;
+    upload!
+      .getUserFileInfoList(true)
+      .forEach((x) => props.modelValue.push(x.id));
+
+    emit("update:modelValue", props.modelValue);
+
     upload!.getSettings().debug
       ? console.debug(
           "ModelValue UserFileIdList => ",

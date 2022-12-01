@@ -341,16 +341,16 @@
 </template>
 <script>
 //局部引用示例
-// import { NaiveUpload } from "../src/export.vue2";
+import { NaiveUpload } from "../src/export.vue2";
 import NaiveApiService from "./naiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { Settings, UploadError } from "../src/export.base";
+import { RunMode, Settings, UploadError } from "../src/export.base";
 
 export default {
   name: "FileUploadDemo",
   components: {
-    // NaiveUpload,
+    NaiveUpload,
     SimpleTagList,
   },
   /**
@@ -380,7 +380,9 @@ export default {
       /**
        * 上传组件的设置
        */
-      settings: Settings.defaultWithConfigCode("multiple-file"),
+      settings: Settings.defaultWithConfigCode("multiple-file").setup(
+        (x) => ((x.debug = true), (x.runMode = RunMode.手动挡))
+      ),
       /**
        * 上传服务
        */
@@ -391,11 +393,10 @@ export default {
       uploadOpenApi: null,
     };
 
-    renderData.debug = true;
-
     return renderData;
   },
   watch: {},
+  setup() {},
   /**
    * 初始化方法
    */
@@ -420,16 +421,11 @@ export default {
      * 文件校验前执行
      *
      * @param file 文件
+     * @param callback 回调方法
      * @return 是否处理并上传该文件
      */
-    beforeCheck(file) {
-      return (
-        new Promise() <
-        boolean >
-        (async (resolve, reject) => {
-          resolve(true);
-        })
-      );
+    beforeCheck(file, callback) {
+      callback(true);
     },
 
     /**

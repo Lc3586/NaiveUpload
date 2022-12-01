@@ -13,7 +13,7 @@ import { defineComponent } from "vue-demi";
 import NaiveUpload from "../../Core/NaiveUpload";
 
 export default defineComponent({
-  name: "Card",
+  name: "CardIndex",
   inject: [
     /**
      * 注入文件上传工具实例
@@ -37,5 +37,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss" type="text/scss">
-@import "index.scss";
+@import "index.vue2.scss";
 </style>

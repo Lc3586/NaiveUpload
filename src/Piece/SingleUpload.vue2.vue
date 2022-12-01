@@ -1,11 +1,11 @@
 <template>
   <layout-index>
     <template
-      v-if="uploadInstance.getSettings().readonly"
+      v-if="!uploadInstance.getSettings().readonly"
       v-slot:uploadContainer
     >
       <file-input
-        v-if="uploadInstance.anyFile()"
+        v-if="!uploadInstance.anyFile()"
         class="upload-box-container single"
         :title="uploadInstance.getConfig().explain"
       >

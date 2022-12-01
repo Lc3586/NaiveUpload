@@ -6,109 +6,125 @@
  */
 
 /*图片列表*/
-.independent,
-.upload-list {
-
-}
+// .independent,
+// .upload-list {
+// }
 
 :deep(.upload-list > .scroll-container) {
-    zoom: 1;
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    align-content: flex-start;
-    justify-content: flex-start;
-    align-items: center;
+  zoom: 1;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 :deep(.independent > .item-container),
 :deep(.upload-list > .item-container),
 :deep(.independent > .scroll-container .item-container),
 :deep(.upload-list > .scroll-container .item-container) {
-    position: relative;
-    width: 104px;
-    height: 104px;
-    margin: 10px;
-    background: #fff;
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: 10px;
+  background: #fff;
 }
 
 :deep(.independent > .item-container .item-body),
 :deep(.upload-list > .item-container .item-body),
 :deep(.independent > .scroll-container .item-container .item-body),
 :deep(.upload-list > .scroll-container .item-container .item-body) {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    text-align: center;
-    display: table-cell;
-    position: absolute;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  display: table-cell;
+  position: absolute;
+  overflow: hidden;
 }
 
 :deep(.independent > .item-container .item-tools),
-:deep(.upload-list > .item-container .item-tools ),
+:deep(.upload-list > .item-container .item-tools),
 :deep(.independent > .scroll-container .item-container .item-tools),
-:deep(.upload-list > .scroll-container .item-container .item-tools ) {
-    z-index: 1;
-    width: 104px;
-    height: 80px;
-    display: table-cell;
-    position: relative;
-    top: -80px;
-    vertical-align: top;
-    text-align: right;
-    transition: all .3s;
+:deep(.upload-list > .scroll-container .item-container .item-tools) {
+  z-index: 1;
+  width: 104px;
+  height: 80px;
+  display: table-cell;
+  position: relative;
+  top: -80px;
+  vertical-align: top;
+  text-align: right;
+  transition: all 0.3s;
 }
 
 :deep(.independent > .item-container .item-rename-input),
 :deep(.upload-list > .item-container .item-rename-input),
 :deep(.independent > .scroll-container .item-container .item-rename-input),
 :deep(.upload-list > .scroll-container .item-container .item-rename-input) {
-    /*z-index: 2;*/
-    top: 80px;
-    left: 3px;
-    /*position: absolute;*/
-    width: 90%;
+  /*z-index: 2;*/
+  top: 80px;
+  left: 3px;
+  /*position: absolute;*/
+  width: 90%;
 }
 
 :deep(.independent > .item-container .item-loading),
 :deep(.upload-list > .item-container .item-loading),
 :deep(.independent > .scroll-container .item-container .item-loading),
 :deep(.upload-list > .scroll-container .item-container .item-loading) {
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: -95px;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -95px;
 }
 
 :deep(.independent > .item-container .upload-icon:hover),
 :deep(.upload-list > .item-container .upload-icon:hover),
 :deep(.independent > .scroll-container .item-container .upload-icon:hover),
 :deep(.upload-list > .scroll-container .item-container .upload-icon:hover) {
-    border: 1px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 
 :deep(.independent > .item-container.item-hover .item-tools),
 :deep(.upload-list > .item-container.item-hover .item-tools),
 :deep(.independent > .scroll-container .item-container.item-hover .item-tools),
 :deep(.upload-list > .scroll-container .item-container.item-hover .item-tools) {
-    /*由上到下的渐变*/
-    background: -moz-linear-gradient(top, rgba(50, 50, 50, 0.90), rgba(165, 165, 165, 0.1));
-    background: -o-linear-gradient(top, rgba(50, 50, 50, 0.90), rgba(165, 165, 165, 0.1));
-    background: -webkit-linear-gradient(top, rgba(50, 50, 50, 0.90), rgba(165, 165, 165, 0.1));
-    /*浏览器的兼容*/
-    background: linear-gradient(top, rgba(50, 50, 50, 0.90), rgba(165, 165, 165, 0.1)) repeat scroll 0 0;
+  /*由上到下的渐变*/
+  background: -moz-linear-gradient(
+    top,
+    rgba(50, 50, 50, 0.9),
+    rgba(165, 165, 165, 0.1)
+  );
+  background: -o-linear-gradient(
+    top,
+    rgba(50, 50, 50, 0.9),
+    rgba(165, 165, 165, 0.1)
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(50, 50, 50, 0.9),
+    rgba(165, 165, 165, 0.1)
+  );
+  /*浏览器的兼容*/
+  background: linear-gradient(
+      top,
+      rgba(50, 50, 50, 0.9),
+      rgba(165, 165, 165, 0.1)
+    )
+    repeat scroll 0 0;
 }
 
 :deep(.independent > .item-container.item-hover .item-info),
 :deep(.upload-list > .item-container.item-hover .item-info),
 :deep(.independent > .scroll-container .item-container.item-hover .item-info),
 :deep(.upload-list > .scroll-container .item-container.item-hover .item-info) {
-    position: relative;
-    top: -80px;
+  position: relative;
+  top: -80px;
 }
 
 /*动画*/
@@ -120,10 +136,10 @@
 :deep(.independent > .scroll-container .item-container.item-paused:after),
 :deep(.upload-list > .scroll-container .item-container.item-paused:before),
 :deep(.upload-list > .scroll-container .item-container.item-paused:after) {
-    -webkit-animation: twinkle 3s ease-in-out forwards infinite;
-    -moz-animation: twinkle 3s ease-in-out forwards infinite;
-    -ms-animation: twinkle 3s ease-in-out forwards infinite;
-    animation: twinkle 3s ease-in-out forwards infinite;
+  -webkit-animation: twinkle 3s ease-in-out forwards infinite;
+  -moz-animation: twinkle 3s ease-in-out forwards infinite;
+  -ms-animation: twinkle 3s ease-in-out forwards infinite;
+  animation: twinkle 3s ease-in-out forwards infinite;
 }
 
 :deep(.independent > .item-container.item-error:before),
@@ -134,10 +150,10 @@
 :deep(.independent > .scroll-container .item-container.item-error:after),
 :deep(.upload-list > .scroll-container .item-container.item-error:before),
 :deep(.upload-list > .scroll-container .item-container.item-error:after) {
-    -webkit-animation: twinkle 3s ease-in-out forwards infinite;
-    -moz-animation: twinkle 3s ease-in-out forwards infinite;
-    -ms-animation: twinkle 3s ease-in-out forwards infinite;
-    animation: twinkle 3s ease-in-out forwards infinite;
+  -webkit-animation: twinkle 3s ease-in-out forwards infinite;
+  -moz-animation: twinkle 3s ease-in-out forwards infinite;
+  -ms-animation: twinkle 3s ease-in-out forwards infinite;
+  animation: twinkle 3s ease-in-out forwards infinite;
 }
 
 :deep(.independent > .item-container.item-dragging:before),
@@ -148,133 +164,129 @@
 :deep(.independent > .scroll-container .item-container.item-dragging:after),
 :deep(.upload-list > .scroll-container .item-container.item-dragging:before),
 :deep(.upload-list > .scroll-container .item-container.item-dragging:after) {
-    -webkit-animation: twinkle 3s ease-in-out forwards infinite;
-    -moz-animation: twinkle 3s ease-in-out forwards infinite;
-    -ms-animation: twinkle 3s ease-in-out forwards infinite;
-    animation: twinkle 3s ease-in-out forwards infinite;
+  -webkit-animation: twinkle 3s ease-in-out forwards infinite;
+  -moz-animation: twinkle 3s ease-in-out forwards infinite;
+  -ms-animation: twinkle 3s ease-in-out forwards infinite;
+  animation: twinkle 3s ease-in-out forwards infinite;
 }
 
 :deep(.independent > .item-container.item-ready-drag),
 :deep(.upload-list > .item-container.item-ready-drag),
 :deep(.independent > .scroll-container .item-container.item-ready-drag),
 :deep(.upload-list > .scroll-container .item-container.item-ready-drag) {
-    -webkit-animation: dargShake 1.5s ease 1,
-    dargExpand 1.5s ease forwards 1;
-    -moz-animation: dargShake 1.5s ease 1,
-    dargExpand 1.5s ease forwards 1;
-    -ms-animation: dargShake 1.5s ease 1,
-    dargExpand 1.5s ease forwards 1;
-    animation: dargShake 1.5s ease 1,
-    dargExpand 1.5s ease forwards 1;
+  -webkit-animation: dargShake 1.5s ease 1, dargExpand 1.5s ease forwards 1;
+  -moz-animation: dargShake 1.5s ease 1, dargExpand 1.5s ease forwards 1;
+  -ms-animation: dargShake 1.5s ease 1, dargExpand 1.5s ease forwards 1;
+  animation: dargShake 1.5s ease 1, dargExpand 1.5s ease forwards 1;
 }
 
 @keyframes dargShake {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    100% {
-        transform: scale(0.8);
-    }
+  100% {
+    transform: scale(0.8);
+  }
 }
 
 @-webkit-keyframes dargShake {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 
-    100% {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
-    }
+  100% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
 
 @-moz-keyframes dargShake {
-    0% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
 
-    100% {
-        -moz-transform: scale(0.8);
-        transform: scale(0.8);
-    }
+  100% {
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
 
 @-ms-keyframes dargShake {
-    0% {
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
 
-    100% {
-        -ms-transform: scale(0.8);
-        transform: scale(0.8);
-    }
+  100% {
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
 
 @keyframes twinkle {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    50% {
-        transform: scale(0.9);
-    }
+  50% {
+    transform: scale(0.9);
+  }
 
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @-webkit-keyframes twinkle {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 
-    50% {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
-    }
+  50% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 
-    100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
 
 @-moz-keyframes twinkle {
-    0% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
 
-    50% {
-        -moz-transform: scale(0.9);
-        transform: scale(0.9);
-    }
+  50% {
+    -moz-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 
-    100% {
-        -moz-transform: scale(1);
-        transform: scale(1);
-    }
+  100% {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
 }
 
 @-ms-keyframes twinkle {
-    0% {
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
+  0% {
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
 
-    50% {
-        -ms-transform: scale(0.9);
-        transform: scale(0.9);
-    }
+  50% {
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 
-    100% {
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
+  100% {
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
 }

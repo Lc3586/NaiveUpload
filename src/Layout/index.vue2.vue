@@ -13,14 +13,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ShallowRef, shallowRef } from "vue-demi";
+import { defineComponent } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
-import Card from "../Layout/Card/index.vue2.vue";
-import Detailedly from "../Layout/Detailedly/index.vue2.vue";
+import CardIndex from "../Layout/Card/index.vue2.vue";
+import DetailedlyIndex from "../Layout/Detailedly/index.vue2.vue";
 import { Layout } from "../Model/Layout";
 
 export default defineComponent({
   name: "LayoutIndex",
+  components: {
+    CardIndex,
+    DetailedlyIndex,
+  },
   inject: [
     /**
      * 注入文件上传工具实例
@@ -49,7 +53,7 @@ export default defineComponent({
         /**
          * 当前的主题组件
          */
-        currentThemeIndex: null as ShallowRef<any> | null,
+        currentThemeIndex: null as string | null,
       },
     };
   },
@@ -58,10 +62,10 @@ export default defineComponent({
       this.renderData.loading = true;
       switch (layout) {
         case Layout.卡片:
-          this.renderData.currentThemeIndex = shallowRef(Card);
+          this.renderData.currentThemeIndex = "CardIndex";
           break;
         case Layout.清单:
-          this.renderData.currentThemeIndex = shallowRef(Detailedly);
+          this.renderData.currentThemeIndex = "DetailedlyIndex";
           break;
       }
       this.renderData.loading = false;

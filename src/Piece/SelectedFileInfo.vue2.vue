@@ -6,7 +6,7 @@
     v-on:mouseleave="mouseLeave"
     v-on:mousedown="mouseDown"
     v-on:mouseup="mouseUp"
-    :ref="setContainerRef"
+    ref="containerRef"
   >
     <div v-if="!selectedFile?.canceled" class="item-body">
       <div class="item-image">
@@ -22,7 +22,7 @@
           class="upload-icon icon-rename"
           title="重命名"
           v-on:click="rename()"
-          v-if="renameEnable && uploadInstance.getSettings().readonly"
+          v-if="renameEnable && !uploadInstance.getSettings().readonly"
         ></span>
         <span
           class="upload-icon icon-view"
@@ -40,7 +40,7 @@
           class="upload-icon icon-remove"
           title="删除"
           v-on:click="remove()"
-          v-if="uploadInstance.getSettings().readonly"
+          v-if="!uploadInstance.getSettings().readonly"
         ></span>
       </span>
 
@@ -64,12 +64,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  ComponentPublicInstance,
-  reactive,
-} from "vue-demi";
+import { defineComponent, PropType } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
@@ -80,13 +75,6 @@ export default defineComponent({
    * 组件属性
    */
   props: {
-    /**
-     *
-     */
-    key: {
-      type: Number,
-      require: true,
-    },
     /**
      * 选择的文件
      */
@@ -213,7 +201,7 @@ export default defineComponent({
      */
     loadingShow(): boolean {
       return (
-        this.renderData.rename.active &&
+        !this.renderData.rename.active &&
         (this.selectedFile!.checking || this.selectedFile!.uploading)
       );
     },
@@ -310,25 +298,22 @@ export default defineComponent({
     };
   },
   created() {
+    //设置文件选择框引用对象
+    this.$nextTick(() => {
+      this.$emit("setContainerRef", <HTMLDivElement>this.$refs.containerRef);
+    });
+
     this.uploadInstance.getSettings().debug
       ? console.debug("Piece: Selected File Info Component(vue2) 已加载")
       : !1;
   },
   methods: {
     /**
-     * 设置文件选择框引用对象
-     *
-     * @param el 引用对象
-     */
-    setContainerRef(el: Element | ComponentPublicInstance | null) {
-      el ? this.$emit("setContainerRef", el as HTMLDivElement) : !1;
-    },
-    /**
      * 设置重命名输入框引用对象
      *
      * @param el 引用对象
      */
-    setRenameInputRef(el: Element | ComponentPublicInstance | null) {
+    setRenameInputRef(el: HTMLInputElement | null) {
       if (el) this.renderData.renameInputRef = el as HTMLInputElement;
     },
     /**

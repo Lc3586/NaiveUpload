@@ -1,7 +1,7 @@
 <template>
   <layout-index>
     <template
-      v-if="uploadInstance.getSettings().readonly"
+      v-if="!uploadInstance.getSettings().readonly"
       v-slot:uploadContainer
     >
       <drop-file-input class="upload-box-container">
@@ -23,14 +23,14 @@
     <template v-slot:listContainer>
       <div
         class="scroll-container pretty-scrollbar"
-        :ref="setListRef"
+        ref="listContainerRef"
         v-on:mouseenter="renderData.scrollLock = true"
         v-on:mouseleave="renderData.scrollLock = false"
       >
-        <TransitionGroup name="fade">
+        <TransitionGroup tag="div" name="fade">
           <selected-file-info
-            v-for="sortKey in uploadInstance.getSelectedFileSortMap().size"
-            :key="uploadInstance.getSelectedFileSortMap().get(sortKey) ?? -1"
+            v-for="sortKey in renderData.selectedFileSortMapSize"
+            v-bind:key="uploadInstance.getSelectedFileSortMap().get(sortKey)"
             :selectedFile="uploadInstance.getSelectedFile(sortKey)"
             :readyDrag="renderData.readyDraggingSortKey === sortKey"
             :startDrag="renderData.currentDraggingSortKey !== null"
@@ -89,6 +89,20 @@ export default defineComponent({
     uploadInstance(): NaiveUpload {
       return <NaiveUpload>(<any>this).upload();
     },
+    /**
+     * 列表容器引用对象
+     */
+    listContainerRef(): HTMLDivElement {
+      return <HTMLDivElement>this.$refs.listContainerRef;
+    },
+    // /**
+    //  *
+    //  */
+    // selectedFileSortMapSize(): number {
+    //   console.warn(this.uploadInstance.getSelectedFileSortMap());
+    //   console.warn(this.renderData.selectedFileSortMap);
+    //   return this.renderData.selectedFileSortMap.size;
+    // },
   },
   /**
    * 渲染数据
@@ -122,11 +136,6 @@ export default defineComponent({
         errors: [] as string[],
 
         /**
-         * 列表容器引用对象
-         */
-        listContainerRef: null as HTMLDivElement | null,
-
-        /**
          * 容器引用对象集合
          */
         containerRefMap: new Map<number, HTMLDivElement>(),
@@ -150,6 +159,7 @@ export default defineComponent({
            */
           draggingHelper: null as DraggingHelper | null,
         },
+        selectedFileSortMapSize: 0 as number,
       },
     };
   },
@@ -185,16 +195,20 @@ export default defineComponent({
         if (!container) return;
 
         //列表容器滚动至当前正在处理中的文件之处
-        if (this.renderData.listContainerRef)
-          this.renderData.listContainerRef.scrollTop =
-            container.offsetTop -
-            this.renderData.listContainerRef.offsetTop -
-            20;
+        if (this.listContainerRef)
+          this.listContainerRef.scrollTop =
+            container.offsetTop - this.listContainerRef.offsetTop - 20;
       });
     };
 
     //注册选择的文件集合变更事件
     this.uploadInstance.registerSelectedFileListChanged(scroll);
+    //注册选择的文件集合变更事件
+    this.uploadInstance.registerSelectedFileSortMapChanged(
+      (sortMap: Map<number, number>) => {
+        this.renderData.selectedFileSortMapSize = sortMap.size;
+      }
+    );
 
     const alertError = (error: Error) => {
       this.renderData.errors.push(error.message);
@@ -213,22 +227,13 @@ export default defineComponent({
   },
   methods: {
     /**
-     * 设置列表引用对象
-     *
-     * @param el 引用对象
-     */
-    setListRef(el: Element | ComponentPublicInstance | null) {
-      el ? (this.renderData.listContainerRef = el as HTMLDivElement) : !1;
-    },
-
-    /**
      * 设置文件选择框引用对象
      *
      * @param sortKey
      * @param el 引用对象
      */
     setContainerRef(sortKey: number, el: HTMLDivElement) {
-      if (!this.renderData.listContainerRef) return;
+      if (!this.listContainerRef) return;
 
       this.renderData.containerRefMap.set(sortKey, el);
     },
@@ -310,12 +315,12 @@ export default defineComponent({
         this.renderData.readyDraggingSortKey = sortKey;
 
         this.renderData.drag4sort.startTick = setTimeout(() => {
-          if (!this.renderData.listContainerRef) return;
+          if (!this.listContainerRef) return;
           this.renderData.readyDraggingSortKey = null;
           //开始拖动
           this.renderData.currentDraggingSortKey = sortKey;
           this.renderData.drag4sort.draggingHelper = DraggingHelper.getInstance(
-            this.renderData.listContainerRef as HTMLElement,
+            this.listContainerRef as HTMLElement,
             this.renderData.containerRefMap.get(
               this.renderData.currentDraggingSortKey
             )!

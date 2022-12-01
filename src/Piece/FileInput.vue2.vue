@@ -8,7 +8,7 @@
       <input
         type="file"
         :multiple="(uploadInstance.getConfig().upperLimit ?? 0) > 1"
-        :ref="setFileInputRef"
+        ref="fileInputRef"
         :accept="uploadInstance.getAllowedTypes()"
         v-on:change="choseFile"
       />
@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ComponentPublicInstance } from "vue-demi";
+import { defineComponent } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 
 export default defineComponent({
-  name: "Card",
+  name: "FileInput",
   inject: [
     /**
      * 注入文件上传工具实例
@@ -38,17 +38,12 @@ export default defineComponent({
     uploadInstance(): NaiveUpload {
       return <NaiveUpload>(<any>this).upload();
     },
-  },
-  /**
-   * 渲染数据
-   */
-  data() {
-    return {
-      /**
-       * 文件选择框引用对象
-       */
-      fileInputRef: null as HTMLInputElement | null,
-    };
+    /**
+     * 文件选择框引用对象
+     */
+    fileInputRef(): HTMLInputElement {
+      return <HTMLInputElement>this.$refs.fileInputRef;
+    },
   },
   created() {
     this.uploadInstance.getSettings().debug
@@ -56,15 +51,6 @@ export default defineComponent({
       : !1;
   },
   methods: {
-    /**
-     * 设置文件选择框引用对象
-     *
-     * @param el 引用对象
-     */
-    setFileInputRef(el: Element | ComponentPublicInstance | null) {
-      if (el) this.fileInputRef = el as HTMLInputElement;
-    },
-
     /**
      * 选择文件
      *

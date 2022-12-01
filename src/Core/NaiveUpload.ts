@@ -129,6 +129,13 @@ export default class NaiveUpload {
     private selectedFileListChanged: ((files: SelectedFile[]) => void)[] = [];
 
     /**
+     * 文件排序值映射表变更后执行
+     *
+     * @param sortMap 当前的文件排序值映射表
+     */
+    private selectedFileSortMapChanged: ((sortMap: Map<number, number>) => void)[] = [];
+
+    /**
      * 提示异常
      *
      * @param error 异常
@@ -221,6 +228,21 @@ export default class NaiveUpload {
                 this.selectedFileListChanged?.forEach(x => x(this.getSelectedFileList(true)));
             },
             { deep: true });
+
+        // //文件排序值映射表变更
+        // watch(() => this.selectedFileSortMap,
+        //     async (current, last) => {
+        //         console.warn(this.selectedFileSortMap);
+        //         this.selectedFileSortMapChanged?.forEach(x => x(this.getSelectedFileSortMap()));
+        //     },
+        //     { deep: true });
+    }
+
+    /**
+     * 文件排序值映射表变更
+     */
+    private selectedFileSortMapChangedTrigger() {
+        this.selectedFileSortMapChanged?.forEach(x => x(this.getSelectedFileSortMap()));
     }
 
     /**
@@ -247,6 +269,7 @@ export default class NaiveUpload {
             this.selectedFileList.push(newFile);
 
             this.selectedFileSortMap.set(this.selectedFileSortMap.size + 1, this.selectedFileList.length - 1);
+            this.selectedFileSortMapChangedTrigger();
 
             this.handleFile(this.selectedFileList.length - 1);
 
@@ -367,6 +390,7 @@ export default class NaiveUpload {
                 this.selectedFileList.push(selectedFile);
 
                 this.selectedFileSortMap.set(this.selectedFileSortMap.size + 1, this.selectedFileList.length - 1);
+                this.selectedFileSortMapChangedTrigger();
 
                 this.settings.debug ? console.debug('已添加历史文件', id, Object.assign({}, rawFile)) : !1;
 
@@ -1336,6 +1360,7 @@ export default class NaiveUpload {
         }
 
         this.selectedFileSortMap.set(targetIndex, current);
+        this.selectedFileSortMapChangedTrigger();
     }
 
     /**
@@ -1363,6 +1388,15 @@ export default class NaiveUpload {
      */
     public registerSelectedFileListChanged(this: NaiveUpload, even: (files: SelectedFile[]) => void) {
         this.selectedFileListChanged.push(even);
+    }
+
+    /**
+     * 注册选择的文件排序值映射表变更后执行的函数
+     *
+     * @param even
+     */
+    public registerSelectedFileSortMapChanged(this: NaiveUpload, even: (sortMap: Map<number, number>) => void) {
+        this.selectedFileSortMapChanged.push(even);
     }
 
     /**
@@ -1506,10 +1540,35 @@ background: -o-conic-gradient(${color} ${value1}%, transparent ${value2}%)  repe
 background: -webkit-conic-gradient(${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;`;
             case 'linear':
                 return `
-background: linear-gradient(left, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
-background: -moz-linear-gradient(left, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
-background: -o-linear-gradient(left, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
-background: -webkit-linear-gradient(left, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;`;
+background: linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
+background: -moz-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
+background: -o-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;
+background: -webkit-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%;`;
+        }
+    }
+
+    /**
+     * 获取渐变色样式
+     * @param {string} type 类型 conic锥形渐变,linear线性渐变
+     * @param {string} color 颜色
+     * @param {number} value1 值1
+     * @param {number} value2 值2
+     */
+    public getGradientStyleObject(type: string, color: string, value1: number, value2: number): Array<Record<string, string>> {
+        switch (type) {
+            default:
+            case 'conic':
+                return [
+                    { 'background': `conic-gradient(${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-moz-conic-gradient(${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-o-conic-gradient(${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-webkit-conic-gradient(${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` }];
+            case 'linear':
+                return [
+                    { 'background': `linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-moz-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-o-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` },
+                    { 'background': `-webkit-linear-gradient(to right, ${color} ${value1}%, transparent ${value2}%)  repeat scroll 0% 0%` }];
         }
     }
 }

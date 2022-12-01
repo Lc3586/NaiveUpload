@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ShallowRef, shallowRef } from "vue-demi";
+import { defineComponent, PropType } from "vue-demi";
 import Settings from "./Model/Settings";
 import { IApiService } from "./Core/IApiService";
 import SingleUpload from "./Piece/SingleUpload.vue2.vue";
@@ -37,7 +37,7 @@ export default defineComponent({
      * 已上传的文件Id集合
      * <p>可选</p>
      */
-    modelValue: {
+    value: {
       type: Array<string>,
       default: () => {
         return [] as string[];
@@ -88,7 +88,7 @@ export default defineComponent({
      * @param e
      * @param ids 用户文件信息Id集合
      */
-    "update:modelValue",
+    "change",
 
     /**
      * 设置组件开放的接口
@@ -170,7 +170,7 @@ export default defineComponent({
         /**
          * 当前的上传组件
          */
-        currentUpload: null as ShallowRef<any> | null,
+        currentUpload: null as string | null,
 
         /**
          * 文件上传工具实例
@@ -206,12 +206,10 @@ export default defineComponent({
             ? console.debug("BeforeCheck => ", Object.assign({}, file))
             : !1;
 
-          let flagResolve: (flag: boolean) => void;
-          this.$emit("beforeCheck", file, (flag?: boolean) => {
-            flagResolve(flag ?? true);
-          });
           return new Promise<boolean>((resolve) => {
-            flagResolve = resolve;
+            this.$emit("beforeCheck", file, (flag?: boolean) => {
+              resolve(flag ?? true);
+            });
           });
         });
         instance.setupAfterCheck(async (rawFile: RawFile) => {
@@ -233,15 +231,19 @@ export default defineComponent({
             ? console.debug("AfterUpload => ", Object.assign({}, rawFile))
             : !1;
 
+          this.value.length = 0;
+          instance!
+            .getUserFileInfoList(true)
+            .forEach((x) => this.value.push(x.id));
           this.$emit(
-            "update:modelValue",
+            "change",
             instance!.getUserFileInfoList(true).map((x) => x.id)
           );
 
           instance!.getSettings().debug
             ? console.debug(
                 "ModelValue UserFileIdList => ",
-                Object.assign({}, this.modelValue)
+                Object.assign({}, this.value)
               )
             : !1;
 
@@ -269,8 +271,8 @@ export default defineComponent({
           this.renderData.loading = true;
           //根据文件数量上限配置相应的上传组件
           if (instance!.getConfig().upperLimit == 1)
-            this.renderData.currentUpload = shallowRef(SingleUpload);
-          else this.renderData.currentUpload = shallowRef(MultipleUpload);
+            this.renderData.currentUpload = "SingleUpload";
+          else this.renderData.currentUpload = "MultipleUpload";
 
           this.renderData.loading = false;
           instance!.getSettings().debug
@@ -288,8 +290,8 @@ export default defineComponent({
         this.$emit("setOpenApi", instance.getOpenApi());
 
         //添加之前已上传过的文件
-        if (this.modelValue && this.modelValue.length > 0) {
-          this.modelValue.forEach(async (id) => {
+        if (this.value && this.value.length > 0) {
+          this.value.forEach(async (id) => {
             await instance.appendById(id);
           });
         }

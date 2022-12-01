@@ -95,6 +95,12 @@ export default class NaiveUpload {
      */
     private selectedFileListChanged;
     /**
+     * 文件排序值映射表变更后执行
+     *
+     * @param sortMap 当前的文件排序值映射表
+     */
+    private selectedFileSortMapChanged;
+    /**
      * 提示异常
      *
      * @param error 异常
@@ -147,6 +153,10 @@ export default class NaiveUpload {
      * 监听配置的变化
      */
     private watchSettings;
+    /**
+     * 文件排序值映射表变更
+     */
+    private selectedFileSortMapChangedTrigger;
     /**
      * 追加文件
      *
@@ -389,11 +399,17 @@ export default class NaiveUpload {
      */
     registerConfigChanged(this: NaiveUpload, even: (config: IConfig) => void): void;
     /**
-     * 注册选择的文件集合变更后执行的函数
+     * 注册选择的文件排序值映射表变更后执行的函数
      *
      * @param even
      */
     registerSelectedFileListChanged(this: NaiveUpload, even: (files: SelectedFile[]) => void): void;
+    /**
+     * 注册选择的文件集合变更后执行的函数
+     *
+     * @param even
+     */
+    registerSelectedFileSortMapChanged(this: NaiveUpload, even: (sortMap: Map<number, number>) => void): void;
     /**
      * 注册提示异常的函数
      *
@@ -476,4 +492,12 @@ export default class NaiveUpload {
      * @param {number} value2 值2
      */
     getGradientStyle(type: string, color: string, value1: number, value2: number): string;
+    /**
+     * 获取渐变色样式
+     * @param {string} type 类型 conic锥形渐变,linear线性渐变
+     * @param {string} color 颜色
+     * @param {number} value1 值1
+     * @param {number} value2 值2
+     */
+    getGradientStyleObject(type: string, color: string, value1: number, value2: number): Array<Record<string, string>>;
 }

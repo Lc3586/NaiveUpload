@@ -5,11 +5,11 @@
  * @date 2022-09-27
  */
 
-/*文件列表*/
-.independent,
-.upload-list {
+// /*文件列表*/
+// .independent,
+// .upload-list {
 
-}
+// }
 
 :deep(.upload-list > .scroll-container) {
     zoom: 1;
@@ -81,11 +81,11 @@
     padding-right: 20px;
 }
 
-:deep(.independent > .item-container .item-rename-input),
-:deep(.upload-list > .item-container .item-rename-input),
-:deep(.independent > .scroll-container .item-container .item-rename-input),
-:deep(.upload-list > .scroll-container .item-container .item-rename-input) {
-}
+// :deep(.independent > .item-container .item-rename-input),
+// :deep(.upload-list > .item-container .item-rename-input),
+// :deep(.independent > .scroll-container .item-container .item-rename-input),
+// :deep(.upload-list > .scroll-container .item-container .item-rename-input) {
+// }
 
 :deep(.independent > .item-container .item-loading),
 :deep(.upload-list > .item-container .item-loading),
