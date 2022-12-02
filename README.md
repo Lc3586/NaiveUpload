@@ -115,7 +115,8 @@ const NaiveUploadPlugin = require('naive-upload');
 you can try importing the module package directly）:
 
 ```js
-const NaiveUploadPlugin = require('naive-upload/dist/node/naive-upload.min.cjs'); // node commonJS bundle (ES2017)
+// 如果是vue2环境，替换链接中的vue3为vue2即可
+const NaiveUploadPlugin = require('naive-upload/dist/vue3/node/naive-upload.min.cjs'); // node commonJS bundle (ES2017)
 ```
 
 ### 静态资源引入 CDN
@@ -123,13 +124,17 @@ const NaiveUploadPlugin = require('naive-upload/dist/node/naive-upload.min.cjs')
 使用jsDelivr链接（支持ES5/UMD/浏览器模块）（Using jsDelivr CDN (ES5 UMD browser module)）:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/naive-upload@latest/dist/naive-upload.min.js"></script>
+<!-- 如果是vue2环境，替换链接中的vue3为vue2即可 -->
+<script src="https://cdn.jsdelivr.net/npm/naive-upload@latest/dist/vue3/naive-upload.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/naive-upload@latest/dist/vue3/style.css">
 ```
 
 使用unpkg链接（Using unpkg CDN）:
 
 ```html
-<script src="https://unpkg.com/naive-upload@latest/dist/naive-upload.min.js"></script>
+<!-- 如果是vue2环境，替换链接中的vue3为vue2即可 -->
+<script src="https://unpkg.com/naive-upload@latest/dist/vue3/naive-upload.min.js"></script>
+<link href="https://unpkg.com/naive-upload@latest/dist/vue3/style.css">
 ```
 
 ## 使用示例 Example
