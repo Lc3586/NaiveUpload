@@ -372,7 +372,7 @@
       <el-col :span="20" class="content">
         <simple-tag-list
           v-model="preFileIds"
-          :name="'添加已上传的文件ID'"
+          :name="'已上传的文件ID'"
         ></simple-tag-list>
       </el-col>
     </el-row>
