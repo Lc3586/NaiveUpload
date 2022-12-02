@@ -327,6 +327,7 @@
                   :step="100"
                   :max="5000"
                   :show-tooltip="false"
+                  :disabled="true"
                 ></el-slider>
               </el-col>
               <el-col :span="10" class="content">
@@ -340,6 +341,7 @@
                   :step="100"
                   :max="5000"
                   :show-tooltip="false"
+                  :disabled="true"
                 ></el-slider>
               </el-col>
             </el-row>
@@ -381,6 +383,7 @@
       <el-col :span="4" class="label">组件预览</el-col>
       <el-col :span="20" class="content">
         <naive-upload
+          v-if="show"
           v-model="fileIds"
           :settings="settings"
           :api-service="apiService"

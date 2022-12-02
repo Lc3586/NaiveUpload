@@ -1,6 +1,6 @@
 import { IDetail } from "./IDetail";
 import { ITreeList } from "./ITreeList";
-import { IConfig } from "../../src/export.base";
+import { IConfig } from "@/export";
 /**
  * 文件上传配置信息服务
  *

@@ -1,4 +1,4 @@
-import { IConfig } from "../../src/export";
+import { IConfig } from "@/export";
 /**
  * 文件上传配置业务模型
  * <p>详情数据</p>

@@ -1,4 +1,4 @@
-import { IConfig } from "../../src/export.vue3";
+import { IConfig } from "@/export";
 
 
 /**

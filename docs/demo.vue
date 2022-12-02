@@ -297,6 +297,7 @@
                   :step="100"
                   :max="5000"
                   :show-tooltip="false"
+                  :disabled="true"
                 ></el-slider>
               </el-col>
               <el-col :span="10" class="content">
@@ -310,6 +311,7 @@
                   :step="100"
                   :max="5000"
                   :show-tooltip="false"
+                  :disabled="true"
                 ></el-slider>
               </el-col>
             </el-row>
@@ -331,9 +333,30 @@
     </el-row>
 
     <el-row :gutter="20">
+      <el-col :span="4" class="label">已上传的文件ID</el-col>
+      <el-col :span="20" class="content">
+        <simple-tag-list
+          v-model="renderData.fileIds"
+          :readonly="true"
+        ></simple-tag-list>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
+      <el-col :span="4" class="label">设置初始值</el-col>
+      <el-col :span="20" class="content">
+        <simple-tag-list
+          v-model="renderData.preFileIds"
+          :name="'已上传的文件ID'"
+        ></simple-tag-list>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
       <el-col :span="4" class="label">组件预览</el-col>
       <el-col :span="20" class="content">
         <naive-upload
+          v-if="renderData.show"
           v-model="renderData.fileIds"
           :settings="settings"
           :api-service="apiService"
@@ -350,7 +373,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive } from "vue-demi";
+import { reactive, watch, getCurrentInstance } from "vue-demi";
 //局部引用示例
 // import { NaiveUpload } from "../src/export.vue3";
 import NaiveApiService from "./NaiveApiService";
@@ -358,13 +381,15 @@ import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
 import { IDetail as UploadConfigDetail } from "./fileUploadConfig/IDetail";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { IOpenApi, RawFile, Settings, UploadError } from "@/export.base";
+import { IOpenApi, RawFile, Settings, UploadError } from "@/export";
 
 /**
  * 渲染数据
  */
 let renderData = reactive({
   fileIds: [] as string[],
+  preFileIds: [] as string[],
+  show: true,
   config: {
     loading: true,
     props: {
@@ -383,6 +408,26 @@ let renderData = reactive({
   },
   activeConfigName: "Functional",
 });
+
+// 获取vue实例
+const { proxy } = getCurrentInstance() as any;
+
+//监听已上传的文件Id集合变更
+watch(
+  () => renderData.preFileIds,
+  async (current, last) => {
+    if (current.length == 0) return;
+
+    renderData.show = false;
+    renderData.fileIds.length = 0;
+    for (const item of current) {
+      renderData.fileIds.push(item);
+    }
+
+    proxy.$nextTick(() => (renderData.show = true));
+  },
+  { deep: true }
+);
 
 /**
  * 上传组件的设置

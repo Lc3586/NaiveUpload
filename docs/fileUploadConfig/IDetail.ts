@@ -1,4 +1,4 @@
-import { IConfig } from "../../src/export";
+import { IConfig } from "@/export";
 
 
 /**

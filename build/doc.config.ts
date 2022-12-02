@@ -24,7 +24,7 @@ export default defineConfig({
         })
     ],
     build: {
-        outDir: 'dist',
+        outDir: 'dist/doc',
         rollupOptions: {
             external: [
 
