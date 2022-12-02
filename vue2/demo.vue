@@ -4,7 +4,7 @@
       <el-col :span="4" class="label">组件配置</el-col>
       <el-col :span="20" class="content">
         <el-collapse>
-          <el-collapse-item title="功能方面" name="Functional">
+          <el-collapse-item title="核心" name="Functional">
             <el-row :gutter="20">
               <el-col :span="2" class="label">上传配置</el-col>
               <el-col :span="20" class="content">
@@ -51,118 +51,128 @@
                             placement="right"
                             :width="400"
                             trigger="click"
+                            :value="config.detail.current == data.id"
                           >
                             <template #reference>
                               <el-link
                                 class="button"
                                 type="success"
                                 @click="loadConfigDetail(node, data)"
+                                :ref="`detailLink_${data.id}`"
                                 >详情</el-link
                               >
                             </template>
 
-                            <span v-show="config.detail.error !== null">
-                              <span>{{ config.detail.error }}</span>
-                            </span>
-
-                            <span
-                              v-if="config.detail.dataMap.has(data.id)"
-                              v-loading="config.detail.loadingMap.get(data.id)"
-                              class="config-detail"
+                            <div
+                              v-loading="
+                                config.detail.loadings.indexOf(data.id) >= 0
+                              "
+                              class="config-detail-container"
                             >
-                              <el-descriptions title="基础信息" :column="1">
-                                <el-descriptions-item label="名称">{{
-                                  getConfigDetail(data).name
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="显示名称">{{
-                                  getConfigDetail(data).displayName
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="编码">{{
-                                  getConfigDetail(data).code
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="启用">{{
-                                  getConfigDetail(data).enable ? "是" : "否"
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="说明">{{
-                                  getConfigDetail(data).explain
-                                }}</el-descriptions-item>
-                              </el-descriptions>
-                              <el-descriptions title="配置信息" :column="1">
-                                <el-descriptions-item label="公共配置">{{
-                                  getConfigDetail(data).public_ ? "是" : "否"
-                                }}</el-descriptions-item>
-                                <el-descriptions-item
-                                  label="级联引用编码"
-                                  v-if="getConfigDetail(data).referenceTree"
-                                  >{{
-                                    getConfigDetail(data).referenceCode
-                                  }}</el-descriptions-item
-                                >
-                                <el-descriptions-item label="文件数量下限">{{
-                                  getConfigDetail(data).lowerLimit
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="文件数量上限">{{
-                                  getConfigDetail(data).upperLimit
-                                }}</el-descriptions-item>
-                                <el-descriptions-item
-                                  label="单个文件大小下限（单位 KB）"
-                                  >{{
-                                    getConfigDetail(data).lowerSingleSize
-                                  }}</el-descriptions-item
-                                >
-                                <el-descriptions-item
-                                  label="单个文件大小上限（单位 KB）"
-                                  >{{
-                                    getConfigDetail(data).upperSingleSize
-                                  }}</el-descriptions-item
-                                >
-                                <el-descriptions-item
-                                  label="所有文件整体大小下限（单位 KB）"
-                                  >{{
-                                    getConfigDetail(data).lowerTotalSize
-                                  }}</el-descriptions-item
-                                >
-                                <el-descriptions-item
-                                  label="所有文件整体大小上限（单位 KB）"
-                                  >{{
-                                    getConfigDetail(data).upperTotalSize
-                                  }}</el-descriptions-item
-                                >
-                                <el-descriptions-item label="允许的MIME类型">
-                                  <simple-tag-list
-                                    v-model="
-                                      getConfigDetail(data).allowedTypeList
-                                    "
-                                    :readonly="true"
-                                  ></simple-tag-list>
-                                </el-descriptions-item>
-                                <el-descriptions-item label="禁止的MIME类型">
-                                  <simple-tag-list
-                                    v-model="
-                                      getConfigDetail(data).prohibitedTypeList
-                                    "
-                                    :readonly="true"
-                                  ></simple-tag-list>
-                                </el-descriptions-item>
-                              </el-descriptions>
-                              <el-descriptions title="其他信息" :column="1">
-                                <el-descriptions-item label="备注">{{
-                                  getConfigDetail(data).remark
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="创建时间">{{
-                                  getConfigDetail(data).createTime
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="创建者">{{
-                                  getConfigDetail(data).createBy
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="更新时间">{{
-                                  getConfigDetail(data).updateTime
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="更新者">{{
-                                  getConfigDetail(data).updateBy
-                                }}</el-descriptions-item>
-                              </el-descriptions>
-                            </span>
+                              <div v-show="config.detail.error !== null">
+                                <span>{{ config.detail.error }}</span>
+                              </div>
+                              <div
+                                v-if="
+                                  config.detail.current == data.id &&
+                                  config.detail.loadings.indexOf(data.id) < 0
+                                "
+                                class="config-detail"
+                              >
+                                <el-descriptions title="基础信息" :column="1">
+                                  <el-descriptions-item label="名称">{{
+                                    getConfigDetail(data).name
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="显示名称">{{
+                                    getConfigDetail(data).displayName
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="编码">{{
+                                    getConfigDetail(data).code
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="启用">{{
+                                    getConfigDetail(data).enable ? "是" : "否"
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="说明">{{
+                                    getConfigDetail(data).explain
+                                  }}</el-descriptions-item>
+                                </el-descriptions>
+                                <el-descriptions title="配置信息" :column="1">
+                                  <el-descriptions-item label="公共配置">{{
+                                    getConfigDetail(data).public_ ? "是" : "否"
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item
+                                    label="级联引用编码"
+                                    v-if="getConfigDetail(data).referenceTree"
+                                    >{{
+                                      getConfigDetail(data).referenceCode
+                                    }}</el-descriptions-item
+                                  >
+                                  <el-descriptions-item label="文件数量下限">{{
+                                    getConfigDetail(data).lowerLimit
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="文件数量上限">{{
+                                    getConfigDetail(data).upperLimit
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item
+                                    label="单个文件大小下限（单位 KB）"
+                                    >{{
+                                      getConfigDetail(data).lowerSingleSize
+                                    }}</el-descriptions-item
+                                  >
+                                  <el-descriptions-item
+                                    label="单个文件大小上限（单位 KB）"
+                                    >{{
+                                      getConfigDetail(data).upperSingleSize
+                                    }}</el-descriptions-item
+                                  >
+                                  <el-descriptions-item
+                                    label="所有文件整体大小下限（单位 KB）"
+                                    >{{
+                                      getConfigDetail(data).lowerTotalSize
+                                    }}</el-descriptions-item
+                                  >
+                                  <el-descriptions-item
+                                    label="所有文件整体大小上限（单位 KB）"
+                                    >{{
+                                      getConfigDetail(data).upperTotalSize
+                                    }}</el-descriptions-item
+                                  >
+                                  <el-descriptions-item label="允许的MIME类型">
+                                    <simple-tag-list
+                                      v-model="
+                                        getConfigDetail(data).allowedTypeList
+                                      "
+                                      :readonly="true"
+                                    ></simple-tag-list>
+                                  </el-descriptions-item>
+                                  <el-descriptions-item label="禁止的MIME类型">
+                                    <simple-tag-list
+                                      v-model="
+                                        getConfigDetail(data).prohibitedTypeList
+                                      "
+                                      :readonly="true"
+                                    ></simple-tag-list>
+                                  </el-descriptions-item>
+                                </el-descriptions>
+                                <el-descriptions title="其他信息" :column="1">
+                                  <el-descriptions-item label="备注">{{
+                                    getConfigDetail(data).remark
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="创建时间">{{
+                                    getConfigDetail(data).createTime
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="创建者">{{
+                                    getConfigDetail(data).createBy
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="更新时间">{{
+                                    getConfigDetail(data).updateTime
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="更新者">{{
+                                    getConfigDetail(data).updateBy
+                                  }}</el-descriptions-item>
+                                </el-descriptions>
+                              </div>
+                            </div>
                           </el-popover>
                         </span>
                       </span>
@@ -271,7 +281,7 @@
             </el-row>
           </el-collapse-item>
 
-          <el-collapse-item title="外观方面" name="Appearance">
+          <el-collapse-item title="交互" name="Appearance">
             <el-row :gutter="20">
               <el-col :span="4" class="label">小贴士</el-col>
               <el-col :span="20" class="content">
@@ -301,6 +311,36 @@
                   "
                 >
                 </el-switch>
+              </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+              <el-col :span="4" class="label">拖动排序</el-col>
+              <el-col :span="10" class="content">
+                <span class="demonstration"
+                  >准备开始拖动的时间（{{
+                    settings.dragPreparationTime
+                  }}ms）</span
+                >
+                <el-slider
+                  v-model="settings.dragPreparationTime"
+                  :step="100"
+                  :max="5000"
+                  :show-tooltip="false"
+                ></el-slider>
+              </el-col>
+              <el-col :span="10" class="content">
+                <span class="demonstration"
+                  >拖动时变换位置的等待时间（{{
+                    settings.dragChangePositionTime
+                  }}ms）</span
+                >
+                <el-slider
+                  v-model="settings.dragChangePositionTime"
+                  :step="100"
+                  :max="5000"
+                  :show-tooltip="false"
+                ></el-slider>
               </el-col>
             </el-row>
           </el-collapse-item>
@@ -368,7 +408,8 @@ export default {
         },
         data: [],
         detail: {
-          loadingMap: new Map(),
+          loadings: [],
+          current: null,
           dataMap: new Map(),
           error: null,
         },
@@ -518,16 +559,34 @@ export default {
      * @param data 当前数据
      */
     loadConfigDetail(node, data) {
-      if (this.config.detail.loadingMap.get(data.id) === false) return;
+      if (this.config.detail.current)
+        this.$refs[`detailLink_${this.config.detail.current}`].$el.click();
 
-      this.config.detail.loadingMap.set(data.id, true);
-      FileUploadConfigService.getDetail(data.id)
+      this.config.detail.dataMap.set(data.id, {});
+      this.config.detail.current = data.id;
+      if (this.config.detail.loadings.indexOf(data.id) >= 0) {
+        if (this.config.detail.dataMap.has(data.id))
+          this.config.detail.loadings.splice(
+            this.config.detail.loadings.indexOf(data.id),
+            1
+          );
+        return;
+      }
+
+      this.config.detail.loadings.push(data.id);
+      FileUploadConfigService.detail(data.id)
         .then((result) => {
-          this.config.detail.loadingMap.set(data.id, false);
           this.config.detail.dataMap.set(data.id, result);
+          this.config.detail.loadings.splice(
+            this.config.detail.loadings.indexOf(data.id),
+            1
+          );
         })
         .catch((e) => {
-          this.config.detail.loadingMap.set(data.id, false);
+          this.config.detail.loadings.splice(
+            this.config.detail.loadings.indexOf(data.id),
+            1
+          );
           this.config.detail.error = `加载文件上传配置详情时发生异常：${e.message}`;
         });
     },
@@ -604,5 +663,9 @@ export default {
 
 .config-tree-node .tools .button {
   margin-left: 10px;
+}
+
+.config-detail-container {
+  min-height: 200px;
 }
 </style>

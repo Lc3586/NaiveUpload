@@ -24,11 +24,11 @@
 <template>
   <div>
     <el-tag
-      v-for="(item, index) in list"
+      v-for="(item, index) in value"
       :key="index"
       type="info"
       size="small"
-      :closable="!props.readonly"
+      :closable="!readonly"
       :disable-transitions="false"
       :title="item"
       @close="remove(index)"
@@ -38,26 +38,26 @@
     </el-tag>
 
     <div v-show="input.visible">
-      <div :title="'按下回车键确认添加此' + props.name">
+      <div :title="'按下回车键确认添加此' + name">
         <el-input
           v-model="input.value"
-          :placeholder="'请输入' + props.name"
+          :placeholder="'请输入' + name"
           @keyup.enter="confirm"
-          :title="'按下回车键确认添加此' + props.name"
-          :ref="setInputRef"
+          :title="'按下回车键确认添加此' + name"
+          ref="inputRef"
           clearable
         />
       </div>
     </div>
 
     <el-button
-      v-show="!input.visible && !props.readonly"
+      v-show="!input.visible && !readonly"
       @click="show"
       type="primary"
       link
       size="small"
     >
-      + 添加新{{ props.name }}
+      + 添加新{{ name }}
     </el-button>
   </div>
 </template>
@@ -65,20 +65,18 @@
 <script>
 import { ElTag, ElInput, ElButton } from "element-ui";
 
-// 数据输入组件引用对象
-let inputRef;
-
 export default {
   name: "SimpleTagList",
   props: {
     /**
      * 数据集合
      */
-    modelValue: {
+    value: {
       type: Array,
       default() {
         return [];
       },
+      require: true,
     },
     /**
      * 名称
@@ -102,16 +100,11 @@ export default {
       },
     },
   },
-  components: {},
   /**
    * 渲染数据
    */
   data() {
     return {
-      /**
-       * 数据集合
-       */
-      list: [],
       /**
        * 输入框信息
        */
@@ -127,14 +120,6 @@ export default {
       },
     };
   },
-  watch: {},
-  /**
-   * 初始化方法
-   */
-  created() {
-    //写入数据
-    this.list = props.modelValue;
-  },
   methods: {
     /**
      * 获取显示文本
@@ -146,21 +131,12 @@ export default {
     },
 
     /**
-     * 设置数据输入组件引用对象
-     *
-     * @param el 引用对象
-     */
-    setInputRef(el) {
-      inputRef = el;
-    },
-
-    /**
      * 显示新增输入框
      */
     show() {
       this.input.visible = true;
       // 输入框获取焦点
-      inputRef.focus();
+      this.$nextTick(() => this.$refs.inputRef.$refs.input.focus());
     },
 
     /**
@@ -168,10 +144,10 @@ export default {
      */
     confirm() {
       if (this.input.value) {
-        this.list.push(this.input.value);
+        this.value.push(this.input.value);
 
         // 通知数据已变更
-        this.$emit("update:modelValue", this.list);
+        this.$emit("change", this.value);
       }
 
       this.input.visible = false;
@@ -187,13 +163,14 @@ export default {
       this.list.splice(index, 1);
 
       // 通知数据已变更
-      this.$emit("update:modelValue", this.list);
+      this.$emit("change", this.value);
     },
   },
 };
 </script>
 <style scoped>
-.el-tag + .el-tag {
-  margin-left: 7px;
+.el-tag {
+  margin-left: 3px;
+  margin-right: 3px;
 }
 </style>

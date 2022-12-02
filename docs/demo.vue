@@ -4,7 +4,7 @@
       <el-col :span="4" class="label">组件配置</el-col>
       <el-col :span="20" class="content">
         <el-collapse>
-          <el-collapse-item title="功能方面" name="Functional">
+          <el-collapse-item title="核心" name="Functional">
             <el-row :gutter="20">
               <el-col :span="2" class="label">上传配置</el-col>
               <el-col :span="20" class="content">
@@ -251,7 +251,7 @@
             </el-row>
           </el-collapse-item>
 
-          <el-collapse-item title="外观方面" name="Appearance">
+          <el-collapse-item title="交互" name="Appearance">
             <el-row :gutter="20">
               <el-col :span="4" class="label">小贴士</el-col>
               <el-col :span="20" class="content">
@@ -281,6 +281,36 @@
                   "
                 >
                 </el-switch>
+              </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+              <el-col :span="4" class="label">拖动排序</el-col>
+              <el-col :span="10" class="content">
+                <span class="demonstration"
+                  >准备开始拖动的时间（{{
+                    settings.dragPreparationTime
+                  }}ms）</span
+                >
+                <el-slider
+                  v-model="settings.dragPreparationTime"
+                  :step="100"
+                  :max="5000"
+                  :show-tooltip="false"
+                ></el-slider>
+              </el-col>
+              <el-col :span="10" class="content">
+                <span class="demonstration"
+                  >拖动时变换位置的等待时间（{{
+                    settings.dragChangePositionTime
+                  }}ms）</span
+                >
+                <el-slider
+                  v-model="settings.dragChangePositionTime"
+                  :step="100"
+                  :max="5000"
+                  :show-tooltip="false"
+                ></el-slider>
               </el-col>
             </el-row>
           </el-collapse-item>
