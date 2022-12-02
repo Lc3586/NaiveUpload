@@ -10,7 +10,7 @@
 // .upload-list {
 // }
 
-::v-deep .upload-list > .scroll-container > div:first-child {
+::v-deep .upload-list > .scroll-container {
   zoom: 1;
   display: flex;
   flex-direction: row;
@@ -22,7 +22,7 @@
   align-items: center;
 }
 
-::v-deep .upload-list > .pretty-scrollbar > div:first-child {
+::v-deep .upload-list > .pretty-scrollbar {
   &::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 10px;

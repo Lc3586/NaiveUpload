@@ -10,11 +10,11 @@
 // .upload-list {
 // }
 
-div:has(.item-container) {
-  width: 100%;
-}
+// div:has(.item-container) {
+//   width: 100%;
+// }
 
-::v-deep .upload-list > .scroll-container > div:first-child {
+::v-deep .upload-list > .scroll-container {
   zoom: 1;
   display: flex;
   justify-content: flex-start;
@@ -25,7 +25,7 @@ div:has(.item-container) {
   box-sizing: border-box;
 }
 
-::v-deep .upload-list > .pretty-scrollbar > div:first-child {
+::v-deep .upload-list > .pretty-scrollbar {
   &::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 10px;

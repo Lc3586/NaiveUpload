@@ -21,44 +21,44 @@
     </template>
 
     <template v-slot:listContainer>
-      <div
-        class="scroll-container pretty-scrollbar"
+      <TransitionGroup
+        tag="div"
+        name="fade"
         ref="listContainerRef"
+        class="scroll-container pretty-scrollbar"
         v-on:mouseenter="renderData.scrollLock = true"
         v-on:mouseleave="renderData.scrollLock = false"
       >
-        <TransitionGroup tag="div" name="fade">
-          <selected-file-info
-            v-for="sortKey in renderData.selectedFileSortMapSize"
-            v-bind:key="uploadInstance.getSelectedFileSortMap().get(sortKey)"
-            :selectedFile="uploadInstance.getSelectedFile(sortKey)"
-            :readyDrag="renderData.readyDraggingSortKey === sortKey"
-            :startDrag="renderData.currentDraggingSortKey !== null"
-            :dragging="renderData.currentDraggingSortKey === sortKey"
-            :dragover="
-              renderData.lastDraggingSortKey === sortKey &&
-              renderData.currentDraggingSortKey !== sortKey
-            "
-            @setContainerRef="(el) => setContainerRef(sortKey, el)"
-            @mouseDown="(event) => containerMouseDown(sortKey, event)"
-            @mouseUp="(event) => containerMouseUp(sortKey, event)"
-            @mouseEnter="(event) => containerMouseEnter(sortKey, event)"
-            @mouseLeave="(event) => containerMouseLeave(sortKey, event)"
-            v-slot="slotProps"
-          >
-            <layout-info
-              class="item-info-container"
-              :slotProps="slotProps"
-            ></layout-info>
-          </selected-file-info>
-        </TransitionGroup>
-      </div>
+        <selected-file-info
+          v-for="sortKey in renderData.selectedFileSortMapSize"
+          v-bind:key="uploadInstance.getSelectedFileSortMap().get(sortKey)"
+          :selectedFile="uploadInstance.getSelectedFile(sortKey)"
+          :readyDrag="renderData.readyDraggingSortKey === sortKey"
+          :startDrag="renderData.currentDraggingSortKey !== null"
+          :dragging="renderData.currentDraggingSortKey === sortKey"
+          :dragover="
+            renderData.lastDraggingSortKey === sortKey &&
+            renderData.currentDraggingSortKey !== sortKey
+          "
+          @setContainerRef="(el) => setContainerRef(sortKey, el)"
+          @mouseDown="(event) => containerMouseDown(sortKey, event)"
+          @mouseUp="(event) => containerMouseUp(sortKey, event)"
+          @mouseEnter="(event) => containerMouseEnter(sortKey, event)"
+          @mouseLeave="(event) => containerMouseLeave(sortKey, event)"
+          v-slot="slotProps"
+        >
+          <layout-info
+            class="item-info-container"
+            :slotProps="slotProps"
+          ></layout-info>
+        </selected-file-info>
+      </TransitionGroup>
     </template>
   </layout-index>
 </template>
 
 <script lang="ts">
-import { defineComponent, ComponentPublicInstance } from "vue-demi";
+import { defineComponent } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import DropFileInput from "../Piece/DropFileInput.vue2.vue";
 import SelectedFileInfo from "../Piece/SelectedFileInfo.vue2.vue";
@@ -89,20 +89,6 @@ export default defineComponent({
     uploadInstance(): NaiveUpload {
       return <NaiveUpload>(<any>this).upload();
     },
-    /**
-     * 列表容器引用对象
-     */
-    listContainerRef(): HTMLDivElement {
-      return <HTMLDivElement>this.$refs.listContainerRef;
-    },
-    // /**
-    //  *
-    //  */
-    // selectedFileSortMapSize(): number {
-    //   console.warn(this.uploadInstance.getSelectedFileSortMap());
-    //   console.warn(this.renderData.selectedFileSortMap);
-    //   return this.renderData.selectedFileSortMap.size;
-    // },
   },
   /**
    * 渲染数据
@@ -164,51 +150,20 @@ export default defineComponent({
     };
   },
   created() {
-    /**
-     * 滚动列表，将正在校验和正在上传的文件显示在当前的可视区域中
-     *
-     * @param files 当前的文件集合（已排序）
-     */
-    const scroll = (files: SelectedFile[]) => {
-      if (this.renderData.scrollLock || files.length == 0) return;
-
-      //等待页面元素已渲染完成
-      this.$nextTick(() => {
-        let container: HTMLDivElement | null = null;
-
-        let findChecking = false;
-
-        for (let i = 0; i < files.length; i++) {
-          let file = files[i];
-
-          if (!findChecking && file.checking) {
-            findChecking = true;
-            container = this.renderData.containerRefMap.get(i)!;
-          }
-
-          if (file.uploading) {
-            container = this.renderData.containerRefMap.get(i)!;
-            break;
-          }
-        }
-
-        if (!container) return;
-
-        //列表容器滚动至当前正在处理中的文件之处
-        if (this.listContainerRef)
-          this.listContainerRef.scrollTop =
-            container.offsetTop - this.listContainerRef.offsetTop - 20;
-      });
-    };
-
-    //注册选择的文件集合变更事件
-    this.uploadInstance.registerSelectedFileListChanged(scroll);
+    this.uploadInstance.getSettings().debug
+      ? console.debug("Piece: Multiple Upload Component(vue2) 已加载")
+      : !1;
+  },
+  mounted() {
     //注册选择的文件集合变更事件
     this.uploadInstance.registerSelectedFileSortMapChanged(
       (sortMap: Map<number, number>) => {
         this.renderData.selectedFileSortMapSize = sortMap.size;
       }
     );
+
+    //注册选择的文件集合变更事件
+    this.uploadInstance.registerSelectedFileListChanged(this.scroll);
 
     const alertError = (error: Error) => {
       this.renderData.errors.push(error.message);
@@ -220,12 +175,54 @@ export default defineComponent({
     //注册提示异常的事件
     if (this.uploadInstance.getSettings().alertErrorInfo)
       this.uploadInstance.registerAlertError(alertError);
-
-    this.uploadInstance.getSettings().debug
-      ? console.debug("Piece: Multiple Upload Component(vue2) 已加载")
-      : !1;
   },
   methods: {
+    /**
+     * 列表容器引用对象
+     */
+    listContainerRef(): HTMLDivElement {
+      return <HTMLDivElement>(<any>this.$refs.listContainerRef).$el;
+    },
+    /**
+     * 滚动列表，将正在校验和正在上传的文件显示在当前的可视区域中
+     *
+     * @param files 当前的文件集合（已排序）
+     */
+    scroll(files: SelectedFile[]) {
+      const _listContainerRef = this.listContainerRef();
+      if (this.renderData.scrollLock || files.length == 0 || !_listContainerRef)
+        return;
+
+      //等待页面元素渲染完成
+      this.$nextTick(() => {
+        let container: HTMLDivElement | null = null;
+
+        let findChecking = false;
+
+        for (let i = 0; i < files.length; i++) {
+          let file = files[i];
+
+          if (!findChecking && file.checking) {
+            findChecking = true;
+            container = this.renderData.containerRefMap.get(i + 1)!;
+          }
+
+          if (file.uploading) {
+            container = this.renderData.containerRefMap.get(i + 1)!;
+            break;
+          }
+        }
+
+        if (!container) return;
+
+        //列表容器滚动至当前正在处理中的文件之处
+        const calcValue =
+          container!.offsetTop - _listContainerRef.offsetTop - 20;
+        if (calcValue < 0 || calcValue == _listContainerRef.scrollTop) return;
+        _listContainerRef.scrollTop = calcValue;
+      });
+    },
+
     /**
      * 设置文件选择框引用对象
      *
@@ -233,8 +230,7 @@ export default defineComponent({
      * @param el 引用对象
      */
     setContainerRef(sortKey: number, el: HTMLDivElement) {
-      if (!this.listContainerRef) return;
-
+      if (!el) return;
       this.renderData.containerRefMap.set(sortKey, el);
     },
 
@@ -315,12 +311,12 @@ export default defineComponent({
         this.renderData.readyDraggingSortKey = sortKey;
 
         this.renderData.drag4sort.startTick = setTimeout(() => {
-          if (!this.listContainerRef) return;
+          if (!this.listContainerRef()) return;
           this.renderData.readyDraggingSortKey = null;
           //开始拖动
           this.renderData.currentDraggingSortKey = sortKey;
           this.renderData.drag4sort.draggingHelper = DraggingHelper.getInstance(
-            this.listContainerRef as HTMLElement,
+            this.listContainerRef() as HTMLElement,
             this.renderData.containerRefMap.get(
               this.renderData.currentDraggingSortKey
             )!

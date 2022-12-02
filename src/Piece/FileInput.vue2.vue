@@ -38,12 +38,6 @@ export default defineComponent({
     uploadInstance(): NaiveUpload {
       return <NaiveUpload>(<any>this).upload();
     },
-    /**
-     * 文件选择框引用对象
-     */
-    fileInputRef(): HTMLInputElement {
-      return <HTMLInputElement>this.$refs.fileInputRef;
-    },
   },
   created() {
     this.uploadInstance.getSettings().debug
@@ -51,6 +45,12 @@ export default defineComponent({
       : !1;
   },
   methods: {
+    /**
+     * 文件选择框引用对象
+     */
+    fileInputRef(): HTMLInputElement {
+      return <HTMLInputElement>this.$refs.fileInputRef;
+    },
     /**
      * 选择文件
      *
@@ -60,7 +60,7 @@ export default defineComponent({
       if (this.uploadInstance.limited()) return;
 
       //隐式触发文件选择事件
-      this.fileInputRef?.click();
+      this.fileInputRef().click();
     },
 
     /**
@@ -69,13 +69,15 @@ export default defineComponent({
      * @param {any} e
      */
     choseFile(e: Event) {
-      if (this.fileInputRef && this.fileInputRef.files)
-        for (let i = 0; i < this.fileInputRef.files.length; i++) {
-          this.uploadInstance.append(this.fileInputRef.files[i]);
+      const _fileInputRef = this.fileInputRef();
+
+      if (_fileInputRef && _fileInputRef.files)
+        for (let i = 0; i < _fileInputRef.files.length; i++) {
+          this.uploadInstance.append(_fileInputRef.files![i]);
         }
 
       //清空
-      if (this.fileInputRef) this.fileInputRef.value = "";
+      if (_fileInputRef) _fileInputRef.value = "";
     },
   },
 });

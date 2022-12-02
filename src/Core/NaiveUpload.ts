@@ -1200,11 +1200,13 @@ export default class NaiveUpload {
     public getOpenApi(this: NaiveUpload): IOpenApi {
         return {
             startCheck: () => {
-                this.checkNow();
+                for (let i = 0; i < this.settings.concurrentFile; i++)
+                    this.checkNow();
             },
 
             startUpload: () => {
-                this.uploadNow();
+                for (let i = 0; i < this.settings.concurrentFile; i++)
+                    this.uploadNow();
             },
 
             pause: (token?: string) => {

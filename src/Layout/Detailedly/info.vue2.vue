@@ -134,12 +134,6 @@ export default defineComponent({
       return <NaiveUpload>(<any>this).upload();
     },
     /**
-     * 选择的文件排序值映射表
-     */
-    selectedFileSortMap(): Map<number, number> {
-      return this.uploadInstance.getSelectedFileSortMap();
-    },
-    /**
      *加载层样式
      */
     lodingStyle(): Array<Record<string, string>> {

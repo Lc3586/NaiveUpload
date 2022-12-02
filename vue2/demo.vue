@@ -361,6 +361,23 @@
     </el-row>
 
     <el-row :gutter="20">
+      <el-col :span="4" class="label">已上传的文件ID</el-col>
+      <el-col :span="20" class="content">
+        <simple-tag-list v-model="fileIds" :readonly="true"></simple-tag-list>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
+      <el-col :span="4" class="label">设置初始值</el-col>
+      <el-col :span="20" class="content">
+        <simple-tag-list
+          v-model="preFileIds"
+          :name="'添加已上传的文件ID'"
+        ></simple-tag-list>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
       <el-col :span="4" class="label">组件预览</el-col>
       <el-col :span="20" class="content">
         <naive-upload
@@ -399,6 +416,9 @@ export default {
   data() {
     const renderData = {
       fileIds: [],
+      preFileIds: [],
+      show: true,
+      fileIds: [],
       config: {
         loading: true,
         props: {
@@ -436,7 +456,19 @@ export default {
 
     return renderData;
   },
-  watch: {},
+  watch: {
+    preFileIds: function (current, last) {
+      if (current.length == 0) return;
+
+      this.show = false;
+      this.fileIds.length = 0;
+      for (const item of current) {
+        this.fileIds.push(item);
+      }
+
+      this.$nextTick(() => (this.show = true));
+    },
+  },
   setup() {},
   /**
    * 初始化方法
@@ -503,7 +535,7 @@ export default {
      * @param rawFiles 文件集合
      */
     afterUploadAll(rawFiles) {
-      // console.debug('已经上传好的文件id集合', Object.assign({}, this.fileIds));
+      console.debug("已经上传好的文件id集合", Object.assign({}, this.fileIds));
     },
 
     /**
