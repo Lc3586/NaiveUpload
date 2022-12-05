@@ -251,7 +251,7 @@
             </el-row>
           </el-collapse-item>
 
-          <el-collapse-item title="交互" name="Appearance">
+          <el-collapse-item title="外观&交互" name="Appearance">
             <el-row :gutter="20">
               <el-col :span="4" class="label">小贴士</el-col>
               <el-col :span="20" class="content">
@@ -285,34 +285,310 @@
             </el-row>
 
             <el-row :gutter="20">
-              <el-col :span="4" class="label">拖动排序</el-col>
-              <el-col :span="10" class="content">
-                <span class="demonstration"
-                  >准备开始拖动的时间（{{
-                    settings.dragPreparationTime
-                  }}ms）</span
-                >
-                <el-slider
-                  v-model="settings.dragPreparationTime"
-                  :step="100"
-                  :max="5000"
-                  :show-tooltip="false"
-                  :disabled="true"
-                ></el-slider>
+              <el-col :span="4" class="label">状态的颜色</el-col>
+              <el-col :span="20" class="content">
+                <el-row :gutter="20">
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >校验{{ settings.statusCheckingColor.toString() }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusCheckingColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusCheckingColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >上传{{ settings.statusUploadingColor.toString() }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusUploadingColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusUploadingColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >暂停{{ settings.statusPausedColor.toString() }}，标签{{
+                        settings.statusPausedSubColor.toString()
+                      }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusPausedColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusPausedColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusPausedSubColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusPausedSubColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >完成{{ settings.statusDoneColor.toString() }}，标签{{
+                        settings.statusDoneSubColor.toString()
+                      }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusDoneColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusDoneColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusDoneSubColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusDoneSubColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >错误{{ settings.statusErrorColor.toString() }}，标签{{
+                        settings.statusErrorSubColor.toString()
+                      }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusErrorColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusErrorColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.statusErrorSubColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.statusErrorSubColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+
+                  <el-col :span="8" class="content">
+                    <span class="demonstration"
+                      >错误{{ settings.dragReadyColor.toString() }}</span
+                    >
+                    <br />
+                    <el-popover placement="top" trigger="click">
+                      <template #reference>
+                        <el-button
+                          class="color-block"
+                          title="点击切换颜色"
+                          :style="{
+                            '--color': settings.dragReadyColor.toString(),
+                          }"
+                        ></el-button>
+                      </template>
+                      <sketch-picker
+                        v-model="renderData.colors.dragReadyColor"
+                        title="颜色"
+                      />
+                    </el-popover>
+                  </el-col>
+                </el-row>
               </el-col>
-              <el-col :span="10" class="content">
-                <span class="demonstration"
-                  >拖动时变换位置的等待时间（{{
-                    settings.dragChangePositionTime
-                  }}ms）</span
-                >
-                <el-slider
-                  v-model="settings.dragChangePositionTime"
-                  :step="100"
-                  :max="5000"
-                  :show-tooltip="false"
-                  :disabled="true"
-                ></el-slider>
+            </el-row>
+
+            <el-row :gutter="20">
+              <el-col :span="4" class="label">拖动排序功能</el-col>
+              <el-col :span="20" class="content">
+                <el-row :gutter="20">
+                  <el-col :span="2" class="content">
+                    <el-switch v-model="settings.enableDrag" /> </el-col
+                ></el-row>
+                <el-row :gutter="20">
+                  <el-col :span="18">
+                    <el-row :gutter="20" v-if="settings.enableDrag">
+                      <el-col :span="12" class="content">
+                        <span class="demonstration"
+                          >准备开始拖动的时间（{{
+                            settings.dragPreparationTime
+                          }}ms）</span
+                        >
+                        <el-slider
+                          v-model="settings.dragPreparationTime"
+                          :step="100"
+                          :max="10000"
+                          :show-tooltip="false"
+                        ></el-slider>
+                      </el-col>
+                      <el-col :span="12" class="content">
+                        <span class="demonstration"
+                          >拖动时变换位置的等待时间（{{
+                            settings.dragChangePositionTime
+                          }}ms）</span
+                        >
+                        <el-slider
+                          v-model="settings.dragChangePositionTime"
+                          :step="100"
+                          :max="10000"
+                          :show-tooltip="false"
+                        ></el-slider>
+                      </el-col>
+                    </el-row>
+
+                    <el-row :gutter="20" v-if="settings.enableDrag">
+                      <el-col :span="12" class="content">
+                        <span class="demonstration"
+                          >准备拖动时的动画颜色{{
+                            settings.dragReadyColor.toString()
+                          }}</span
+                        >
+                        <br />
+                        <el-popover placement="top" trigger="click">
+                          <template #reference>
+                            <el-button
+                              class="color-block"
+                              title="点击切换颜色"
+                              :style="{
+                                '--color': settings.dragReadyColor.toString(),
+                              }"
+                            ></el-button>
+                          </template>
+                          <sketch-picker
+                            v-model="renderData.colors.dragReadyColor"
+                            title="颜色"
+                          />
+                        </el-popover>
+                      </el-col>
+                      <el-col :span="12" class="content">
+                        <span class="demonstration"
+                          >拖动时的动画颜色{{
+                            settings.dragMovingColor.toString()
+                          }}</span
+                        >
+                        <br />
+                        <el-popover placement="top" trigger="click">
+                          <template #reference>
+                            <el-button
+                              class="color-block"
+                              title="点击切换颜色"
+                              :style="{
+                                '--color': settings.dragMovingColor.toString(),
+                              }"
+                            ></el-button>
+                          </template>
+                          <sketch-picker
+                            v-model="renderData.colors.dragMovingColor"
+                            title="颜色"
+                          />
+                        </el-popover>
+                      </el-col>
+                    </el-row>
+
+                    <el-row :gutter="20" v-if="settings.enableDrag">
+                      <el-col :span="12" class="content">
+                        <span class="demonstration"
+                          >结束拖动时的动画颜色{{
+                            settings.dragOverColor.toString()
+                          }}</span
+                        >
+                        <br />
+                        <el-popover placement="top" trigger="click">
+                          <template #reference>
+                            <el-button
+                              class="color-block"
+                              title="点击切换颜色"
+                              :style="{
+                                '--color': settings.dragOverColor.toString(),
+                              }"
+                            ></el-button>
+                          </template>
+                          <sketch-picker
+                            v-model="renderData.colors.dragOverColor"
+                            title="颜色"
+                          />
+                        </el-popover>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
               </el-col>
             </el-row>
           </el-collapse-item>
@@ -373,15 +649,28 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, watch, getCurrentInstance } from "vue-demi";
+import { reactive, watch, getCurrentInstance } from "vue";
 //局部引用示例
-// import { NaiveUpload } from "../src/export.vue3";
+// import { NaiveUpload } from "@doc/export";
 import NaiveApiService from "./NaiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
 import { IDetail as UploadConfigDetail } from "./fileUploadConfig/IDetail";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { IOpenApi, RawFile, Settings, UploadError } from "@/export";
+import {
+  IOpenApi,
+  RawFile,
+  Settings,
+  UploadError,
+  RGBAColor,
+} from "@doc/export.vue3";
+import { Sketch } from "vue-color";
+
+/**
+ * 上传组件的设置
+ */
+const settings = reactive(Settings.defaultWithConfigCode("multiple-file"));
+settings.debug = true;
 
 /**
  * 渲染数据
@@ -407,6 +696,20 @@ let renderData = reactive({
     error: null as string | null,
   },
   activeConfigName: "Functional",
+  colors: {
+    statusCheckingColor: { rgba: settings.statusCheckingColor },
+    statusUploadingColor: { rgba: settings.statusUploadingColor },
+    statusPausedColor: { rgba: settings.statusPausedColor },
+    statusPausedSubColor: { rgba: settings.statusPausedSubColor },
+    statusDoneColor: { rgba: settings.statusDoneColor },
+    statusDoneSubColor: { rgba: settings.statusDoneSubColor },
+    statusErrorColor: { rgba: settings.statusErrorColor },
+    statusErrorSubColor: { rgba: settings.statusErrorSubColor },
+
+    dragReadyColor: { rgba: settings.dragReadyColor },
+    dragMovingColor: { rgba: settings.dragMovingColor },
+    dragOverColor: { rgba: settings.dragOverColor },
+  },
 });
 
 // 获取vue实例
@@ -428,12 +731,46 @@ watch(
   },
   { deep: true }
 );
+watch(
+  () => renderData.colors,
+  async (current, last) => {
+    settings.statusCheckingColor = RGBAColor.convertFrom(
+      renderData.colors.statusCheckingColor.rgba
+    );
+    settings.settings.statusUploadingColor = RGBAColor.convertFrom(
+      renderData.colors.statusUploadingColor.rgba
+    );
+    settings.settings.statusPausedColor = RGBAColor.convertFrom(
+      renderData.colors.statusPausedColor.rgba
+    );
+    settings.settings.statusPausedSubColor = RGBAColor.convertFrom(
+      renderData.colors.statusPausedSubColor.rgba
+    );
+    settings.settings.statusDoneColor = RGBAColor.convertFrom(
+      renderData.colors.statusDoneColor.rgba
+    );
+    settings.settings.statusDoneSubColor = RGBAColor.convertFrom(
+      renderData.colors.statusDoneSubColor.rgba
+    );
+    settings.settings.statusErrorColor = RGBAColor.convertFrom(
+      renderData.colors.statusErrorColor.rgba
+    );
+    settings.settings.statusErrorSubColor = RGBAColor.convertFrom(
+      renderData.colors.statusErrorSubColor.rgba
+    );
 
-/**
- * 上传组件的设置
- */
-const settings = reactive(Settings.defaultWithConfigCode("multiple-file"));
-settings.debug = true;
+    settings.settings.dragReadyColor = RGBAColor.convertFrom(
+      renderData.colors.dragReadyColor.rgba
+    );
+    settings.settings.dragMovingColor = RGBAColor.convertFrom(
+      renderData.colors.dragMovingColor.rgba
+    );
+    settings.settings.dragOverColor = RGBAColor.convertFrom(
+      renderData.colors.dragOverColor.rgba
+    );
+  },
+  { deep: true }
+);
 
 /**
  * 上传服务

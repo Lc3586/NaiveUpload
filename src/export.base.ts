@@ -14,6 +14,7 @@ import { FileType } from './Model/FileType';
 import { Layout } from './Model/Layout';
 import { PreUploadChunkFileState } from './Model/PreUploadChunkFileState';
 import { RunMode } from './Model/RunMode';
+import RGBAColor from './Model/RGBAColor';
 import DraggingHelper from './Extention/DraggingHelper';
 import FileReadHelper from './Extention/FileReadHelper';
 import FileSizeHelper from './Extention/FileSizeHelper';
@@ -37,6 +38,7 @@ export {
     Layout,
     PreUploadChunkFileState,
     RunMode,
+    RGBAColor,
     DraggingHelper,
     FileReadHelper,
     FileSizeHelper,

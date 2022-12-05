@@ -14,6 +14,7 @@ import { FileType } from './Model/FileType';
 import { Layout } from './Model/Layout';
 import { PreUploadChunkFileState } from './Model/PreUploadChunkFileState';
 import { RunMode } from './Model/RunMode';
+import RGBAColor from './Model/RGBAColor';
 import DraggingHelper from './Extention/DraggingHelper';
 import FileReadHelper from './Extention/FileReadHelper';
 import FileSizeHelper from './Extention/FileSizeHelper';
@@ -73,6 +74,11 @@ export {
      * 上传组件运行模式
      */
     RunMode,
+
+    /**
+     * 有透明度的RGB颜色值
+     */
+    RGBAColor,
 
     /**
      * 拖动！

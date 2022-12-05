@@ -1,4 +1,4 @@
-import { IConfig } from "@/export";
+import { IConfig } from "@doc/export.vue3";
 /**
  * 文件上传配置业务模型
  * <p>树状列表数据</p>

@@ -17,7 +17,11 @@ const createMainScript = (version) => {
     } catch (error) { }
 
     //创建并写入内容到文件
-    fs.writeFile(dest, `export * from './${version}/export.${version}';`, 'utf8', error => {
+    fs.writeFile(dest, 
+`import NaiveUploadPlugin from './${version}/export.${version}';
+
+export default NaiveUploadPlugin;
+export * from './${version}/export.${version}';`, 'utf8', error => {
         if (error)
             console.error(
                 `[naive-upload] 创建${dest}失败.`,

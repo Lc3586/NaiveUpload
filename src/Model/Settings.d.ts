@@ -1,5 +1,6 @@
 import { RunMode } from "../Model/RunMode";
 import { Layout } from "../Model/Layout";
+import RGBAColor from "../Model/RGBAColor";
 /**
  * 文件上传组件设置
  *
@@ -96,6 +97,78 @@ export default class Settings {
      * 显示错误信息
      */
     alertErrorInfo: boolean;
+    /**
+    * 启用拖动排序功能
+    *
+    * @默认值 true
+    */
+    enableDrag: boolean;
+    /**
+     * 校验中状态的颜色
+     * 
+     * @默认值 new RGBAColor(255, 235, 59, 0.5)
+     */
+    statusCheckingColor: RGBAColor;
+    /**
+     * 上传中状态的颜色
+     * 
+     * @默认值 new RGBAColor(144, 206, 255, 0.5)
+     */
+    statusUploadingColor: RGBAColor;
+    /**
+     * 上传完成状态的颜色
+     * 
+     * @默认值 new RGBAColor(76, 175, 80, 0.1)
+     */
+    statusDoneColor: RGBAColor;
+    /**
+     * 完成状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(3, 169, 244, 0.5)
+     */
+    statusDoneSubColor: RGBAColor;
+    /**
+     * 暂停状态的颜色
+     * 
+     * @默认值 new RGBAColor(158, 158, 158, 0.5)
+     */
+    statusPausedColor: RGBAColor;
+    /**
+     * 暂停状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(244, 154, 3, 0.5)
+     */
+    statusPausedSubColor: RGBAColor;
+    /**
+     * 错误状态的颜色
+     * 
+     * @默认值 new RGBAColor(255, 0, 30, 0.35)
+     */
+    statusErrorColor: RGBAColor;
+    /**
+     * 错误状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(232, 31, 31, 0.5)
+     */
+    statusErrorSubColor: RGBAColor;
+    /**
+     * 准备拖动时的动画颜色
+     * 
+     * @默认值 { r: 255, g: 152, b: 0, a: 0.8 }
+     */
+    dragReadyColor: RGBAColor;
+    /**
+     * 拖动时的动画颜色
+     * 
+     * @默认值 { r: 255, g: 152, b: 0, a: 0.5 }
+     */
+    dragMovingColor: RGBAColor;
+    /**
+     * 结束拖动时的动画颜色
+     * 
+     * @默认值 { r: 255, g: 87, b: 34, a: 0.8 }
+     */
+    dragOverColor: RGBAColor;
     /**
      * 准备开始拖动的时间（单位ms）
      * 

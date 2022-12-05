@@ -74,6 +74,7 @@ import {
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
+import RGBAColor from "../Model/RGBAColor";
 
 // 获取vue实例
 const { proxy } = getCurrentInstance() as any;
@@ -96,7 +97,7 @@ let renderData = reactive({
     /**
      * 样式
      */
-    style: () =>
+    style: (): string =>
       `item-container ${props.selectedFile.done ? " item-done" : ""} ${
         props.selectedFile.error ? " item-error" : ""
       } ${
@@ -115,6 +116,43 @@ let renderData = reactive({
       } ${props.readyDrag ? " item-ready-drag" : ""} ${
         props.dragging ? " item-dragging" : ""
       } ${props.dragover ? " item-drag-over" : ""}`,
+    /**
+     * 容器样式中的变量
+     */
+    containerStyleVar: (): Record<string, string> => {
+      return {
+        "--statusCheckingColor": upload
+          .getSettings()
+          .statusCheckingColor.toString(),
+        "--statusUploadingColor": upload
+          .getSettings()
+          .statusUploadingColor.toString(),
+        "--statusPausedColor": upload
+          .getSettings()
+          .statusPausedColor.toString(),
+        "--statusPausedSubColor": upload
+          .getSettings()
+          .statusPausedSubColor.toString(),
+        "--statusDoneColor": upload.getSettings().statusDoneColor.toString(),
+        "--statusDoneSubColor": upload
+          .getSettings()
+          .statusDoneSubColor.toString(),
+        "--statusErrorColor": upload.getSettings().statusErrorColor.toString(),
+        "--statusErrorSubColor": upload
+          .getSettings()
+          .statusErrorSubColor.toString(),
+
+        "--dragPreparationTime": `${(
+          upload.getSettings().dragPreparationTime / 1000
+        ).toFixed(2)}s`,
+        "--dragChangePositionTime": `${(
+          upload.getSettings().dragChangePositionTime / 1000
+        ).toFixed(2)}s`,
+        "--dragReadyColor": upload.getSettings().dragReadyColor.toString(),
+        "--dragMovingColor": upload.getSettings().dragMovingColor.toString(),
+        "--dragOverColor": upload.getSettings().dragOverColor.toString(),
+      };
+    },
 
     /**
      * 信息

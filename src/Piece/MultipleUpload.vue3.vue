@@ -141,6 +141,16 @@ let drag4sort = {
    * @param clientY
    */
   ready2start: (sortKey: number, clientX: number, clientY: number) => {
+    if (!upload.getSettings().enableDrag) {
+      upload.getSettings().debug
+        ? console.debug(
+            "Piece: Multiple Upload Component(vue3) 未启用拖动排序功能"
+          )
+        : !1;
+      return;
+    }
+    if (upload.getSelectedFileList(false).length <= 1) return;
+
     drag4sort.startTick = setTimeout(() => {
       //准备拖动
       renderData.readyDraggingSortKey = sortKey;

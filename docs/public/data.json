@@ -89,7 +89,7 @@
         "lowerSingleSize": 0,
         "lowerTotalSize": 0,
         "name": "多文件上传",
-        "upperLimit": 0,
+        "upperLimit": 100,
         "upperSingleSize": 0,
         "upperTotalSize": 0,
         "allowedTypeList": [],
@@ -116,7 +116,7 @@
                 "lowerSingleSize": 0,
                 "lowerTotalSize": 0,
                 "name": "多图片上传",
-                "upperLimit": 0,
+                "upperLimit": 100,
                 "upperSingleSize": 0,
                 "upperTotalSize": 0,
                 "allowedTypeList": [
@@ -137,7 +137,7 @@
                 "lowerSingleSize": 0,
                 "lowerTotalSize": 0,
                 "name": "多文档上传",
-                "upperLimit": 0,
+                "upperLimit": 100,
                 "upperSingleSize": 0,
                 "upperTotalSize": 0,
                 "allowedTypeList": [

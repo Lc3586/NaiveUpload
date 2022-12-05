@@ -278,14 +278,43 @@ export default defineComponent({
       // console.debug('scrollTop', listContainerRef.scrollTop);
       // }
 
-      this.renderData.drag4sort.changeTick = setTimeout(() => {
-        //重新排序
-        this.uploadInstance.changeSort(
-          this.renderData.currentDraggingSortKey!,
-          this.renderData.lastDraggingSortKey!
-        );
-        this.end();
-      }, this.uploadInstance.getSettings().dragChangePositionTime);
+      this.renderData.drag4sort.changeTick = setTimeout(
+        this.changeSort,
+        this.uploadInstance.getSettings().dragChangePositionTime
+      );
+    },
+
+    /**
+     * 重新排序
+     */
+    changeSort() {
+      const currentIndex = this.renderData.currentDraggingSortKey!;
+      const targetIndex = this.renderData.lastDraggingSortKey!;
+
+      this.uploadInstance.changeSort(currentIndex, targetIndex);
+
+      const current = this.renderData.containerRefMap.get(currentIndex)!;
+
+      if (currentIndex > targetIndex) {
+        for (let i = currentIndex; i > targetIndex; i--) {
+          setInterval(() => {}, 100);
+          this.renderData.containerRefMap.set(
+            i,
+            this.renderData.containerRefMap.get(i - 1)!
+          );
+        }
+      } else {
+        for (let i = currentIndex; i < targetIndex; i++) {
+          this.renderData.containerRefMap.set(
+            i,
+            this.renderData.containerRefMap.get(i + 1)!
+          );
+        }
+      }
+
+      this.renderData.containerRefMap.set(targetIndex, current);
+
+      this.end();
     },
 
     /**
@@ -306,6 +335,17 @@ export default defineComponent({
      * @param clientY
      */
     ready2start(sortKey: number, clientX: number, clientY: number) {
+      if (!this.uploadInstance.getSettings().enableDrag) {
+        this.uploadInstance.getSettings().debug
+          ? console.debug(
+              "Piece: Multiple Upload Component(vue2) 未启用拖动排序功能"
+            )
+          : !1;
+        return;
+      }
+
+      if (this.uploadInstance.getSelectedFileList(false).length <= 1) return;
+
       this.renderData.drag4sort.startTick = setTimeout(() => {
         //准备拖动
         this.renderData.readyDraggingSortKey = sortKey;
@@ -365,7 +405,7 @@ export default defineComponent({
       //恢复其他元素的zIndex
       this.renderData.containerRefMap.forEach(
         (item: HTMLDivElement, key: number) => {
-          if (key !== this.renderData.currentDraggingSortKey)
+          if (key !== this.renderData.lastDraggingSortKey)
             item.style.zIndex = "";
         }
       );

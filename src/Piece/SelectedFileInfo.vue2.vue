@@ -1,6 +1,7 @@
 <template>
   <div
     :class="containerStyle"
+    :style="containerStyleVar"
     :title="containerInfo"
     v-on:mouseenter="mouseEnter"
     v-on:mouseleave="mouseLeave"
@@ -68,6 +69,7 @@ import { defineComponent, PropType } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
+import RGBAColor from "../Model/RGBAColor";
 
 export default defineComponent({
   name: "SelectedFileInfo",
@@ -187,6 +189,53 @@ export default defineComponent({
       } ${this.readyDrag ? " item-ready-drag" : ""} ${
         this.dragging ? " item-dragging" : ""
       } ${this.dragover ? " item-drag-over" : ""}`;
+    },
+    /**
+     * 容器样式中的变量
+     */
+    containerStyleVar(): Record<string, string> {
+      return {
+        "--statusCheckingColor": this.uploadInstance
+          .getSettings()
+          .statusCheckingColor.toString(),
+        "--statusUploadingColor": this.uploadInstance
+          .getSettings()
+          .statusUploadingColor.toString(),
+        "--statusPausedColor": this.uploadInstance
+          .getSettings()
+          .statusPausedColor.toString(),
+        "--statusPausedSubColor": this.uploadInstance
+          .getSettings()
+          .statusPausedSubColor.toString(),
+        "--statusDoneColor": this.uploadInstance
+          .getSettings()
+          .statusDoneColor.toString(),
+        "--statusDoneSubColor": this.uploadInstance
+          .getSettings()
+          .statusDoneSubColor.toString(),
+        "--statusErrorColor": this.uploadInstance
+          .getSettings()
+          .statusErrorColor.toString(),
+        "--statusErrorSubColor": this.uploadInstance
+          .getSettings()
+          .statusErrorSubColor.toString(),
+
+        "--dragPreparationTime": `${(
+          this.uploadInstance.getSettings().dragPreparationTime / 1000
+        ).toFixed(2)}s`,
+        "--dragChangePositionTime": `${(
+          this.uploadInstance.getSettings().dragChangePositionTime / 1000
+        ).toFixed(2)}s`,
+        "--dragReadyColor": this.uploadInstance
+          .getSettings()
+          .dragReadyColor.toString(),
+        "--dragMovingColor": this.uploadInstance
+          .getSettings()
+          .dragMovingColor.toString(),
+        "--dragOverColor": this.uploadInstance
+          .getSettings()
+          .dragOverColor.toString(),
+      };
     },
     /**
      * 容器信息

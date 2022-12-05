@@ -11,7 +11,7 @@ export default defineConfig({
     root: 'docs',
     resolve: {
         alias: {
-            '@': resolve(__dirname, '../lib')
+            '@doc': resolve(__dirname, '../src')
         },
     },
     plugins: [
@@ -24,7 +24,7 @@ export default defineConfig({
         })
     ],
     build: {
-        outDir: 'dist/doc',
+        outDir: 'dist',
         rollupOptions: {
             external: [
 

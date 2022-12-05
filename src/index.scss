@@ -318,7 +318,7 @@
 .independent .scroll-container .item-container .item-sub.sub-paused,
 .upload-list .scroll-container .item-container .item-sub.sub-paused {
   display: block;
-  background-color: rgba(244, 154, 3, 0.5);
+  background-color: var(--statusPausedSubColor);
 }
 
 .independent .item-container .item-sub.sub-done,
@@ -326,7 +326,7 @@
 .independent .scroll-container .item-container .item-sub.sub-done,
 .upload-list .scroll-container .item-container .item-sub.sub-done {
   display: block;
-  background-color: rgba(3, 169, 244, 0.5);
+  background-color: var(--statusDoneSubColor);
 }
 
 .independent .item-container .item-sub.sub-error,
@@ -334,7 +334,7 @@
 .independent .scroll-container .item-container .item-sub.sub-error,
 .upload-list .scroll-container .item-container .item-sub.sub-error {
   display: block;
-  background-color: rgba(232, 31, 31, 0.5);
+  background-color: var(--statusErrorSubColor);
 }
 
 .independent .item-container.item-checking:before,
@@ -345,9 +345,7 @@
 .independent .scroll-container .item-container.item-checking:after,
 .upload-list .scroll-container .item-container.item-checking:before,
 .upload-list .scroll-container .item-container.item-checking:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  /*background: rgba(255, 236, 201, 0.5);*/
-  background: rgba(255, 235, 59, 0.5);
+  background: var(--statusCheckingColor);
 }
 
 .independent .item-container.item-uploading:before,
@@ -358,8 +356,7 @@
 .independent .scroll-container .item-container.item-uploading:after,
 .upload-list .scroll-container .item-container.item-uploading:before,
 .upload-list .scroll-container .item-container.item-uploading:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  background: rgba(144, 206, 255, 0.5);
+  background: var(--statusUploadingColor);
 }
 
 .independent .item-container.item-done:before,
@@ -370,9 +367,7 @@
 .independent .scroll-container .item-container.item-done:after,
 .upload-list .scroll-container .item-container.item-done:before,
 .upload-list .scroll-container .item-container.item-done:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  /*background: rgba(137, 255, 0, 0.3);*/
-  background: rgba(76, 175, 80, 0.1);
+  background: var(--statusDoneColor);
 }
 
 .independent .item-container.item-paused:before,
@@ -383,8 +378,7 @@
 .independent .scroll-container .item-container.item-paused:after,
 .upload-list .scroll-container .item-container.item-paused:before,
 .upload-list .scroll-container .item-container.item-paused:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  background: rgba(158, 158, 158, 0.5);
+  background: var(--statusPausedColor);
 }
 
 .independent .item-container.item-error:before,
@@ -395,20 +389,7 @@
 .independent .scroll-container .item-container.item-error:after,
 .upload-list .scroll-container .item-container.item-error:before,
 .upload-list .scroll-container .item-container.item-error:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  background: rgba(255, 0, 30, 0.35);
-}
-
-.independent .item-container.item-dragging:before,
-.independent .item-container.item-dragging:after,
-.upload-list .item-container.item-dragging:before,
-.upload-list .item-container.item-dragging:after,
-.independent .scroll-container .item-container.item-dragging:before,
-.independent .scroll-container .item-container.item-dragging:after,
-.upload-list .scroll-container .item-container.item-dragging:before,
-.upload-list .scroll-container .item-container.item-dragging:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  background: rgb(255, 87, 34, 0.5);
+  background: var(--statusErrorColor);
 }
 
 .independent .item-container.item-dragging,
@@ -425,16 +406,11 @@
   cursor: progress;
 }
 
-.independent .item-container.item-drag-over:before,
-.independent .item-container.item-drag-over:after,
-.upload-list .item-container.item-drag-over:before,
-.upload-list .item-container.item-drag-over:after,
-.independent .scroll-container .item-container.item-drag-over:before,
-.independent .scroll-container .item-container.item-drag-over:after,
-.upload-list .scroll-container .item-container.item-drag-over:before,
-.upload-list .scroll-container .item-container.item-drag-over:after {
-  /*    background: linear-gradient(235deg,#89ff00,#060c21,#00bcd4);*/
-  background: rgba(255, 152, 0, 0.5) !important;
+.independent .item-container.item-drag-over,
+.upload-list .item-container.item-drag-over,
+.independent .scroll-container .item-container.item-drag-over,
+.upload-list .scroll-container .item-container.item-drag-over {
+  background: #ffffff;
 }
 
 .independent .item-container .item-image,
@@ -465,43 +441,6 @@
 .upload-list .scroll-container .item-container .item-name {
   color: rgba(0, 0, 0, 0.85);
   font-size: 13px;
-}
-
-.independent .item-container.item-ready-drag:before,
-.independent .item-container.item-ready-drag:after,
-.upload-list .item-container.item-ready-drag:before,
-.upload-list .item-container.item-ready-drag:after,
-.independent .scroll-container .item-container.item-ready-drag:before,
-.independent .scroll-container .item-container.item-ready-drag:after,
-.upload-list .scroll-container .item-container.item-ready-drag:before,
-.upload-list .scroll-container .item-container.item-ready-drag:after,
-.independent .item-container.item-dragging:before,
-.independent .item-container.item-dragging:after,
-.upload-list .item-container.item-dragging:before,
-.upload-list .item-container.item-dragging:after,
-.independent .scroll-container .item-container.item-dragging:before,
-.independent .scroll-container .item-container.item-dragging:after,
-.upload-list .scroll-container .item-container.item-dragging:before,
-.upload-list .scroll-container .item-container.item-dragging:after,
-.independent .item-container.item-drag-over:before,
-.independent .item-container.item-drag-over:after,
-.upload-list .item-container.item-drag-over:before,
-.upload-list .item-container.item-drag-over:after,
-.independent .scroll-container .item-container.item-drag-over:before,
-.independent .scroll-container .item-container.item-drag-over:after,
-.upload-list .scroll-container .item-container.item-drag-over:before,
-.upload-list .scroll-container .item-container.item-drag-over:after {
-  display: none;
-}
-
-.independent .item-container.item-drag-over,
-.upload-list .item-container.item-drag-over,
-.independent .scroll-container .item-container.item-drag-over,
-.upload-list .scroll-container .item-container.item-drag-over {
-  -webkit-animation: dargOverExpand 1.3s ease forwards 1;
-  -moz-animation: dargOverExpand 1.3s ease forwards 1;
-  -ms-animation: dargOverExpand 1.3s ease forwards 1;
-  animation: dargOverExpand 1.3s ease forwards 1;
 }
 
 /* 1. 声明过渡效果 */
@@ -536,1015 +475,2029 @@
 
 @keyframes dargExpand {
   0% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 0%, transparent 1%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 0%, transparent 1%) repeat
+      scroll 0 0;
   }
 
   1% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 1%, transparent 2%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 1%, transparent 2%) repeat
+      scroll 0 0;
   }
 
   2% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 2%, transparent 3%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 2%, transparent 3%) repeat
+      scroll 0 0;
   }
 
   3% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 3%, transparent 4%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 3%, transparent 4%) repeat
+      scroll 0 0;
   }
 
   4% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 4%, transparent 5%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 4%, transparent 5%) repeat
+      scroll 0 0;
   }
 
   5% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 5%, transparent 6%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 5%, transparent 6%) repeat
+      scroll 0 0;
   }
 
   6% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 6%, transparent 7%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 6%, transparent 7%) repeat
+      scroll 0 0;
   }
 
   7% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 7%, transparent 8%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 7%, transparent 8%) repeat
+      scroll 0 0;
   }
 
   8% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 8%, transparent 9%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragReadyColor) 8%, transparent 9%) repeat
+      scroll 0 0;
   }
 
   9% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 9%, transparent 10%)
+    background: radial-gradient(var(--dragReadyColor) 9%, transparent 10%)
       repeat scroll 0 0;
   }
 
   10% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 10%, transparent 11%)
+    background: radial-gradient(var(--dragReadyColor) 10%, transparent 11%)
       repeat scroll 0 0;
   }
 
   11% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 11%, transparent 12%)
+    background: radial-gradient(var(--dragReadyColor) 11%, transparent 12%)
       repeat scroll 0 0;
   }
 
   12% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 12%, transparent 13%)
+    background: radial-gradient(var(--dragReadyColor) 12%, transparent 13%)
       repeat scroll 0 0;
   }
 
   13% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 13%, transparent 14%)
+    background: radial-gradient(var(--dragReadyColor) 13%, transparent 14%)
       repeat scroll 0 0;
   }
 
   14% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 14%, transparent 15%)
+    background: radial-gradient(var(--dragReadyColor) 14%, transparent 15%)
       repeat scroll 0 0;
   }
 
   15% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 15%, transparent 16%)
+    background: radial-gradient(var(--dragReadyColor) 15%, transparent 16%)
       repeat scroll 0 0;
   }
 
   16% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 16%, transparent 17%)
+    background: radial-gradient(var(--dragReadyColor) 16%, transparent 17%)
       repeat scroll 0 0;
   }
 
   17% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 17%, transparent 18%)
+    background: radial-gradient(var(--dragReadyColor) 17%, transparent 18%)
       repeat scroll 0 0;
   }
 
   18% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 18%, transparent 19%)
+    background: radial-gradient(var(--dragReadyColor) 18%, transparent 19%)
       repeat scroll 0 0;
   }
 
   19% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 19%, transparent 20%)
+    background: radial-gradient(var(--dragReadyColor) 19%, transparent 20%)
       repeat scroll 0 0;
   }
 
   20% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 20%, transparent 21%)
+    background: radial-gradient(var(--dragReadyColor) 20%, transparent 21%)
       repeat scroll 0 0;
   }
 
   21% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 21%, transparent 22%)
+    background: radial-gradient(var(--dragReadyColor) 21%, transparent 22%)
       repeat scroll 0 0;
   }
 
   22% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 22%, transparent 23%)
+    background: radial-gradient(var(--dragReadyColor) 22%, transparent 23%)
       repeat scroll 0 0;
   }
 
   23% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 23%, transparent 24%)
+    background: radial-gradient(var(--dragReadyColor) 23%, transparent 24%)
       repeat scroll 0 0;
   }
 
   24% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 24%, transparent 25%)
+    background: radial-gradient(var(--dragReadyColor) 24%, transparent 25%)
       repeat scroll 0 0;
   }
 
   25% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 25%, transparent 26%)
+    background: radial-gradient(var(--dragReadyColor) 25%, transparent 26%)
       repeat scroll 0 0;
   }
 
   26% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 26%, transparent 27%)
+    background: radial-gradient(var(--dragReadyColor) 26%, transparent 27%)
       repeat scroll 0 0;
   }
 
   27% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 27%, transparent 28%)
+    background: radial-gradient(var(--dragReadyColor) 27%, transparent 28%)
       repeat scroll 0 0;
   }
 
   28% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 28%, transparent 29%)
+    background: radial-gradient(var(--dragReadyColor) 28%, transparent 29%)
       repeat scroll 0 0;
   }
 
   29% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 29%, transparent 30%)
+    background: radial-gradient(var(--dragReadyColor) 29%, transparent 30%)
       repeat scroll 0 0;
   }
 
   30% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 30%, transparent 31%)
+    background: radial-gradient(var(--dragReadyColor) 30%, transparent 31%)
       repeat scroll 0 0;
   }
 
   31% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 31%, transparent 32%)
+    background: radial-gradient(var(--dragReadyColor) 31%, transparent 32%)
       repeat scroll 0 0;
   }
 
   32% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 32%, transparent 33%)
+    background: radial-gradient(var(--dragReadyColor) 32%, transparent 33%)
       repeat scroll 0 0;
   }
 
   33% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 33%, transparent 34%)
+    background: radial-gradient(var(--dragReadyColor) 33%, transparent 34%)
       repeat scroll 0 0;
   }
 
   34% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 34%, transparent 35%)
+    background: radial-gradient(var(--dragReadyColor) 34%, transparent 35%)
       repeat scroll 0 0;
   }
 
   35% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 35%, transparent 36%)
+    background: radial-gradient(var(--dragReadyColor) 35%, transparent 36%)
       repeat scroll 0 0;
   }
 
   36% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 36%, transparent 37%)
+    background: radial-gradient(var(--dragReadyColor) 36%, transparent 37%)
       repeat scroll 0 0;
   }
 
   37% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 37%, transparent 38%)
+    background: radial-gradient(var(--dragReadyColor) 37%, transparent 38%)
       repeat scroll 0 0;
   }
 
   38% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 38%, transparent 39%)
+    background: radial-gradient(var(--dragReadyColor) 38%, transparent 39%)
       repeat scroll 0 0;
   }
 
   39% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 39%, transparent 40%)
+    background: radial-gradient(var(--dragReadyColor) 39%, transparent 40%)
       repeat scroll 0 0;
   }
 
   40% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 40%, transparent 41%)
+    background: radial-gradient(var(--dragReadyColor) 40%, transparent 41%)
       repeat scroll 0 0;
   }
 
   41% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 41%, transparent 42%)
+    background: radial-gradient(var(--dragReadyColor) 41%, transparent 42%)
       repeat scroll 0 0;
   }
 
   42% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 42%, transparent 43%)
+    background: radial-gradient(var(--dragReadyColor) 42%, transparent 43%)
       repeat scroll 0 0;
   }
 
   43% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 43%, transparent 44%)
+    background: radial-gradient(var(--dragReadyColor) 43%, transparent 44%)
       repeat scroll 0 0;
   }
 
   44% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 44%, transparent 45%)
+    background: radial-gradient(var(--dragReadyColor) 44%, transparent 45%)
       repeat scroll 0 0;
   }
 
   45% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 45%, transparent 46%)
+    background: radial-gradient(var(--dragReadyColor) 45%, transparent 46%)
       repeat scroll 0 0;
   }
 
   46% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 46%, transparent 47%)
+    background: radial-gradient(var(--dragReadyColor) 46%, transparent 47%)
       repeat scroll 0 0;
   }
 
   47% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 47%, transparent 48%)
+    background: radial-gradient(var(--dragReadyColor) 47%, transparent 48%)
       repeat scroll 0 0;
   }
 
   48% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 48%, transparent 49%)
+    background: radial-gradient(var(--dragReadyColor) 48%, transparent 49%)
       repeat scroll 0 0;
   }
 
   49% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 49%, transparent 50%)
+    background: radial-gradient(var(--dragReadyColor) 49%, transparent 50%)
       repeat scroll 0 0;
   }
 
   50% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 50%, transparent 51%)
+    background: radial-gradient(var(--dragReadyColor) 50%, transparent 51%)
       repeat scroll 0 0;
   }
 
   51% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 51%, transparent 52%)
+    background: radial-gradient(var(--dragReadyColor) 51%, transparent 52%)
       repeat scroll 0 0;
   }
 
   52% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 52%, transparent 53%)
+    background: radial-gradient(var(--dragReadyColor) 52%, transparent 53%)
       repeat scroll 0 0;
   }
 
   53% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 53%, transparent 54%)
+    background: radial-gradient(var(--dragReadyColor) 53%, transparent 54%)
       repeat scroll 0 0;
   }
 
   54% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 54%, transparent 55%)
+    background: radial-gradient(var(--dragReadyColor) 54%, transparent 55%)
       repeat scroll 0 0;
   }
 
   55% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 55%, transparent 56%)
+    background: radial-gradient(var(--dragReadyColor) 55%, transparent 56%)
       repeat scroll 0 0;
   }
 
   56% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 56%, transparent 57%)
+    background: radial-gradient(var(--dragReadyColor) 56%, transparent 57%)
       repeat scroll 0 0;
   }
 
   57% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 57%, transparent 58%)
+    background: radial-gradient(var(--dragReadyColor) 57%, transparent 58%)
       repeat scroll 0 0;
   }
 
   58% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 58%, transparent 59%)
+    background: radial-gradient(var(--dragReadyColor) 58%, transparent 59%)
       repeat scroll 0 0;
   }
 
   59% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 59%, transparent 60%)
+    background: radial-gradient(var(--dragReadyColor) 59%, transparent 60%)
       repeat scroll 0 0;
   }
 
   60% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 60%, transparent 61%)
+    background: radial-gradient(var(--dragReadyColor) 60%, transparent 61%)
       repeat scroll 0 0;
   }
 
   61% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 61%, transparent 62%)
+    background: radial-gradient(var(--dragReadyColor) 61%, transparent 62%)
       repeat scroll 0 0;
   }
 
   62% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 62%, transparent 63%)
+    background: radial-gradient(var(--dragReadyColor) 62%, transparent 63%)
       repeat scroll 0 0;
   }
 
   63% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 63%, transparent 64%)
+    background: radial-gradient(var(--dragReadyColor) 63%, transparent 64%)
       repeat scroll 0 0;
   }
 
   64% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 64%, transparent 65%)
+    background: radial-gradient(var(--dragReadyColor) 64%, transparent 65%)
       repeat scroll 0 0;
   }
 
   65% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 65%, transparent 66%)
+    background: radial-gradient(var(--dragReadyColor) 65%, transparent 66%)
       repeat scroll 0 0;
   }
 
   66% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 66%, transparent 67%)
+    background: radial-gradient(var(--dragReadyColor) 66%, transparent 67%)
       repeat scroll 0 0;
   }
 
   67% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 67%, transparent 68%)
+    background: radial-gradient(var(--dragReadyColor) 67%, transparent 68%)
       repeat scroll 0 0;
   }
 
   68% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 68%, transparent 69%)
+    background: radial-gradient(var(--dragReadyColor) 68%, transparent 69%)
       repeat scroll 0 0;
   }
 
   69% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 69%, transparent 70%)
+    background: radial-gradient(var(--dragReadyColor) 69%, transparent 70%)
       repeat scroll 0 0;
   }
 
   70% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 70%, transparent 71%)
+    background: radial-gradient(var(--dragReadyColor) 70%, transparent 71%)
       repeat scroll 0 0;
   }
 
   71% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 71%, transparent 72%)
+    background: radial-gradient(var(--dragReadyColor) 71%, transparent 72%)
       repeat scroll 0 0;
   }
 
   72% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 72%, transparent 73%)
+    background: radial-gradient(var(--dragReadyColor) 72%, transparent 73%)
       repeat scroll 0 0;
   }
 
   73% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 73%, transparent 74%)
+    background: radial-gradient(var(--dragReadyColor) 73%, transparent 74%)
       repeat scroll 0 0;
   }
 
   74% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 74%, transparent 75%)
+    background: radial-gradient(var(--dragReadyColor) 74%, transparent 75%)
       repeat scroll 0 0;
   }
 
   75% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 75%, transparent 76%)
+    background: radial-gradient(var(--dragReadyColor) 75%, transparent 76%)
       repeat scroll 0 0;
   }
 
   76% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 76%, transparent 77%)
+    background: radial-gradient(var(--dragReadyColor) 76%, transparent 77%)
       repeat scroll 0 0;
   }
 
   77% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 77%, transparent 78%)
+    background: radial-gradient(var(--dragReadyColor) 77%, transparent 78%)
       repeat scroll 0 0;
   }
 
   78% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 78%, transparent 79%)
+    background: radial-gradient(var(--dragReadyColor) 78%, transparent 79%)
       repeat scroll 0 0;
   }
 
   79% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 79%, transparent 80%)
+    background: radial-gradient(var(--dragReadyColor) 79%, transparent 80%)
       repeat scroll 0 0;
   }
 
   80% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 80%, transparent 81%)
+    background: radial-gradient(var(--dragReadyColor) 80%, transparent 81%)
       repeat scroll 0 0;
   }
 
   81% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 81%, transparent 82%)
+    background: radial-gradient(var(--dragReadyColor) 81%, transparent 82%)
       repeat scroll 0 0;
   }
 
   82% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 82%, transparent 83%)
+    background: radial-gradient(var(--dragReadyColor) 82%, transparent 83%)
       repeat scroll 0 0;
   }
 
   83% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 83%, transparent 84%)
+    background: radial-gradient(var(--dragReadyColor) 83%, transparent 84%)
       repeat scroll 0 0;
   }
 
   84% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 84%, transparent 85%)
+    background: radial-gradient(var(--dragReadyColor) 84%, transparent 85%)
       repeat scroll 0 0;
   }
 
   85% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 85%, transparent 86%)
+    background: radial-gradient(var(--dragReadyColor) 85%, transparent 86%)
       repeat scroll 0 0;
   }
 
   86% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 86%, transparent 87%)
+    background: radial-gradient(var(--dragReadyColor) 86%, transparent 87%)
       repeat scroll 0 0;
   }
 
   87% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 87%, transparent 88%)
+    background: radial-gradient(var(--dragReadyColor) 87%, transparent 88%)
       repeat scroll 0 0;
   }
 
   88% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 88%, transparent 89%)
+    background: radial-gradient(var(--dragReadyColor) 88%, transparent 89%)
       repeat scroll 0 0;
   }
 
   89% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 89%, transparent 90%)
+    background: radial-gradient(var(--dragReadyColor) 89%, transparent 90%)
       repeat scroll 0 0;
   }
 
   90% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 90%, transparent 91%)
+    background: radial-gradient(var(--dragReadyColor) 90%, transparent 91%)
       repeat scroll 0 0;
   }
 
   91% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 91%, transparent 92%)
+    background: radial-gradient(var(--dragReadyColor) 91%, transparent 92%)
       repeat scroll 0 0;
   }
 
   92% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 92%, transparent 93%)
+    background: radial-gradient(var(--dragReadyColor) 92%, transparent 93%)
       repeat scroll 0 0;
   }
 
   93% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 93%, transparent 94%)
+    background: radial-gradient(var(--dragReadyColor) 93%, transparent 94%)
       repeat scroll 0 0;
   }
 
   94% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 94%, transparent 95%)
+    background: radial-gradient(var(--dragReadyColor) 94%, transparent 95%)
       repeat scroll 0 0;
   }
 
   95% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 95%, transparent 96%)
+    background: radial-gradient(var(--dragReadyColor) 95%, transparent 96%)
       repeat scroll 0 0;
   }
 
   96% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 96%, transparent 97%)
+    background: radial-gradient(var(--dragReadyColor) 96%, transparent 97%)
       repeat scroll 0 0;
   }
 
   97% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 97%, transparent 98%)
+    background: radial-gradient(var(--dragReadyColor) 97%, transparent 98%)
       repeat scroll 0 0;
   }
 
   98% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 98%, transparent 99%)
+    background: radial-gradient(var(--dragReadyColor) 98%, transparent 99%)
       repeat scroll 0 0;
   }
 
   99% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 99%, transparent 100%)
+    background: radial-gradient(var(--dragReadyColor) 99%, transparent 100%)
       repeat scroll 0 0;
   }
 
   100% {
-    background: radial-gradient(rgba(255, 152, 0, 0.8) 100%, transparent 100%)
+    background: radial-gradient(var(--dragReadyColor) 100%, transparent 100%)
       repeat scroll 0 0;
   }
 }
 
 @keyframes dargOverExpand {
   0% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 0%, transparent 1%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 0%, transparent 1%) repeat
+      scroll 0 0;
   }
 
   1% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 1%, transparent 2%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 1%, transparent 2%) repeat
+      scroll 0 0;
   }
 
   2% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 2%, transparent 3%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 2%, transparent 3%) repeat
+      scroll 0 0;
   }
 
   3% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 3%, transparent 4%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 3%, transparent 4%) repeat
+      scroll 0 0;
   }
 
   4% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 4%, transparent 5%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 4%, transparent 5%) repeat
+      scroll 0 0;
   }
 
   5% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 5%, transparent 6%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 5%, transparent 6%) repeat
+      scroll 0 0;
   }
 
   6% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 6%, transparent 7%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 6%, transparent 7%) repeat
+      scroll 0 0;
   }
 
   7% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 7%, transparent 8%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 7%, transparent 8%) repeat
+      scroll 0 0;
   }
 
   8% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 8%, transparent 9%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 8%, transparent 9%) repeat
+      scroll 0 0;
   }
 
   9% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 9%, transparent 10%)
-      repeat scroll 0 0;
+    background: radial-gradient(var(--dragOverColor) 9%, transparent 10%) repeat
+      scroll 0 0;
   }
 
   10% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 10%, transparent 11%)
+    background: radial-gradient(var(--dragOverColor) 10%, transparent 11%)
       repeat scroll 0 0;
   }
 
   11% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 11%, transparent 12%)
+    background: radial-gradient(var(--dragOverColor) 11%, transparent 12%)
       repeat scroll 0 0;
   }
 
   12% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 12%, transparent 13%)
+    background: radial-gradient(var(--dragOverColor) 12%, transparent 13%)
       repeat scroll 0 0;
   }
 
   13% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 13%, transparent 14%)
+    background: radial-gradient(var(--dragOverColor) 13%, transparent 14%)
       repeat scroll 0 0;
   }
 
   14% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 14%, transparent 15%)
+    background: radial-gradient(var(--dragOverColor) 14%, transparent 15%)
       repeat scroll 0 0;
   }
 
   15% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 15%, transparent 16%)
+    background: radial-gradient(var(--dragOverColor) 15%, transparent 16%)
       repeat scroll 0 0;
   }
 
   16% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 16%, transparent 17%)
+    background: radial-gradient(var(--dragOverColor) 16%, transparent 17%)
       repeat scroll 0 0;
   }
 
   17% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 17%, transparent 18%)
+    background: radial-gradient(var(--dragOverColor) 17%, transparent 18%)
       repeat scroll 0 0;
   }
 
   18% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 18%, transparent 19%)
+    background: radial-gradient(var(--dragOverColor) 18%, transparent 19%)
       repeat scroll 0 0;
   }
 
   19% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 19%, transparent 20%)
+    background: radial-gradient(var(--dragOverColor) 19%, transparent 20%)
       repeat scroll 0 0;
   }
 
   20% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 20%, transparent 21%)
+    background: radial-gradient(var(--dragOverColor) 20%, transparent 21%)
       repeat scroll 0 0;
   }
 
   21% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 21%, transparent 22%)
+    background: radial-gradient(var(--dragOverColor) 21%, transparent 22%)
       repeat scroll 0 0;
   }
 
   22% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 22%, transparent 23%)
+    background: radial-gradient(var(--dragOverColor) 22%, transparent 23%)
       repeat scroll 0 0;
   }
 
   23% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 23%, transparent 24%)
+    background: radial-gradient(var(--dragOverColor) 23%, transparent 24%)
       repeat scroll 0 0;
   }
 
   24% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 24%, transparent 25%)
+    background: radial-gradient(var(--dragOverColor) 24%, transparent 25%)
       repeat scroll 0 0;
   }
 
   25% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 25%, transparent 26%)
+    background: radial-gradient(var(--dragOverColor) 25%, transparent 26%)
       repeat scroll 0 0;
   }
 
   26% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 26%, transparent 27%)
+    background: radial-gradient(var(--dragOverColor) 26%, transparent 27%)
       repeat scroll 0 0;
   }
 
   27% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 27%, transparent 28%)
+    background: radial-gradient(var(--dragOverColor) 27%, transparent 28%)
       repeat scroll 0 0;
   }
 
   28% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 28%, transparent 29%)
+    background: radial-gradient(var(--dragOverColor) 28%, transparent 29%)
       repeat scroll 0 0;
   }
 
   29% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 29%, transparent 30%)
+    background: radial-gradient(var(--dragOverColor) 29%, transparent 30%)
       repeat scroll 0 0;
   }
 
   30% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 30%, transparent 31%)
+    background: radial-gradient(var(--dragOverColor) 30%, transparent 31%)
       repeat scroll 0 0;
   }
 
   31% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 31%, transparent 32%)
+    background: radial-gradient(var(--dragOverColor) 31%, transparent 32%)
       repeat scroll 0 0;
   }
 
   32% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 32%, transparent 33%)
+    background: radial-gradient(var(--dragOverColor) 32%, transparent 33%)
       repeat scroll 0 0;
   }
 
   33% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 33%, transparent 34%)
+    background: radial-gradient(var(--dragOverColor) 33%, transparent 34%)
       repeat scroll 0 0;
   }
 
   34% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 34%, transparent 35%)
+    background: radial-gradient(var(--dragOverColor) 34%, transparent 35%)
       repeat scroll 0 0;
   }
 
   35% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 35%, transparent 36%)
+    background: radial-gradient(var(--dragOverColor) 35%, transparent 36%)
       repeat scroll 0 0;
   }
 
   36% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 36%, transparent 37%)
+    background: radial-gradient(var(--dragOverColor) 36%, transparent 37%)
       repeat scroll 0 0;
   }
 
   37% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 37%, transparent 38%)
+    background: radial-gradient(var(--dragOverColor) 37%, transparent 38%)
       repeat scroll 0 0;
   }
 
   38% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 38%, transparent 39%)
+    background: radial-gradient(var(--dragOverColor) 38%, transparent 39%)
       repeat scroll 0 0;
   }
 
   39% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 39%, transparent 40%)
+    background: radial-gradient(var(--dragOverColor) 39%, transparent 40%)
       repeat scroll 0 0;
   }
 
   40% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 40%, transparent 41%)
+    background: radial-gradient(var(--dragOverColor) 40%, transparent 41%)
       repeat scroll 0 0;
   }
 
   41% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 41%, transparent 42%)
+    background: radial-gradient(var(--dragOverColor) 41%, transparent 42%)
       repeat scroll 0 0;
   }
 
   42% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 42%, transparent 43%)
+    background: radial-gradient(var(--dragOverColor) 42%, transparent 43%)
       repeat scroll 0 0;
   }
 
   43% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 43%, transparent 44%)
+    background: radial-gradient(var(--dragOverColor) 43%, transparent 44%)
       repeat scroll 0 0;
   }
 
   44% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 44%, transparent 45%)
+    background: radial-gradient(var(--dragOverColor) 44%, transparent 45%)
       repeat scroll 0 0;
   }
 
   45% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 45%, transparent 46%)
+    background: radial-gradient(var(--dragOverColor) 45%, transparent 46%)
       repeat scroll 0 0;
   }
 
   46% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 46%, transparent 47%)
+    background: radial-gradient(var(--dragOverColor) 46%, transparent 47%)
       repeat scroll 0 0;
   }
 
   47% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 47%, transparent 48%)
+    background: radial-gradient(var(--dragOverColor) 47%, transparent 48%)
       repeat scroll 0 0;
   }
 
   48% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 48%, transparent 49%)
+    background: radial-gradient(var(--dragOverColor) 48%, transparent 49%)
       repeat scroll 0 0;
   }
 
   49% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 49%, transparent 50%)
+    background: radial-gradient(var(--dragOverColor) 49%, transparent 50%)
       repeat scroll 0 0;
   }
 
   50% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 50%, transparent 51%)
+    background: radial-gradient(var(--dragOverColor) 50%, transparent 51%)
       repeat scroll 0 0;
   }
 
   51% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 51%, transparent 52%)
+    background: radial-gradient(var(--dragOverColor) 51%, transparent 52%)
       repeat scroll 0 0;
   }
 
   52% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 52%, transparent 53%)
+    background: radial-gradient(var(--dragOverColor) 52%, transparent 53%)
       repeat scroll 0 0;
   }
 
   53% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 53%, transparent 54%)
+    background: radial-gradient(var(--dragOverColor) 53%, transparent 54%)
       repeat scroll 0 0;
   }
 
   54% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 54%, transparent 55%)
+    background: radial-gradient(var(--dragOverColor) 54%, transparent 55%)
       repeat scroll 0 0;
   }
 
   55% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 55%, transparent 56%)
+    background: radial-gradient(var(--dragOverColor) 55%, transparent 56%)
       repeat scroll 0 0;
   }
 
   56% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 56%, transparent 57%)
+    background: radial-gradient(var(--dragOverColor) 56%, transparent 57%)
       repeat scroll 0 0;
   }
 
   57% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 57%, transparent 58%)
+    background: radial-gradient(var(--dragOverColor) 57%, transparent 58%)
       repeat scroll 0 0;
   }
 
   58% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 58%, transparent 59%)
+    background: radial-gradient(var(--dragOverColor) 58%, transparent 59%)
       repeat scroll 0 0;
   }
 
   59% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 59%, transparent 60%)
+    background: radial-gradient(var(--dragOverColor) 59%, transparent 60%)
       repeat scroll 0 0;
   }
 
   60% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 60%, transparent 61%)
+    background: radial-gradient(var(--dragOverColor) 60%, transparent 61%)
       repeat scroll 0 0;
   }
 
   61% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 61%, transparent 62%)
+    background: radial-gradient(var(--dragOverColor) 61%, transparent 62%)
       repeat scroll 0 0;
   }
 
   62% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 62%, transparent 63%)
+    background: radial-gradient(var(--dragOverColor) 62%, transparent 63%)
       repeat scroll 0 0;
   }
 
   63% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 63%, transparent 64%)
+    background: radial-gradient(var(--dragOverColor) 63%, transparent 64%)
       repeat scroll 0 0;
   }
 
   64% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 64%, transparent 65%)
+    background: radial-gradient(var(--dragOverColor) 64%, transparent 65%)
       repeat scroll 0 0;
   }
 
   65% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 65%, transparent 66%)
+    background: radial-gradient(var(--dragOverColor) 65%, transparent 66%)
       repeat scroll 0 0;
   }
 
   66% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 66%, transparent 67%)
+    background: radial-gradient(var(--dragOverColor) 66%, transparent 67%)
       repeat scroll 0 0;
   }
 
   67% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 67%, transparent 68%)
+    background: radial-gradient(var(--dragOverColor) 67%, transparent 68%)
       repeat scroll 0 0;
   }
 
   68% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 68%, transparent 69%)
+    background: radial-gradient(var(--dragOverColor) 68%, transparent 69%)
       repeat scroll 0 0;
   }
 
   69% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 69%, transparent 70%)
+    background: radial-gradient(var(--dragOverColor) 69%, transparent 70%)
       repeat scroll 0 0;
   }
 
   70% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 70%, transparent 71%)
+    background: radial-gradient(var(--dragOverColor) 70%, transparent 71%)
       repeat scroll 0 0;
   }
 
   71% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 71%, transparent 72%)
+    background: radial-gradient(var(--dragOverColor) 71%, transparent 72%)
       repeat scroll 0 0;
   }
 
   72% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 72%, transparent 73%)
+    background: radial-gradient(var(--dragOverColor) 72%, transparent 73%)
       repeat scroll 0 0;
   }
 
   73% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 73%, transparent 74%)
+    background: radial-gradient(var(--dragOverColor) 73%, transparent 74%)
       repeat scroll 0 0;
   }
 
   74% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 74%, transparent 75%)
+    background: radial-gradient(var(--dragOverColor) 74%, transparent 75%)
       repeat scroll 0 0;
   }
 
   75% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 75%, transparent 76%)
+    background: radial-gradient(var(--dragOverColor) 75%, transparent 76%)
       repeat scroll 0 0;
   }
 
   76% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 76%, transparent 77%)
+    background: radial-gradient(var(--dragOverColor) 76%, transparent 77%)
       repeat scroll 0 0;
   }
 
   77% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 77%, transparent 78%)
+    background: radial-gradient(var(--dragOverColor) 77%, transparent 78%)
       repeat scroll 0 0;
   }
 
   78% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 78%, transparent 79%)
+    background: radial-gradient(var(--dragOverColor) 78%, transparent 79%)
       repeat scroll 0 0;
   }
 
   79% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 79%, transparent 80%)
+    background: radial-gradient(var(--dragOverColor) 79%, transparent 80%)
       repeat scroll 0 0;
   }
 
   80% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 80%, transparent 81%)
+    background: radial-gradient(var(--dragOverColor) 80%, transparent 81%)
       repeat scroll 0 0;
   }
 
   81% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 81%, transparent 82%)
+    background: radial-gradient(var(--dragOverColor) 81%, transparent 82%)
       repeat scroll 0 0;
   }
 
   82% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 82%, transparent 83%)
+    background: radial-gradient(var(--dragOverColor) 82%, transparent 83%)
       repeat scroll 0 0;
   }
 
   83% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 83%, transparent 84%)
+    background: radial-gradient(var(--dragOverColor) 83%, transparent 84%)
       repeat scroll 0 0;
   }
 
   84% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 84%, transparent 85%)
+    background: radial-gradient(var(--dragOverColor) 84%, transparent 85%)
       repeat scroll 0 0;
   }
 
   85% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 85%, transparent 86%)
+    background: radial-gradient(var(--dragOverColor) 85%, transparent 86%)
       repeat scroll 0 0;
   }
 
   86% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 86%, transparent 87%)
+    background: radial-gradient(var(--dragOverColor) 86%, transparent 87%)
       repeat scroll 0 0;
   }
 
   87% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 87%, transparent 88%)
+    background: radial-gradient(var(--dragOverColor) 87%, transparent 88%)
       repeat scroll 0 0;
   }
 
   88% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 88%, transparent 89%)
+    background: radial-gradient(var(--dragOverColor) 88%, transparent 89%)
       repeat scroll 0 0;
   }
 
   89% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 89%, transparent 90%)
+    background: radial-gradient(var(--dragOverColor) 89%, transparent 90%)
       repeat scroll 0 0;
   }
 
   90% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 90%, transparent 91%)
+    background: radial-gradient(var(--dragOverColor) 90%, transparent 91%)
       repeat scroll 0 0;
   }
 
   91% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 91%, transparent 92%)
+    background: radial-gradient(var(--dragOverColor) 91%, transparent 92%)
       repeat scroll 0 0;
   }
 
   92% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 92%, transparent 93%)
+    background: radial-gradient(var(--dragOverColor) 92%, transparent 93%)
       repeat scroll 0 0;
   }
 
   93% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 93%, transparent 94%)
+    background: radial-gradient(var(--dragOverColor) 93%, transparent 94%)
       repeat scroll 0 0;
   }
 
   94% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 94%, transparent 95%)
+    background: radial-gradient(var(--dragOverColor) 94%, transparent 95%)
       repeat scroll 0 0;
   }
 
   95% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 95%, transparent 96%)
+    background: radial-gradient(var(--dragOverColor) 95%, transparent 96%)
       repeat scroll 0 0;
   }
 
   96% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 96%, transparent 97%)
+    background: radial-gradient(var(--dragOverColor) 96%, transparent 97%)
       repeat scroll 0 0;
   }
 
   97% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 97%, transparent 98%)
+    background: radial-gradient(var(--dragOverColor) 97%, transparent 98%)
       repeat scroll 0 0;
   }
 
   98% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 98%, transparent 99%)
+    background: radial-gradient(var(--dragOverColor) 98%, transparent 99%)
       repeat scroll 0 0;
   }
 
   99% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 99%, transparent 100%)
+    background: radial-gradient(var(--dragOverColor) 99%, transparent 100%)
       repeat scroll 0 0;
   }
 
   100% {
-    background: radial-gradient(rgba(255, 87, 34, 0.8) 100%, transparent 100%)
+    background: radial-gradient(var(--dragOverColor) 100%, transparent 100%)
       repeat scroll 0 0;
+  }
+}
+
+@keyframes dargAround {
+  0% {
+    background: conic-gradient(var(--dragReadyColor) 0%, transparent 1%) repeat
+      scroll 0% 0%;
+  }
+
+  1% {
+    background: conic-gradient(var(--dragReadyColor) 1%, transparent 2%) repeat
+      scroll 0% 0%;
+  }
+
+  2% {
+    background: conic-gradient(var(--dragReadyColor) 2%, transparent 3%) repeat
+      scroll 0% 0%;
+  }
+
+  3% {
+    background: conic-gradient(var(--dragReadyColor) 3%, transparent 4%) repeat
+      scroll 0% 0%;
+  }
+
+  4% {
+    background: conic-gradient(var(--dragReadyColor) 4%, transparent 5%) repeat
+      scroll 0% 0%;
+  }
+
+  5% {
+    background: conic-gradient(var(--dragReadyColor) 5%, transparent 6%) repeat
+      scroll 0% 0%;
+  }
+
+  6% {
+    background: conic-gradient(var(--dragReadyColor) 6%, transparent 7%) repeat
+      scroll 0% 0%;
+  }
+
+  7% {
+    background: conic-gradient(var(--dragReadyColor) 7%, transparent 8%) repeat
+      scroll 0% 0%;
+  }
+
+  8% {
+    background: conic-gradient(var(--dragReadyColor) 8%, transparent 9%) repeat
+      scroll 0% 0%;
+  }
+
+  9% {
+    background: conic-gradient(var(--dragReadyColor) 9%, transparent 10%) repeat
+      scroll 0% 0%;
+  }
+
+  10% {
+    background: conic-gradient(var(--dragReadyColor) 10%, transparent 11%)
+      repeat scroll 0% 0%;
+  }
+
+  11% {
+    background: conic-gradient(var(--dragReadyColor) 11%, transparent 12%)
+      repeat scroll 0% 0%;
+  }
+
+  12% {
+    background: conic-gradient(var(--dragReadyColor) 12%, transparent 13%)
+      repeat scroll 0% 0%;
+  }
+
+  13% {
+    background: conic-gradient(var(--dragReadyColor) 13%, transparent 14%)
+      repeat scroll 0% 0%;
+  }
+
+  14% {
+    background: conic-gradient(var(--dragReadyColor) 14%, transparent 15%)
+      repeat scroll 0% 0%;
+  }
+
+  15% {
+    background: conic-gradient(var(--dragReadyColor) 15%, transparent 16%)
+      repeat scroll 0% 0%;
+  }
+
+  16% {
+    background: conic-gradient(var(--dragReadyColor) 16%, transparent 17%)
+      repeat scroll 0% 0%;
+  }
+
+  17% {
+    background: conic-gradient(var(--dragReadyColor) 17%, transparent 18%)
+      repeat scroll 0% 0%;
+  }
+
+  18% {
+    background: conic-gradient(var(--dragReadyColor) 18%, transparent 19%)
+      repeat scroll 0% 0%;
+  }
+
+  19% {
+    background: conic-gradient(var(--dragReadyColor) 19%, transparent 20%)
+      repeat scroll 0% 0%;
+  }
+
+  20% {
+    background: conic-gradient(var(--dragReadyColor) 20%, transparent 21%)
+      repeat scroll 0% 0%;
+  }
+
+  21% {
+    background: conic-gradient(var(--dragReadyColor) 21%, transparent 22%)
+      repeat scroll 0% 0%;
+  }
+
+  22% {
+    background: conic-gradient(var(--dragReadyColor) 22%, transparent 23%)
+      repeat scroll 0% 0%;
+  }
+
+  23% {
+    background: conic-gradient(var(--dragReadyColor) 23%, transparent 24%)
+      repeat scroll 0% 0%;
+  }
+
+  24% {
+    background: conic-gradient(var(--dragReadyColor) 24%, transparent 25%)
+      repeat scroll 0% 0%;
+  }
+
+  25% {
+    background: conic-gradient(var(--dragReadyColor) 25%, transparent 26%)
+      repeat scroll 0% 0%;
+  }
+
+  26% {
+    background: conic-gradient(var(--dragReadyColor) 26%, transparent 27%)
+      repeat scroll 0% 0%;
+  }
+
+  27% {
+    background: conic-gradient(var(--dragReadyColor) 27%, transparent 28%)
+      repeat scroll 0% 0%;
+  }
+
+  28% {
+    background: conic-gradient(var(--dragReadyColor) 28%, transparent 29%)
+      repeat scroll 0% 0%;
+  }
+
+  29% {
+    background: conic-gradient(var(--dragReadyColor) 29%, transparent 30%)
+      repeat scroll 0% 0%;
+  }
+
+  30% {
+    background: conic-gradient(var(--dragReadyColor) 30%, transparent 31%)
+      repeat scroll 0% 0%;
+  }
+
+  31% {
+    background: conic-gradient(var(--dragReadyColor) 31%, transparent 32%)
+      repeat scroll 0% 0%;
+  }
+
+  32% {
+    background: conic-gradient(var(--dragReadyColor) 32%, transparent 33%)
+      repeat scroll 0% 0%;
+  }
+
+  33% {
+    background: conic-gradient(var(--dragReadyColor) 33%, transparent 34%)
+      repeat scroll 0% 0%;
+  }
+
+  34% {
+    background: conic-gradient(var(--dragReadyColor) 34%, transparent 35%)
+      repeat scroll 0% 0%;
+  }
+
+  35% {
+    background: conic-gradient(var(--dragReadyColor) 35%, transparent 36%)
+      repeat scroll 0% 0%;
+  }
+
+  36% {
+    background: conic-gradient(var(--dragReadyColor) 36%, transparent 37%)
+      repeat scroll 0% 0%;
+  }
+
+  37% {
+    background: conic-gradient(var(--dragReadyColor) 37%, transparent 38%)
+      repeat scroll 0% 0%;
+  }
+
+  38% {
+    background: conic-gradient(var(--dragReadyColor) 38%, transparent 39%)
+      repeat scroll 0% 0%;
+  }
+
+  39% {
+    background: conic-gradient(var(--dragReadyColor) 39%, transparent 40%)
+      repeat scroll 0% 0%;
+  }
+
+  40% {
+    background: conic-gradient(var(--dragReadyColor) 40%, transparent 41%)
+      repeat scroll 0% 0%;
+  }
+
+  41% {
+    background: conic-gradient(var(--dragReadyColor) 41%, transparent 42%)
+      repeat scroll 0% 0%;
+  }
+
+  42% {
+    background: conic-gradient(var(--dragReadyColor) 42%, transparent 43%)
+      repeat scroll 0% 0%;
+  }
+
+  43% {
+    background: conic-gradient(var(--dragReadyColor) 43%, transparent 44%)
+      repeat scroll 0% 0%;
+  }
+
+  44% {
+    background: conic-gradient(var(--dragReadyColor) 44%, transparent 45%)
+      repeat scroll 0% 0%;
+  }
+
+  45% {
+    background: conic-gradient(var(--dragReadyColor) 45%, transparent 46%)
+      repeat scroll 0% 0%;
+  }
+
+  46% {
+    background: conic-gradient(var(--dragReadyColor) 46%, transparent 47%)
+      repeat scroll 0% 0%;
+  }
+
+  47% {
+    background: conic-gradient(var(--dragReadyColor) 47%, transparent 48%)
+      repeat scroll 0% 0%;
+  }
+
+  48% {
+    background: conic-gradient(var(--dragReadyColor) 48%, transparent 49%)
+      repeat scroll 0% 0%;
+  }
+
+  49% {
+    background: conic-gradient(var(--dragReadyColor) 49%, transparent 50%)
+      repeat scroll 0% 0%;
+  }
+
+  50% {
+    background: conic-gradient(var(--dragReadyColor) 50%, transparent 51%)
+      repeat scroll 0% 0%;
+  }
+
+  51% {
+    background: conic-gradient(var(--dragReadyColor) 51%, transparent 52%)
+      repeat scroll 0% 0%;
+  }
+
+  52% {
+    background: conic-gradient(var(--dragReadyColor) 52%, transparent 53%)
+      repeat scroll 0% 0%;
+  }
+
+  53% {
+    background: conic-gradient(var(--dragReadyColor) 53%, transparent 54%)
+      repeat scroll 0% 0%;
+  }
+
+  54% {
+    background: conic-gradient(var(--dragReadyColor) 54%, transparent 55%)
+      repeat scroll 0% 0%;
+  }
+
+  55% {
+    background: conic-gradient(var(--dragReadyColor) 55%, transparent 56%)
+      repeat scroll 0% 0%;
+  }
+
+  56% {
+    background: conic-gradient(var(--dragReadyColor) 56%, transparent 57%)
+      repeat scroll 0% 0%;
+  }
+
+  57% {
+    background: conic-gradient(var(--dragReadyColor) 57%, transparent 58%)
+      repeat scroll 0% 0%;
+  }
+
+  58% {
+    background: conic-gradient(var(--dragReadyColor) 58%, transparent 59%)
+      repeat scroll 0% 0%;
+  }
+
+  59% {
+    background: conic-gradient(var(--dragReadyColor) 59%, transparent 60%)
+      repeat scroll 0% 0%;
+  }
+
+  60% {
+    background: conic-gradient(var(--dragReadyColor) 60%, transparent 61%)
+      repeat scroll 0% 0%;
+  }
+
+  61% {
+    background: conic-gradient(var(--dragReadyColor) 61%, transparent 62%)
+      repeat scroll 0% 0%;
+  }
+
+  62% {
+    background: conic-gradient(var(--dragReadyColor) 62%, transparent 63%)
+      repeat scroll 0% 0%;
+  }
+
+  63% {
+    background: conic-gradient(var(--dragReadyColor) 63%, transparent 64%)
+      repeat scroll 0% 0%;
+  }
+
+  64% {
+    background: conic-gradient(var(--dragReadyColor) 64%, transparent 65%)
+      repeat scroll 0% 0%;
+  }
+
+  65% {
+    background: conic-gradient(var(--dragReadyColor) 65%, transparent 66%)
+      repeat scroll 0% 0%;
+  }
+
+  66% {
+    background: conic-gradient(var(--dragReadyColor) 66%, transparent 67%)
+      repeat scroll 0% 0%;
+  }
+
+  67% {
+    background: conic-gradient(var(--dragReadyColor) 67%, transparent 68%)
+      repeat scroll 0% 0%;
+  }
+
+  68% {
+    background: conic-gradient(var(--dragReadyColor) 68%, transparent 69%)
+      repeat scroll 0% 0%;
+  }
+
+  69% {
+    background: conic-gradient(var(--dragReadyColor) 69%, transparent 70%)
+      repeat scroll 0% 0%;
+  }
+
+  70% {
+    background: conic-gradient(var(--dragReadyColor) 70%, transparent 71%)
+      repeat scroll 0% 0%;
+  }
+
+  71% {
+    background: conic-gradient(var(--dragReadyColor) 71%, transparent 72%)
+      repeat scroll 0% 0%;
+  }
+
+  72% {
+    background: conic-gradient(var(--dragReadyColor) 72%, transparent 73%)
+      repeat scroll 0% 0%;
+  }
+
+  73% {
+    background: conic-gradient(var(--dragReadyColor) 73%, transparent 74%)
+      repeat scroll 0% 0%;
+  }
+
+  74% {
+    background: conic-gradient(var(--dragReadyColor) 74%, transparent 75%)
+      repeat scroll 0% 0%;
+  }
+
+  75% {
+    background: conic-gradient(var(--dragReadyColor) 75%, transparent 76%)
+      repeat scroll 0% 0%;
+  }
+
+  76% {
+    background: conic-gradient(var(--dragReadyColor) 76%, transparent 77%)
+      repeat scroll 0% 0%;
+  }
+
+  77% {
+    background: conic-gradient(var(--dragReadyColor) 77%, transparent 78%)
+      repeat scroll 0% 0%;
+  }
+
+  78% {
+    background: conic-gradient(var(--dragReadyColor) 78%, transparent 79%)
+      repeat scroll 0% 0%;
+  }
+
+  79% {
+    background: conic-gradient(var(--dragReadyColor) 79%, transparent 80%)
+      repeat scroll 0% 0%;
+  }
+
+  80% {
+    background: conic-gradient(var(--dragReadyColor) 80%, transparent 81%)
+      repeat scroll 0% 0%;
+  }
+
+  81% {
+    background: conic-gradient(var(--dragReadyColor) 81%, transparent 82%)
+      repeat scroll 0% 0%;
+  }
+
+  82% {
+    background: conic-gradient(var(--dragReadyColor) 82%, transparent 83%)
+      repeat scroll 0% 0%;
+  }
+
+  83% {
+    background: conic-gradient(var(--dragReadyColor) 83%, transparent 84%)
+      repeat scroll 0% 0%;
+  }
+
+  84% {
+    background: conic-gradient(var(--dragReadyColor) 84%, transparent 85%)
+      repeat scroll 0% 0%;
+  }
+
+  85% {
+    background: conic-gradient(var(--dragReadyColor) 85%, transparent 86%)
+      repeat scroll 0% 0%;
+  }
+
+  86% {
+    background: conic-gradient(var(--dragReadyColor) 86%, transparent 87%)
+      repeat scroll 0% 0%;
+  }
+
+  87% {
+    background: conic-gradient(var(--dragReadyColor) 87%, transparent 88%)
+      repeat scroll 0% 0%;
+  }
+
+  88% {
+    background: conic-gradient(var(--dragReadyColor) 88%, transparent 89%)
+      repeat scroll 0% 0%;
+  }
+
+  89% {
+    background: conic-gradient(var(--dragReadyColor) 89%, transparent 90%)
+      repeat scroll 0% 0%;
+  }
+
+  90% {
+    background: conic-gradient(var(--dragReadyColor) 90%, transparent 91%)
+      repeat scroll 0% 0%;
+  }
+
+  91% {
+    background: conic-gradient(var(--dragReadyColor) 91%, transparent 92%)
+      repeat scroll 0% 0%;
+  }
+
+  92% {
+    background: conic-gradient(var(--dragReadyColor) 92%, transparent 93%)
+      repeat scroll 0% 0%;
+  }
+
+  93% {
+    background: conic-gradient(var(--dragReadyColor) 93%, transparent 94%)
+      repeat scroll 0% 0%;
+  }
+
+  94% {
+    background: conic-gradient(var(--dragReadyColor) 94%, transparent 95%)
+      repeat scroll 0% 0%;
+  }
+
+  95% {
+    background: conic-gradient(var(--dragReadyColor) 95%, transparent 96%)
+      repeat scroll 0% 0%;
+  }
+
+  96% {
+    background: conic-gradient(var(--dragReadyColor) 96%, transparent 97%)
+      repeat scroll 0% 0%;
+  }
+
+  97% {
+    background: conic-gradient(var(--dragReadyColor) 97%, transparent 98%)
+      repeat scroll 0% 0%;
+  }
+
+  98% {
+    background: conic-gradient(var(--dragReadyColor) 98%, transparent 99%)
+      repeat scroll 0% 0%;
+  }
+
+  99% {
+    background: conic-gradient(var(--dragReadyColor) 99%, transparent 100%)
+      repeat scroll 0% 0%;
+  }
+
+  100% {
+    background: conic-gradient(var(--dragReadyColor) 100%, transparent 100%)
+      repeat scroll 0% 0%;
+  }
+}
+
+@keyframes dargOverAround {
+  0% {
+    background: conic-gradient(var(--dragOverColor) 0%, transparent 1%) repeat
+      scroll 0% 0%;
+  }
+
+  1% {
+    background: conic-gradient(var(--dragOverColor) 1%, transparent 2%) repeat
+      scroll 0% 0%;
+  }
+
+  2% {
+    background: conic-gradient(var(--dragOverColor) 2%, transparent 3%) repeat
+      scroll 0% 0%;
+  }
+
+  3% {
+    background: conic-gradient(var(--dragOverColor) 3%, transparent 4%) repeat
+      scroll 0% 0%;
+  }
+
+  4% {
+    background: conic-gradient(var(--dragOverColor) 4%, transparent 5%) repeat
+      scroll 0% 0%;
+  }
+
+  5% {
+    background: conic-gradient(var(--dragOverColor) 5%, transparent 6%) repeat
+      scroll 0% 0%;
+  }
+
+  6% {
+    background: conic-gradient(var(--dragOverColor) 6%, transparent 7%) repeat
+      scroll 0% 0%;
+  }
+
+  7% {
+    background: conic-gradient(var(--dragOverColor) 7%, transparent 8%) repeat
+      scroll 0% 0%;
+  }
+
+  8% {
+    background: conic-gradient(var(--dragOverColor) 8%, transparent 9%) repeat
+      scroll 0% 0%;
+  }
+
+  9% {
+    background: conic-gradient(var(--dragOverColor) 9%, transparent 10%) repeat
+      scroll 0% 0%;
+  }
+
+  10% {
+    background: conic-gradient(var(--dragOverColor) 10%, transparent 11%) repeat
+      scroll 0% 0%;
+  }
+
+  11% {
+    background: conic-gradient(var(--dragOverColor) 11%, transparent 12%) repeat
+      scroll 0% 0%;
+  }
+
+  12% {
+    background: conic-gradient(var(--dragOverColor) 12%, transparent 13%) repeat
+      scroll 0% 0%;
+  }
+
+  13% {
+    background: conic-gradient(var(--dragOverColor) 13%, transparent 14%) repeat
+      scroll 0% 0%;
+  }
+
+  14% {
+    background: conic-gradient(var(--dragOverColor) 14%, transparent 15%) repeat
+      scroll 0% 0%;
+  }
+
+  15% {
+    background: conic-gradient(var(--dragOverColor) 15%, transparent 16%) repeat
+      scroll 0% 0%;
+  }
+
+  16% {
+    background: conic-gradient(var(--dragOverColor) 16%, transparent 17%) repeat
+      scroll 0% 0%;
+  }
+
+  17% {
+    background: conic-gradient(var(--dragOverColor) 17%, transparent 18%) repeat
+      scroll 0% 0%;
+  }
+
+  18% {
+    background: conic-gradient(var(--dragOverColor) 18%, transparent 19%) repeat
+      scroll 0% 0%;
+  }
+
+  19% {
+    background: conic-gradient(var(--dragOverColor) 19%, transparent 20%) repeat
+      scroll 0% 0%;
+  }
+
+  20% {
+    background: conic-gradient(var(--dragOverColor) 20%, transparent 21%) repeat
+      scroll 0% 0%;
+  }
+
+  21% {
+    background: conic-gradient(var(--dragOverColor) 21%, transparent 22%) repeat
+      scroll 0% 0%;
+  }
+
+  22% {
+    background: conic-gradient(var(--dragOverColor) 22%, transparent 23%) repeat
+      scroll 0% 0%;
+  }
+
+  23% {
+    background: conic-gradient(var(--dragOverColor) 23%, transparent 24%) repeat
+      scroll 0% 0%;
+  }
+
+  24% {
+    background: conic-gradient(var(--dragOverColor) 24%, transparent 25%) repeat
+      scroll 0% 0%;
+  }
+
+  25% {
+    background: conic-gradient(var(--dragOverColor) 25%, transparent 26%) repeat
+      scroll 0% 0%;
+  }
+
+  26% {
+    background: conic-gradient(var(--dragOverColor) 26%, transparent 27%) repeat
+      scroll 0% 0%;
+  }
+
+  27% {
+    background: conic-gradient(var(--dragOverColor) 27%, transparent 28%) repeat
+      scroll 0% 0%;
+  }
+
+  28% {
+    background: conic-gradient(var(--dragOverColor) 28%, transparent 29%) repeat
+      scroll 0% 0%;
+  }
+
+  29% {
+    background: conic-gradient(var(--dragOverColor) 29%, transparent 30%) repeat
+      scroll 0% 0%;
+  }
+
+  30% {
+    background: conic-gradient(var(--dragOverColor) 30%, transparent 31%) repeat
+      scroll 0% 0%;
+  }
+
+  31% {
+    background: conic-gradient(var(--dragOverColor) 31%, transparent 32%) repeat
+      scroll 0% 0%;
+  }
+
+  32% {
+    background: conic-gradient(var(--dragOverColor) 32%, transparent 33%) repeat
+      scroll 0% 0%;
+  }
+
+  33% {
+    background: conic-gradient(var(--dragOverColor) 33%, transparent 34%) repeat
+      scroll 0% 0%;
+  }
+
+  34% {
+    background: conic-gradient(var(--dragOverColor) 34%, transparent 35%) repeat
+      scroll 0% 0%;
+  }
+
+  35% {
+    background: conic-gradient(var(--dragOverColor) 35%, transparent 36%) repeat
+      scroll 0% 0%;
+  }
+
+  36% {
+    background: conic-gradient(var(--dragOverColor) 36%, transparent 37%) repeat
+      scroll 0% 0%;
+  }
+
+  37% {
+    background: conic-gradient(var(--dragOverColor) 37%, transparent 38%) repeat
+      scroll 0% 0%;
+  }
+
+  38% {
+    background: conic-gradient(var(--dragOverColor) 38%, transparent 39%) repeat
+      scroll 0% 0%;
+  }
+
+  39% {
+    background: conic-gradient(var(--dragOverColor) 39%, transparent 40%) repeat
+      scroll 0% 0%;
+  }
+
+  40% {
+    background: conic-gradient(var(--dragOverColor) 40%, transparent 41%) repeat
+      scroll 0% 0%;
+  }
+
+  41% {
+    background: conic-gradient(var(--dragOverColor) 41%, transparent 42%) repeat
+      scroll 0% 0%;
+  }
+
+  42% {
+    background: conic-gradient(var(--dragOverColor) 42%, transparent 43%) repeat
+      scroll 0% 0%;
+  }
+
+  43% {
+    background: conic-gradient(var(--dragOverColor) 43%, transparent 44%) repeat
+      scroll 0% 0%;
+  }
+
+  44% {
+    background: conic-gradient(var(--dragOverColor) 44%, transparent 45%) repeat
+      scroll 0% 0%;
+  }
+
+  45% {
+    background: conic-gradient(var(--dragOverColor) 45%, transparent 46%) repeat
+      scroll 0% 0%;
+  }
+
+  46% {
+    background: conic-gradient(var(--dragOverColor) 46%, transparent 47%) repeat
+      scroll 0% 0%;
+  }
+
+  47% {
+    background: conic-gradient(var(--dragOverColor) 47%, transparent 48%) repeat
+      scroll 0% 0%;
+  }
+
+  48% {
+    background: conic-gradient(var(--dragOverColor) 48%, transparent 49%) repeat
+      scroll 0% 0%;
+  }
+
+  49% {
+    background: conic-gradient(var(--dragOverColor) 49%, transparent 50%) repeat
+      scroll 0% 0%;
+  }
+
+  50% {
+    background: conic-gradient(var(--dragOverColor) 50%, transparent 51%) repeat
+      scroll 0% 0%;
+  }
+
+  51% {
+    background: conic-gradient(var(--dragOverColor) 51%, transparent 52%) repeat
+      scroll 0% 0%;
+  }
+
+  52% {
+    background: conic-gradient(var(--dragOverColor) 52%, transparent 53%) repeat
+      scroll 0% 0%;
+  }
+
+  53% {
+    background: conic-gradient(var(--dragOverColor) 53%, transparent 54%) repeat
+      scroll 0% 0%;
+  }
+
+  54% {
+    background: conic-gradient(var(--dragOverColor) 54%, transparent 55%) repeat
+      scroll 0% 0%;
+  }
+
+  55% {
+    background: conic-gradient(var(--dragOverColor) 55%, transparent 56%) repeat
+      scroll 0% 0%;
+  }
+
+  56% {
+    background: conic-gradient(var(--dragOverColor) 56%, transparent 57%) repeat
+      scroll 0% 0%;
+  }
+
+  57% {
+    background: conic-gradient(var(--dragOverColor) 57%, transparent 58%) repeat
+      scroll 0% 0%;
+  }
+
+  58% {
+    background: conic-gradient(var(--dragOverColor) 58%, transparent 59%) repeat
+      scroll 0% 0%;
+  }
+
+  59% {
+    background: conic-gradient(var(--dragOverColor) 59%, transparent 60%) repeat
+      scroll 0% 0%;
+  }
+
+  60% {
+    background: conic-gradient(var(--dragOverColor) 60%, transparent 61%) repeat
+      scroll 0% 0%;
+  }
+
+  61% {
+    background: conic-gradient(var(--dragOverColor) 61%, transparent 62%) repeat
+      scroll 0% 0%;
+  }
+
+  62% {
+    background: conic-gradient(var(--dragOverColor) 62%, transparent 63%) repeat
+      scroll 0% 0%;
+  }
+
+  63% {
+    background: conic-gradient(var(--dragOverColor) 63%, transparent 64%) repeat
+      scroll 0% 0%;
+  }
+
+  64% {
+    background: conic-gradient(var(--dragOverColor) 64%, transparent 65%) repeat
+      scroll 0% 0%;
+  }
+
+  65% {
+    background: conic-gradient(var(--dragOverColor) 65%, transparent 66%) repeat
+      scroll 0% 0%;
+  }
+
+  66% {
+    background: conic-gradient(var(--dragOverColor) 66%, transparent 67%) repeat
+      scroll 0% 0%;
+  }
+
+  67% {
+    background: conic-gradient(var(--dragOverColor) 67%, transparent 68%) repeat
+      scroll 0% 0%;
+  }
+
+  68% {
+    background: conic-gradient(var(--dragOverColor) 68%, transparent 69%) repeat
+      scroll 0% 0%;
+  }
+
+  69% {
+    background: conic-gradient(var(--dragOverColor) 69%, transparent 70%) repeat
+      scroll 0% 0%;
+  }
+
+  70% {
+    background: conic-gradient(var(--dragOverColor) 70%, transparent 71%) repeat
+      scroll 0% 0%;
+  }
+
+  71% {
+    background: conic-gradient(var(--dragOverColor) 71%, transparent 72%) repeat
+      scroll 0% 0%;
+  }
+
+  72% {
+    background: conic-gradient(var(--dragOverColor) 72%, transparent 73%) repeat
+      scroll 0% 0%;
+  }
+
+  73% {
+    background: conic-gradient(var(--dragOverColor) 73%, transparent 74%) repeat
+      scroll 0% 0%;
+  }
+
+  74% {
+    background: conic-gradient(var(--dragOverColor) 74%, transparent 75%) repeat
+      scroll 0% 0%;
+  }
+
+  75% {
+    background: conic-gradient(var(--dragOverColor) 75%, transparent 76%) repeat
+      scroll 0% 0%;
+  }
+
+  76% {
+    background: conic-gradient(var(--dragOverColor) 76%, transparent 77%) repeat
+      scroll 0% 0%;
+  }
+
+  77% {
+    background: conic-gradient(var(--dragOverColor) 77%, transparent 78%) repeat
+      scroll 0% 0%;
+  }
+
+  78% {
+    background: conic-gradient(var(--dragOverColor) 78%, transparent 79%) repeat
+      scroll 0% 0%;
+  }
+
+  79% {
+    background: conic-gradient(var(--dragOverColor) 79%, transparent 80%) repeat
+      scroll 0% 0%;
+  }
+
+  80% {
+    background: conic-gradient(var(--dragOverColor) 80%, transparent 81%) repeat
+      scroll 0% 0%;
+  }
+
+  81% {
+    background: conic-gradient(var(--dragOverColor) 81%, transparent 82%) repeat
+      scroll 0% 0%;
+  }
+
+  82% {
+    background: conic-gradient(var(--dragOverColor) 82%, transparent 83%) repeat
+      scroll 0% 0%;
+  }
+
+  83% {
+    background: conic-gradient(var(--dragOverColor) 83%, transparent 84%) repeat
+      scroll 0% 0%;
+  }
+
+  84% {
+    background: conic-gradient(var(--dragOverColor) 84%, transparent 85%) repeat
+      scroll 0% 0%;
+  }
+
+  85% {
+    background: conic-gradient(var(--dragOverColor) 85%, transparent 86%) repeat
+      scroll 0% 0%;
+  }
+
+  86% {
+    background: conic-gradient(var(--dragOverColor) 86%, transparent 87%) repeat
+      scroll 0% 0%;
+  }
+
+  87% {
+    background: conic-gradient(var(--dragOverColor) 87%, transparent 88%) repeat
+      scroll 0% 0%;
+  }
+
+  88% {
+    background: conic-gradient(var(--dragOverColor) 88%, transparent 89%) repeat
+      scroll 0% 0%;
+  }
+
+  89% {
+    background: conic-gradient(var(--dragOverColor) 89%, transparent 90%) repeat
+      scroll 0% 0%;
+  }
+
+  90% {
+    background: conic-gradient(var(--dragOverColor) 90%, transparent 91%) repeat
+      scroll 0% 0%;
+  }
+
+  91% {
+    background: conic-gradient(var(--dragOverColor) 91%, transparent 92%) repeat
+      scroll 0% 0%;
+  }
+
+  92% {
+    background: conic-gradient(var(--dragOverColor) 92%, transparent 93%) repeat
+      scroll 0% 0%;
+  }
+
+  93% {
+    background: conic-gradient(var(--dragOverColor) 93%, transparent 94%) repeat
+      scroll 0% 0%;
+  }
+
+  94% {
+    background: conic-gradient(var(--dragOverColor) 94%, transparent 95%) repeat
+      scroll 0% 0%;
+  }
+
+  95% {
+    background: conic-gradient(var(--dragOverColor) 95%, transparent 96%) repeat
+      scroll 0% 0%;
+  }
+
+  96% {
+    background: conic-gradient(var(--dragOverColor) 96%, transparent 97%) repeat
+      scroll 0% 0%;
+  }
+
+  97% {
+    background: conic-gradient(var(--dragOverColor) 97%, transparent 98%) repeat
+      scroll 0% 0%;
+  }
+
+  98% {
+    background: conic-gradient(var(--dragOverColor) 98%, transparent 99%) repeat
+      scroll 0% 0%;
+  }
+
+  99% {
+    background: conic-gradient(var(--dragOverColor) 99%, transparent 100%)
+      repeat scroll 0% 0%;
+  }
+
+  100% {
+    background: conic-gradient(var(--dragOverColor) 100%, transparent 100%)
+      repeat scroll 0% 0%;
   }
 }
 

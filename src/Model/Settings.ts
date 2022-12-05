@@ -1,5 +1,6 @@
 ﻿import { RunMode } from "../Model/RunMode";
 import { Layout } from "../Model/Layout";
+import RGBAColor from "./RGBAColor";
 
 
 /**
@@ -128,6 +129,90 @@ export default class Settings {
      * 显示错误信息
      */
     alertErrorInfo: boolean = false;
+
+    /**
+     * 启用拖动排序功能
+     *
+     * @默认值 true
+     */
+    enableDrag: boolean = true;
+
+    /**
+     * 校验状态的颜色
+     * 
+     * @默认值 new RGBAColor(255, 235, 59, 0.5)
+     */
+    statusCheckingColor: RGBAColor = new RGBAColor(255, 235, 59, 0.5);
+
+    /**
+     * 上传状态的颜色
+     * 
+     * @默认值 new RGBAColor(144, 206, 255, 0.5)
+     */
+    statusUploadingColor: RGBAColor = new RGBAColor(144, 206, 255, 0.5);
+
+    /**
+     * 暂停状态的颜色
+     * 
+     * @默认值 new RGBAColor(158, 158, 158, 0.5)
+     */
+    statusPausedColor: RGBAColor = new RGBAColor(158, 158, 158, 0.5);
+
+    /**
+     * 暂停状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(244, 154, 3, 0.5)
+     */
+    statusPausedSubColor: RGBAColor = new RGBAColor(244, 154, 3, 0.5);
+
+    /**
+     * 完成状态的颜色
+     * 
+     * @默认值 new RGBAColor(76, 175, 80, 0.1)
+     */
+    statusDoneColor: RGBAColor = new RGBAColor(76, 175, 80, 0.1);
+
+    /**
+     * 完成状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(3, 169, 244, 0.5)
+     */
+    statusDoneSubColor: RGBAColor = new RGBAColor(3, 169, 244, 0.5);
+
+    /**
+     * 错误状态的颜色
+     * 
+     * @默认值 new RGBAColor(255, 0, 30, 0.35)
+     */
+    statusErrorColor: RGBAColor = new RGBAColor(255, 0, 30, 0.35);
+
+    /**
+     * 错误状态副标题的颜色
+     * 
+     * @默认值 new RGBAColor(232, 31, 31, 0.5)
+     */
+    statusErrorSubColor: RGBAColor = new RGBAColor(232, 31, 31, 0.5);
+
+    /**
+     * 准备拖动时的动画颜色
+     * 
+     * @默认值 new RGBAColor(255, 152, 0, 0.8)
+     */
+    dragReadyColor: RGBAColor = new RGBAColor(255, 152, 0, 0.8);
+
+    /**
+     * 拖动时的动画颜色
+     * 
+     * @默认值 new RGBAColor(255, 152, 0, 0.5)
+     */
+    dragMovingColor: RGBAColor = new RGBAColor(255, 152, 0, 0.5);
+
+    /**
+     * 结束拖动时的动画颜色
+     * 
+     * @默认值 new RGBAColor(255, 87, 34, 0.8)
+     */
+    dragOverColor: RGBAColor = new RGBAColor(255, 87, 34, 0.8);
 
     /**
      * 准备开始拖动的时间（单位ms）
