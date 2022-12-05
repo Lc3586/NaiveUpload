@@ -78,7 +78,7 @@ const props = withDefaults(
     settings: () => {
       return Settings.default();
     },
-    readonly: true,
+    readonly: false,
   }
 );
 

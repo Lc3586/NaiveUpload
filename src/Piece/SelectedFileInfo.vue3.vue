@@ -1,6 +1,7 @@
 <template>
   <div
     :class="renderData.container.style()"
+    :style="renderData.container.styleVar()"
     :title="renderData.container.info()"
     v-on:mouseenter="mouseEnter"
     v-on:mouseleave="mouseLeave"
@@ -119,7 +120,7 @@ let renderData = reactive({
     /**
      * 容器样式中的变量
      */
-    containerStyleVar: (): Record<string, string> => {
+     styleVar: (): Record<string, string> => {
       return {
         "--statusCheckingColor": upload
           .getSettings()

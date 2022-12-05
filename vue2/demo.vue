@@ -678,10 +678,13 @@
 <script>
 //局部引用示例
 import { NaiveUpload } from "../src/export.vue2";
+// //测试打包代码
+// import { NaiveUpload } from "../lib/export";
+// import "../dist/style.css";
 import NaiveApiService from "./naiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { RunMode, Settings, UploadError } from "../src/export.base";
+import { RunMode, Settings, UploadError, RunMode } from "../src/export.base";
 import { Sketch } from "vue-color";
 import RGBAColor from "../src/Model/RGBAColor";
 
@@ -697,7 +700,10 @@ export default {
    */
   data() {
     const settings = Settings.defaultWithConfigCode("multiple-file").setup(
-      (x) => ((x.debug = true), (x.runMode = RunMode.手动挡))
+      (x) => {
+        x.debug = true;
+        x.runMode = RunMode.半自动;
+      }
     );
 
     const renderData = {

@@ -651,7 +651,10 @@
 <script setup lang="ts">
 import { reactive, watch, getCurrentInstance } from "vue";
 //局部引用示例
-// import { NaiveUpload } from "@doc/export";
+import { NaiveUpload } from "../src/export.vue3";
+// //测试打包代码
+// import { NaiveUpload } from "../lib/export";
+// import "../dist/style.css";
 import NaiveApiService from "./NaiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import { ITreeList as UploadConfigTreeList } from "./fileUploadConfig/ITreeList";
@@ -663,14 +666,19 @@ import {
   Settings,
   UploadError,
   RGBAColor,
-} from "@doc/export.vue3";
-import { Sketch } from "vue-color";
+  RunMode,
+} from "../src/export.vue3";
+import { Sketch as SketchPicker } from "@ckpack/vue-color";
 
 /**
  * 上传组件的设置
  */
-const settings = reactive(Settings.defaultWithConfigCode("multiple-file"));
-settings.debug = true;
+const settings = reactive(
+  Settings.defaultWithConfigCode("multiple-file").setup((x) => {
+    x.debug = true;
+    x.runMode = RunMode.半自动;
+  })
+);
 
 /**
  * 渲染数据
@@ -737,35 +745,35 @@ watch(
     settings.statusCheckingColor = RGBAColor.convertFrom(
       renderData.colors.statusCheckingColor.rgba
     );
-    settings.settings.statusUploadingColor = RGBAColor.convertFrom(
+    settings.statusUploadingColor = RGBAColor.convertFrom(
       renderData.colors.statusUploadingColor.rgba
     );
-    settings.settings.statusPausedColor = RGBAColor.convertFrom(
+    settings.statusPausedColor = RGBAColor.convertFrom(
       renderData.colors.statusPausedColor.rgba
     );
-    settings.settings.statusPausedSubColor = RGBAColor.convertFrom(
+    settings.statusPausedSubColor = RGBAColor.convertFrom(
       renderData.colors.statusPausedSubColor.rgba
     );
-    settings.settings.statusDoneColor = RGBAColor.convertFrom(
+    settings.statusDoneColor = RGBAColor.convertFrom(
       renderData.colors.statusDoneColor.rgba
     );
-    settings.settings.statusDoneSubColor = RGBAColor.convertFrom(
+    settings.statusDoneSubColor = RGBAColor.convertFrom(
       renderData.colors.statusDoneSubColor.rgba
     );
-    settings.settings.statusErrorColor = RGBAColor.convertFrom(
+    settings.statusErrorColor = RGBAColor.convertFrom(
       renderData.colors.statusErrorColor.rgba
     );
-    settings.settings.statusErrorSubColor = RGBAColor.convertFrom(
+    settings.statusErrorSubColor = RGBAColor.convertFrom(
       renderData.colors.statusErrorSubColor.rgba
     );
 
-    settings.settings.dragReadyColor = RGBAColor.convertFrom(
+    settings.dragReadyColor = RGBAColor.convertFrom(
       renderData.colors.dragReadyColor.rgba
     );
-    settings.settings.dragMovingColor = RGBAColor.convertFrom(
+    settings.dragMovingColor = RGBAColor.convertFrom(
       renderData.colors.dragMovingColor.rgba
     );
-    settings.settings.dragOverColor = RGBAColor.convertFrom(
+    settings.dragOverColor = RGBAColor.convertFrom(
       renderData.colors.dragOverColor.rgba
     );
   },
@@ -991,5 +999,11 @@ const start = () => {
 
 .config-tree-node .tools .button {
   margin-left: 10px;
+}
+
+.color-block {
+  width: 30px;
+  height: 30px;
+  background-color: var(--color) !important;
 }
 </style>

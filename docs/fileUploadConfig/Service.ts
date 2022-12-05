@@ -1,7 +1,7 @@
 import { IDetail } from "./IDetail";
 import { ITreeList } from "./ITreeList";
 import axios from "axios";
-import { IConfig } from "@doc/export.vue3";
+import { IConfig } from "../../src/export.vue3";
 
 
 /**

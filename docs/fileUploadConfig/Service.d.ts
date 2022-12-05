@@ -1,6 +1,6 @@
 import { IDetail } from "./IDetail";
 import { ITreeList } from "./ITreeList";
-import { IConfig } from "@doc/export.vue3";
+import { IConfig } from "../../src/export.vue3";
 /**
  * 文件上传配置信息服务
  *
