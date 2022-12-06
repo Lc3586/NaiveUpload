@@ -279,7 +279,7 @@ export default class NaiveUpload {
         //是否已为重复的文件
         if (this.selectedFileList.filter(x =>
             !x.canceled
-            && this.rawFileList[x.rawIndex!].file!.name == file.name)
+            && this.rawFileList[x.rawIndex!].file?.name == file.name)
             .length > 0) {
             this.settings.debug ? console.debug('重复的文件', file) : !1;
             return;

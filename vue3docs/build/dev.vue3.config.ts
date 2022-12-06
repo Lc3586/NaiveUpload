@@ -6,7 +6,8 @@ import mdPlugin, { Mode } from 'vite-plugin-markdown';
 
 // 文档: https://vitejs.dev/config/
 export default defineConfig({
-  root: 'docs',
+  root: './',
+  // root: 'vue3docs',
   plugins: [
     vue(),
     mdPlugin({

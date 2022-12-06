@@ -35,6 +35,7 @@ export default defineComponent({
   props: {
     /**
      * 已上传的文件Id集合
+     * <p>只读</p>
      * <p>可选</p>
      */
     value: {
@@ -42,6 +43,7 @@ export default defineComponent({
       default: () => {
         return [] as string[];
       },
+      readonly: true,
       required: false,
     },
 

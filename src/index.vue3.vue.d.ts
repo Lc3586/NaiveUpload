@@ -13,6 +13,7 @@ declare const _default: {
         }> & Omit<Readonly<import("vue-demi").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             /**
              * 已上传的文件Id集合
+             * <p>只读</p>
              */
             modelValue?: string[] | undefined;
             /**
@@ -57,6 +58,7 @@ declare const _default: {
         $options: import("vue-demi").ComponentOptionsBase<Readonly<import("vue-demi").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             /**
              * 已上传的文件Id集合
+             * <p>只读</p>
              */
             modelValue?: string[] | undefined;
             /**
@@ -127,6 +129,7 @@ declare const _default: {
     } & Readonly<import("vue-demi").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
         /**
          * 已上传的文件Id集合
+         * <p>只读</p>
          */
         modelValue?: string[] | undefined;
         /**
@@ -161,6 +164,7 @@ declare const _default: {
 } & import("vue-demi").ComponentOptionsBase<Readonly<import("vue-demi").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     /**
      * 已上传的文件Id集合
+     * <p>只读</p>
      */
     modelValue?: string[] | undefined;
     /**

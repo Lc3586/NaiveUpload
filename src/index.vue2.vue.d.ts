@@ -5,11 +5,13 @@ import NaiveUpload from "./Core/NaiveUpload";
 declare const _default: import("vue-demi").DefineComponent<{
     /**
      * 已上传的文件Id集合
+     * <p>只读</p>
      * <p>可选</p>
      */
-    modelValue: {
+    value: {
         type: PropType<string[]>;
         default: () => string[];
+        readonly: true;
         required: false;
     };
     /**
@@ -49,11 +51,13 @@ declare const _default: import("vue-demi").DefineComponent<{
 }, unknown, {}, {}, import("vue-demi").ComponentOptionsMixin, import("vue-demi").ComponentOptionsMixin, ("update:modelValue" | "setOpenApi" | "beforeCheck" | "afterCheck" | "afterCheckAll" | "afterUpload" | "afterUploadAll" | "error")[], "error" | "update:modelValue" | "setOpenApi" | "beforeCheck" | "afterCheck" | "afterCheckAll" | "afterUpload" | "afterUploadAll", import("vue-demi").VNodeProps & import("vue-demi").AllowedComponentProps & import("vue-demi").ComponentCustomProps, Readonly<import("vue-demi").ExtractPropTypes<{
     /**
      * 已上传的文件Id集合
+     * <p>只读</p>
      * <p>可选</p>
      */
-    modelValue: {
+     value: {
         type: PropType<string[]>;
         default: () => string[];
+        readonly: true;
         required: false;
     };
     /**
@@ -92,7 +96,7 @@ declare const _default: import("vue-demi").DefineComponent<{
      * @param error 异常
      */
     onError?: ((...args: any[]) => any) | undefined;
-    
+
     /**
      * 更新用户文件信息Id集合
      *

@@ -55,6 +55,7 @@ const props = withDefaults(
   defineProps<{
     /**
      * 已上传的文件Id集合
+     * <p>只读</p>
      */
     modelValue?: string[];
 
