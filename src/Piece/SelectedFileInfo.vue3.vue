@@ -59,7 +59,12 @@
       <div v-if="props.selectedFile.paused" class="item-sub sub-paused">
         暂停
       </div>
-      <div v-if="props.selectedFile.done" class="item-sub sub-done">完成</div>
+      <div
+        v-if="props.selectedFile.done && !upload.getSettings().readonly"
+        class="item-sub sub-done"
+      >
+        完成
+      </div>
       <div v-if="props.selectedFile.error" class="item-sub sub-error">错误</div>
     </div>
   </div>
@@ -75,7 +80,6 @@ import {
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
-import RGBAColor from "../Model/RGBAColor";
 
 // 获取vue实例
 const { proxy } = getCurrentInstance() as any;
@@ -99,9 +103,11 @@ let renderData = reactive({
      * 样式
      */
     style: (): string =>
-      `item-container ${props.selectedFile.done ? " item-done" : ""} ${
-        props.selectedFile.error ? " item-error" : ""
-      } ${
+      `item-container ${
+        props.selectedFile.done && !upload.getSettings().readonly
+          ? " item-done"
+          : ""
+      } ${props.selectedFile.error ? " item-error" : ""} ${
         renderData.hover &&
         !renderData.rename.active &&
         !props.selectedFile.checking &&
@@ -120,7 +126,7 @@ let renderData = reactive({
     /**
      * 容器样式中的变量
      */
-     styleVar: (): Record<string, string> => {
+    styleVar: (): Record<string, string> => {
       return {
         "--statusCheckingColor": upload
           .getSettings()

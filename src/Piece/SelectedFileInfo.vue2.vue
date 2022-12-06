@@ -58,7 +58,12 @@
       ></slot>
 
       <div v-if="selectedFile?.paused" class="item-sub sub-paused">暂停</div>
-      <div v-if="selectedFile?.done" class="item-sub sub-done">完成</div>
+      <div
+        v-if="selectedFile?.done && !uploadInstance.getSettings().readonly"
+        class="item-sub sub-done"
+      >
+        完成
+      </div>
       <div v-if="selectedFile?.error" class="item-sub sub-error">错误</div>
     </div>
   </div>
@@ -69,7 +74,6 @@ import { defineComponent, PropType } from "vue-demi";
 import NaiveUpload from "../Core/NaiveUpload";
 import SelectedFile from "../Model/SelectedFile";
 import { FileType } from "../Model/FileType";
-import RGBAColor from "../Model/RGBAColor";
 
 export default defineComponent({
   name: "SelectedFileInfo",
@@ -171,9 +175,11 @@ export default defineComponent({
      * 容器样式
      */
     containerStyle(): string {
-      return `item-container ${this.selectedFile?.done ? " item-done" : ""} ${
-        this.selectedFile?.error ? " item-error" : ""
-      } ${
+      return `item-container ${
+        this.selectedFile?.done && !this.uploadInstance.getSettings().readonly
+          ? " item-done"
+          : ""
+      } ${this.selectedFile?.error ? " item-error" : ""} ${
         this.renderData.hover &&
         !this.renderData.rename.active &&
         !this.selectedFile?.checking &&

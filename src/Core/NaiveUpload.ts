@@ -371,11 +371,13 @@ export default class NaiveUpload {
                 rawFile.configCode = this.config!.code;
                 rawFile.echo = true;
                 rawFile.token = token;
+                rawFile.userFileInfo = userFileInfo;
                 this.rawFileList.push(rawFile);
 
                 let file = <File>{ name: `${userFileInfo.name}${userFileInfo.extension}` };
                 let selectedFile = new SelectedFile(file);
                 selectedFile.rawIndex = this.rawFileList.length - 1;
+                selectedFile.echo = true;
                 selectedFile.checked = true;
                 selectedFile.uploaded = true;
                 selectedFile.done = true;

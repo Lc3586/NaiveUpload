@@ -237,10 +237,7 @@ export default defineComponent({
           instance!
             .getUserFileInfoList(true)
             .forEach((x) => this.value.push(x.id));
-          this.$emit(
-            "change",
-            instance!.getUserFileInfoList(true).map((x) => x.id)
-          );
+          this.$emit("change", this.value);
 
           instance!.getSettings().debug
             ? console.debug(

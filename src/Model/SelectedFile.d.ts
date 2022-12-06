@@ -117,4 +117,8 @@ export default class SelectedFile {
      * 文件令牌
      */
     token?: string;
+    /**
+     * 回显的数据
+     */
+    echo: boolean;
 }
