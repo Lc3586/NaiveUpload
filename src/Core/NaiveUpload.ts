@@ -376,10 +376,10 @@ export default class NaiveUpload {
                 let file = <File>{ name: `${userFileInfo.name}${userFileInfo.extension}` };
                 let selectedFile = new SelectedFile(file);
                 selectedFile.rawIndex = this.rawFileList.length - 1;
+                selectedFile.checked = true;
                 selectedFile.uploaded = true;
                 selectedFile.done = true;
                 selectedFile.canceled = false;
-                selectedFile.rawIndex = -1;
                 selectedFile.thumbnail = this.apiService.getUserFilePreviewUrl(userFileInfo.id, 100, 100);
                 selectedFile.fileType = userFileInfo.fileType;
                 selectedFile.size = userFileInfo.size;
@@ -392,7 +392,7 @@ export default class NaiveUpload {
                 this.selectedFileSortMap.set(this.selectedFileSortMap.size + 1, this.selectedFileList.length - 1);
                 this.selectedFileSortMapChangedTrigger();
 
-                this.settings.debug ? console.debug('已添加历史文件', id, Object.assign({}, rawFile)) : !1;
+                this.settings.debug ? console.debug('已添加历史文件', id, Object.assign({}, rawFile), Object.assign({}, selectedFile)) : !1;
 
                 resolve();
             } catch (e: any) {
