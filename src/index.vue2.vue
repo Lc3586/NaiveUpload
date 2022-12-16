@@ -86,14 +86,6 @@ export default defineComponent({
    */
   emits: [
     /**
-     * 更新用户文件信息Id集合
-     *
-     * @param e
-     * @param ids 用户文件信息Id集合
-     */
-    "change",
-
-    /**
      * 设置组件开放的接口
      *
      * @param e
@@ -274,9 +266,9 @@ export default defineComponent({
         changConfig();
 
         const changValue = (userFileInfoList: IUserFileInfo[]) => {
-          this.value.length = 0;
+          this.value.splice(0, this.value.length);
           userFileInfoList.forEach((x) => this.value.push(x.id));
-          this.$emit("change", this.value);
+          this.$emit(<any>"input", this.value);
 
           instance!.getSettings().debug
             ? console.debug(

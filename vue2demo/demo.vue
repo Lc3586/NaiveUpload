@@ -684,7 +684,7 @@ import { NaiveUpload } from "../src/export.vue2";
 import NaiveApiService from "./naiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { RunMode, Settings, UploadError, RunMode } from "../src/export.base";
+import { RunMode, Settings, UploadError } from "../src/export.base";
 import { Sketch } from "vue-color";
 import RGBAColor from "../src/Model/RGBAColor";
 

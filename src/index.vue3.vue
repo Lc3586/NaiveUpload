@@ -234,7 +234,7 @@ const emit = defineEmits<{
   changConfig();
 
   const changValue = (userFileInfoList: IUserFileInfo[]) => {
-    props.modelValue.length = 0;
+    props.modelValue.splice(0, props.modelValue.length);
     userFileInfoList.forEach((x) => props.modelValue.push(x.id));
 
     emit("update:modelValue", props.modelValue);
