@@ -461,7 +461,7 @@ const view = () => {
     case FileType.图片:
       let winImage = window.open();
       winImage?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img src="${
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img style="max-width: 100%;max-height: 100%;" src="${
           file.objectURL
         }" alt="${props.selectedFile.fullname()}"></body>`
       );
@@ -471,7 +471,7 @@ const view = () => {
 
       let winAudio = window.open();
       winAudio?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio src="${
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio style="max-width: 100%;max-height: 100%;" src="${
           file.objectURL
         }" controls="controls">抱歉, 暂不支持</audio></body>`
       );
@@ -479,7 +479,7 @@ const view = () => {
     case FileType.视频:
       let winVideo = window.open();
       winVideo?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video src="${
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video style="max-width: 100%;max-height: 100%;" src="${
           file.objectURL
         }" controls="controls">抱歉, 暂不支持</video></body>`
       );
@@ -487,7 +487,7 @@ const view = () => {
     default:
       let win = window.open();
       win?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};"><object data="${
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};"><object style="max-width: 100%;max-height: 100%;" data="${
           file.objectURL
         }" type="${
           props.selectedFile.extensionLower === ".txt"

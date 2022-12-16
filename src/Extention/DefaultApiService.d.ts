@@ -23,6 +23,7 @@ export default abstract class DefaultApiService implements IApiService {
     abstract getDownloadUrl(id: string, rename: string): string;
     abstract getUserFile(id: string): Promise<IUserFileInfo>;
     abstract getUserFilePreviewUrl(id: string, width?: number | undefined, height?: number | undefined, time?: string | undefined): string;
+    abstract getUserFileBrowseUrl(id: string): string;
     abstract preUploadFile(configCode: string, md5: string, type: string, extension: string, length: string, filename?: string | undefined, section?: boolean | undefined, specs?: number | undefined, total?: number | undefined): Promise<IPreUploadFileResponse>;
     abstract singleFile(configCode: string, file: File, filename?: string | undefined, onProgress?: ((progress: IProgress) => void) | undefined, setupCancelToken?: ((cancelToken: Canceler) => void) | undefined): Promise<IUserFileInfo>;
     abstract getSingleFileByArrayBufferRequestParams(configCode: string, type: string, extension: string, filename?: string | undefined): {

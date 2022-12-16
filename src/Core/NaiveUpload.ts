@@ -372,6 +372,7 @@ export default class NaiveUpload {
                 rawFile.echo = true;
                 rawFile.token = token;
                 rawFile.userFileInfo = userFileInfo;
+                rawFile.objectURL = this.apiService.getUserFileBrowseUrl(userFileInfo.id);
                 this.rawFileList.push(rawFile);
 
                 let file = <File>{ name: `${userFileInfo.name}${userFileInfo.extension}` };

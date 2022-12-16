@@ -461,7 +461,7 @@ export default defineComponent({
           winImage?.document.write(
             `<head><title>${(
               this.selectedFile as SelectedFile
-            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img src="${
+            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img style="max-width: 100%;max-height: 100%;" src="${
               file.objectURL
             }" alt="${(this.selectedFile as SelectedFile).fullname()}"></body>`
           );
@@ -474,7 +474,7 @@ export default defineComponent({
           winAudio?.document.write(
             `<head><title>${(
               this.selectedFile as SelectedFile
-            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio src="${
+            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio style="max-width: 100%;max-height: 100%;" src="${
               file.objectURL
             }" controls="controls">抱歉, 暂不支持</audio></body>`
           );
@@ -484,7 +484,7 @@ export default defineComponent({
           winVideo?.document.write(
             `<head><title>${(
               this.selectedFile as SelectedFile
-            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video src="${
+            ).fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video style="max-width: 100%;max-height: 100%;" src="${
               file.objectURL
             }" controls="controls">抱歉, 暂不支持</video></body>`
           );
@@ -494,7 +494,7 @@ export default defineComponent({
           win?.document.write(
             `<head><title>${(
               this.selectedFile as SelectedFile
-            ).fullname()}</title></head><body style="${bodyStyle};"><object data="${
+            ).fullname()}</title></head><body style="${bodyStyle};"><object style="max-width: 100%;max-height: 100%;" data="${
               file.objectURL
             }" type="${
               (this.selectedFile as SelectedFile).extensionLower === ".txt"

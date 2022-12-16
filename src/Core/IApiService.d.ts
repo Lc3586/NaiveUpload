@@ -52,6 +52,13 @@ export interface IApiService {
      */
     getUserFilePreviewUrl(id: string, width?: number, height?: number, time?: string): string;
     /**
+     * 获取用户文件浏览地址
+     *
+     * @param id     主键
+     * @return 地址
+     */
+    getUserFileBrowseUrl(id: string): string;
+    /**
      * 获取文件类型预览图地址
      *
      * @param extension 文件拓展名
