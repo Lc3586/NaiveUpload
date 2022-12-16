@@ -22,6 +22,7 @@ import MultipleUpload from "./Piece/MultipleUpload.vue2.vue";
 import NaiveUpload from "./Core/NaiveUpload";
 import RawFile from "./Model/RawFile";
 import { IConfig } from "./Model/IConfig";
+import { IUserFileInfo } from "./Model/IUserFileInfo";
 
 export default defineComponent({
   name: "NaiveUpload",
@@ -233,19 +234,6 @@ export default defineComponent({
             ? console.debug("AfterUpload => ", Object.assign({}, rawFile))
             : !1;
 
-          this.value.length = 0;
-          instance!
-            .getUserFileInfoList(true)
-            .forEach((x) => this.value.push(x.id));
-          this.$emit("change", this.value);
-
-          instance!.getSettings().debug
-            ? console.debug(
-                "ModelValue UserFileIdList => ",
-                Object.assign({}, this.value)
-              )
-            : !1;
-
           this.$emit("afterUpload", rawFile);
         });
         instance.setupAfterUploadAll(async (rawFileList: RawFile[]) => {
@@ -284,6 +272,22 @@ export default defineComponent({
 
         //初始化
         changConfig();
+
+        const changValue = (userFileInfoList: IUserFileInfo[]) => {
+          this.value.length = 0;
+          userFileInfoList.forEach((x) => this.value.push(x.id));
+          this.$emit("change", this.value);
+
+          instance!.getSettings().debug
+            ? console.debug(
+                "ModelValue UserFileIdList => ",
+                Object.assign({}, this.value)
+              )
+            : !1;
+        };
+
+        //注册文件信息变更事件
+        instance.registerUserFileInfoListChanged(changValue);
 
         //设置组件开发的接口
         this.$emit("setOpenApi", instance.getOpenApi());

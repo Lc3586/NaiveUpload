@@ -23,7 +23,7 @@ import NaiveUpload from "./Core/NaiveUpload";
 import RawFile from "./Model/RawFile";
 import { IOpenApi } from "./Extention/IOpenApi";
 import { IConfig } from "./Model/IConfig";
-import SelectedFile from "./Model/SelectedFile";
+import { IUserFileInfo } from "./Model/IUserFileInfo";
 
 let upload = null as NaiveUpload | null;
 //注册文件上传工具实例
@@ -43,10 +43,6 @@ let renderData = reactive({
    */
   currentUpload: null as ShallowRef<any> | null,
 });
-
-let rawFileList = reactive([] as RawFile[]);
-let selectedFileList = reactive([] as SelectedFile[]);
-let selectedFileSortMap = reactive(new Map<number, number>());
 
 /**
  * 组件属性
@@ -203,19 +199,6 @@ const emit = defineEmits<{
       ? console.debug("AfterUpload => ", Object.assign({}, rawFile))
       : !1;
 
-    props.modelValue.length = 0;
-    upload!
-      .getUserFileInfoList(true)
-      .forEach((x) => props.modelValue.push(x.id));
-
-    emit("update:modelValue", props.modelValue);
-
-    upload!.getSettings().debug
-      ? console.debug(
-          "ModelValue UserFileIdList => ",
-          Object.assign({}, props.modelValue)
-        )
-      : !1;
     return emit("afterUpload", rawFile);
   });
   upload.setupAfterUploadAll((rawFileList: RawFile[]) => {
@@ -249,6 +232,23 @@ const emit = defineEmits<{
 
   //初始化
   changConfig();
+
+  const changValue = (userFileInfoList: IUserFileInfo[]) => {
+    props.modelValue.length = 0;
+    userFileInfoList.forEach((x) => props.modelValue.push(x.id));
+
+    emit("update:modelValue", props.modelValue);
+
+    upload!.getSettings().debug
+      ? console.debug(
+          "ModelValue UserFileIdList => ",
+          Object.assign({}, props.modelValue)
+        )
+      : !1;
+  };
+
+  //注册文件信息变更事件
+  upload.registerUserFileInfoListChanged(changValue);
 
   //设置组件开发的接口
   emit("setOpenApi", upload.getOpenApi());

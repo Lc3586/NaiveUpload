@@ -101,6 +101,12 @@ export default class NaiveUpload {
      */
     private selectedFileSortMapChanged;
     /**
+     * 用户文件信息集合变更后执行
+     *
+     * @param userFileInfoList 当前的用户文件信息集合（已排序）
+     */
+    private userFileInfoListChanged;
+    /**
      * 提示异常
      *
      * @param error 异常
@@ -410,6 +416,12 @@ export default class NaiveUpload {
      * @param even
      */
     registerSelectedFileSortMapChanged(this: NaiveUpload, even: (sortMap: Map<number, number>) => void): void;
+    /**
+     * 注册用户文件信息集合变更后执行的函数
+     *
+     * @param even
+     */
+    registerUserFileInfoListChanged(this: NaiveUpload, even: (userFileInfoList: IUserFileInfo[]) => void): void;
     /**
      * 注册提示异常的函数
      *

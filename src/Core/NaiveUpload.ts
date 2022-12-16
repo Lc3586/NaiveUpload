@@ -136,6 +136,13 @@ export default class NaiveUpload {
     private selectedFileSortMapChanged: ((sortMap: Map<number, number>) => void)[] = [];
 
     /**
+     * 用户文件信息集合变更后执行
+     *
+     * @param userFileInfoList 当前的用户文件信息集合（已排序）
+     */
+    private userFileInfoListChanged: ((userFileInfoList: IUserFileInfo[]) => void)[] = [];
+
+    /**
      * 提示异常
      *
      * @param error 异常
@@ -243,6 +250,13 @@ export default class NaiveUpload {
      */
     private selectedFileSortMapChangedTrigger() {
         this.selectedFileSortMapChanged?.forEach(x => x(this.getSelectedFileSortMap()));
+    }
+
+    /**
+     * 用户文件信息集合变更后执行
+     */
+    private userFileInfoListChangedTrigger() {
+        this.userFileInfoListChanged?.forEach(x => x(this.getUserFileInfoList(true)));
     }
 
     /**
@@ -745,10 +759,10 @@ export default class NaiveUpload {
         /**
          * 上传下一个文件
          */
-        const next = () => {
+        const next = (done: boolean) => {
             this.uploadHandlerCount--;
 
-            if (this.afterUpload) {
+            if (done && this.afterUpload) {
                 //触发单个文件上传结束后执行的回调事件
                 const after = this.afterUpload(rawFile);
                 if (after && after.then) {
@@ -785,7 +799,7 @@ export default class NaiveUpload {
 
             this.settings.debug ? console.debug('暂停上传文件', Object.assign({}, rawFile)) : !1;
 
-            next();
+            next(false);
         }
 
         /**
@@ -811,7 +825,7 @@ export default class NaiveUpload {
 
             this.settings.debug ? console.debug('取消上传文件', Object.assign({}, rawFile)) : !1;
 
-            next();
+            next(false);
         }
 
         //获取并移除列首的文件索引
@@ -900,6 +914,8 @@ export default class NaiveUpload {
             this.settings.debug ? console.debug('文件上传结束', Object.assign({}, rawFile)) : !1;
 
             this.checkImage(selectedFile);
+
+            this.userFileInfoListChangedTrigger();
         } catch (e: any) {
             const error = new UploadError('文件上传失败.', e);
             this.uploadError(selectedFileIndex!, `${error.message} ${e.message}`, true, error);
@@ -907,7 +923,7 @@ export default class NaiveUpload {
 
         close();
 
-        next();
+        next(true);
     }
 
     /**
@@ -1175,6 +1191,8 @@ export default class NaiveUpload {
         if (index == -1)
             return;
         this.selectedFileList[index].canceled = true;
+
+        this.userFileInfoListChangedTrigger();
     }
 
     /**
@@ -1402,6 +1420,15 @@ export default class NaiveUpload {
      */
     public registerSelectedFileSortMapChanged(this: NaiveUpload, even: (sortMap: Map<number, number>) => void) {
         this.selectedFileSortMapChanged.push(even);
+    }
+
+    /**
+     * 注册用户文件信息集合变更后执行的函数
+     *
+     * @param even
+     */
+    public registerUserFileInfoListChanged(this: NaiveUpload, even: (userFileInfoList: IUserFileInfo[]) => void) {
+        this.userFileInfoListChanged.push(even);
     }
 
     /**
