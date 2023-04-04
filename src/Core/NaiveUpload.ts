@@ -1216,7 +1216,7 @@ export default class NaiveUpload {
     }
 
     /**
-     * 获取开发的接口
+     * 获取开放的接口
      */
     public getOpenApi(this: NaiveUpload): IOpenApi {
         return {

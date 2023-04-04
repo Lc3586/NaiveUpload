@@ -250,7 +250,7 @@ const emit = defineEmits<{
   //注册文件信息变更事件
   upload.registerUserFileInfoListChanged(changValue);
 
-  //设置组件开发的接口
+  //设置组件开放的接口
   emit("setOpenApi", upload.getOpenApi());
 
   //添加之前已上传过的文件
