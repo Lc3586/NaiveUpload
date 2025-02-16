@@ -103,7 +103,7 @@
             ".bat",
             ".sh"
         ],
-        "explain": "上传多个文件",
+        "explain": "批量上传文件",
         "hasChildren": true,
         "childrenCount": 3,
         "children": [

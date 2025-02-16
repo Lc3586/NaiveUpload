@@ -103,7 +103,7 @@
             ".bat",
             ".sh"
         ],
-        "explain": "上传多个文件，允许上传任意多个文件\r\nPDF、WORD、PPT",
+        "explain": "批量上传文件，允许上传任意多个文件\r\nPDF、WORD、PPT",
         "hasChildren": true,
         "childrenCount": 3,
         "children": [

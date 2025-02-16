@@ -1,9 +1,10 @@
 <template>
-  <article>
-    <vue-component />
-  </article>
+  <v-md-preview :text="markdownTxt"></v-md-preview>
 </template>
-   
-<script setup>
-import { VueComponent } from "../README.md";
+<script setup lang="ts">
+
+// 获取props 数据
+let props = defineProps({
+  markdownTxt: String
+}) 
 </script>

@@ -650,9 +650,11 @@
 </template>
 <script setup lang="ts">
 import { reactive, watch, getCurrentInstance } from "vue";
-//局部引用示例
-import { NaiveUpload } from "../src/export.vue3";
-// //测试打包代码
+//本地调试
+// import { NaiveUpload } from "../src/export.vue3";
+//打包发布
+import { NaiveUpload } from 'naive-upload';
+import 'naive-upload/dist/style.css';
 // import { NaiveUpload } from "../lib/export";
 // import "../dist/style.css";
 import NaiveApiService from "./NaiveApiService";

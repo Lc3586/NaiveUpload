@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, RouterOptions } from 'vue-router';
+import markdownTxt from './README.md?raw';
 
 const routes = [
     {
@@ -10,6 +11,7 @@ const routes = [
         name: '说明文档',
         path: '/readme',
         component: () => import('./readme.vue'),
+        props: { markdownTxt: markdownTxt }
     },
     {
         title: '演示Demo',

@@ -47,7 +47,7 @@
 ## 概述 Features
   - 基于TS+Vue3.0开发，同时兼容Vue2.0、Vue3.0
   - 支持大文件上传、多文件上传、文件秒传、断点续传，以及文件数量校验、文件大小校验、文件类型校验。
-  - 在线预览 https://naive-upload.lctr.top
+  - <a href="http://www.lctr.online:7000">在线预览链接</a>
 
 
 ## 兼容浏览器 Browser Support
