@@ -216,6 +216,7 @@ export default class NaiveUpload {
         //文件上传配置变更
         watch(() => this.settings.configCode,
             async (current, last) => {
+                console.debug(666666666);
                 if (current != last) {
                     await this.updateConfig();
                     this.configChanged?.forEach(x => x(this.config!));

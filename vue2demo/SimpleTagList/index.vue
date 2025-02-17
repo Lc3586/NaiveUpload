@@ -22,7 +22,7 @@
 -->
 
 <template>
-  <div>
+  <div class="simple-tag-list">
     <el-tag
       v-for="(item, index) in value"
       :key="index"
@@ -172,5 +172,11 @@ export default {
 .el-tag {
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.simple-tag-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>

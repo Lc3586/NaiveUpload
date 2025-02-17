@@ -16,6 +16,21 @@ export default class DraggingHelper {
     private el?: HTMLElement;
 
     /**
+     * 当前元素
+     */
+    private key: number = -1;
+
+    /**
+     * 元素集合
+     */
+    private els?: Map<number, HTMLDivElement>;
+
+    /**
+     * 是否为移动端
+     */
+    private isMobile: boolean = false;
+
+    /**
      * 拖动标识
      */
     private flag: boolean = false;
@@ -110,7 +125,7 @@ export default class DraggingHelper {
      *
      * @param event 事件
      */
-    private mouseMove?: (event: MouseEvent) => void;
+    private mouseMove?: (event: MouseEvent & TouchEvent) => void;
 
     /**
      * 移动鼠标
@@ -171,12 +186,17 @@ export default class DraggingHelper {
      * 获取实例
      *
      * @param containerEl 容器元素
-     * @param el 目标元素
+     * @param els 元素集合
+     * @param currenKey 当前元素的键
+     * @param isMobile 是否为移动端
      */
-    public static getInstance(containerEl: HTMLElement, el: HTMLElement): DraggingHelper {
+    public static getInstance(containerEl: HTMLElement, els: Map<number, HTMLDivElement>, currenKey: number, isMobile: boolean): DraggingHelper {
         let helper = new DraggingHelper();
-        helper.el = el;
+        helper.els = els;
+        helper.el = els.get(currenKey);
+        helper.key = currenKey;
         helper.containerEl = containerEl;
+        helper.isMobile = isMobile;
         return helper;
     }
 
@@ -185,36 +205,63 @@ export default class DraggingHelper {
      *
      * @param clientX X轴坐标
      * @param clientY Y轴坐标
-     * @param handlerMoving 监听移动 event 鼠标移动事件对象
+     * @param handlerMoving 处理鼠标移动事件
      */
-    public start(this: DraggingHelper, clientX: number, clientY: number, handlerMoving?: ((event: MouseEvent) => void)) {
+    public start(this: DraggingHelper, clientX: number, clientY: number, handlerMoving?: ((targetKey: number, clientX: number, clientY: number) => void)) {
         this.flag = true;
         //开始拖动时记录原始属性
         this.currentX = clientX;
         this.currentY = clientY;
         this.save();
 
-        // this.el.style.zIndex = '999';
+        this.el.style.zIndex = '999';
         // this.el.style.position = 'relative';
 
         let handlerMovingFlag = false;
 
-        this.mouseMove = (event: MouseEvent) => {
+        this.mouseMove = (event: MouseEvent | TouchEvent) => {
             if (!this.flag || handlerMovingFlag)
                 return;
+
+            const clientX = this.isMobile ? (<TouchEvent>event).targetTouches[0].clientX : (<MouseEvent>event).clientX;
+            const clientY = this.isMobile ? (<TouchEvent>event).targetTouches[0].clientY : (<MouseEvent>event).clientY;
 
             event.preventDefault();
 
             handlerMovingFlag = true;
 
-            this.moving(event.clientX, event.clientY);
+            this.moving(clientX, clientY);
 
-            handlerMoving && handlerMoving(event);
+            if (handlerMoving && this.els) {
+                let flag = false;
+
+                this.els.forEach((el, key) => {
+                    if (key == this.key)
+                        return;
+
+                    const currentOffsetTop = this.el.offsetTop + this.transY;
+                    const currentOffsetLeft = this.el.offsetLeft + this.transX;
+
+                    if (currentOffsetTop > el.offsetTop
+                        && currentOffsetTop < el.offsetTop + el.offsetHeight
+                        && currentOffsetLeft > el.offsetLeft
+                        && currentOffsetLeft < el.offsetLeft + el.offsetWidth
+                    ) {
+                        handlerMoving(key, clientX, clientY);
+                        flag = true;
+                    }
+                });
+
+                flag || handlerMoving(-1, clientX, clientY);
+            }
 
             handlerMovingFlag = false;
         };
 
-        this.containerEl!.addEventListener('mousemove', this.mouseMove);
+        if (this.isMobile)
+            this.containerEl!.addEventListener('touchmove', this.mouseMove);
+        else
+            this.containerEl!.addEventListener('mousemove', this.mouseMove);
 
         this.scroll = (event: Event) => {
             this.scrollX = this.containerEl!.scrollLeft;
@@ -266,7 +313,10 @@ export default class DraggingHelper {
     public end(this: DraggingHelper, restore: boolean) {
         if (restore)
             this.restore();
-        this.containerEl!.removeEventListener('mousemove', this.mouseMove!);
+        if (this.isMobile)
+            this.containerEl!.removeEventListener('touchmove', this.mouseMove!);
+        else
+            this.containerEl!.removeEventListener('mousemove', this.mouseMove!);
         this.containerEl!.removeEventListener('scroll', this.scroll!);
     }
 }

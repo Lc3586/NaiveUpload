@@ -1,28 +1,29 @@
 <template>
-  <div class="naive-upload-doc">
-    <aside>
-      <router-link
-        v-for="(link, index) in data.links"
-        :key="index"
-        :to="link.path"
-        >{{ link.name }}</router-link
-      >
-    </aside>
-    <main>
+  <el-tabs :tab-position="tabPosition">
+    <el-tab-pane v-for="(link, index) in data.links">
+      <template #label>
+        <router-link :key="index" :to="link.path">{{ link.name }}</router-link>
+      </template>
       <router-view></router-view>
-    </main>
-  </div>
+    </el-tab-pane>
+  </el-tabs>
+
+  <el-backtop :right="backtopRight" :bottom="100" />
 </template>
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import router from "./router";
+import MobileHelper from "./utils/mobile/Helper";
 
 const data = reactive({
-  links: router.getRoutes().map((item) => ({
+  links: router.getRoutes().splice(1).map((item) => ({
     path: item.path,
     name: item.name,
   })),
 });
+
+const tabPosition = ref(MobileHelper.isMobile() ? "top" : "left");
+const backtopRight = ref(MobileHelper.isMobile() ? 10 : 100);
 </script>
 <style scoped>
 html,
@@ -50,7 +51,5 @@ body {
   padding: 15px;
 }
 
-.naive-upload-doc a {
-    
-}
+.naive-upload-doc a {}
 </style>

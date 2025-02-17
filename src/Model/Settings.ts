@@ -219,12 +219,21 @@ export default class Settings {
      * 
      * @默认值 1500
      */
-    dragPreparationTime: number = 1500;
+    dragPreparationTime: number = 800;
 
     /**
      * 拖动时变换位置的等待时间（单位ms）
      * 
      * @默认值 1300
      */
-    dragChangePositionTime: number = 1300;
+    dragChangePositionTime: number = 1000;
+
+    /**
+     * 是否为移动端
+     * 
+     * @默认值 自动根据浏览器信息判断
+     */
+    isMobile: boolean = /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(
+        navigator.userAgent
+    );
 }

@@ -1,68 +1,32 @@
 <template>
-  <div
-    :class="renderData.container.style()"
-    :style="renderData.container.styleVar()"
-    :title="renderData.container.info()"
-    v-on:mouseenter="mouseEnter"
-    v-on:mouseleave="mouseLeave"
-    v-on:mousedown="mouseDown"
-    v-on:mouseup="mouseUp"
-    :ref="setContainerRef"
-  >
+  <div :class="renderData.container.style()" :style="renderData.container.styleVar()"
+    :title="renderData.container.info()" v-on:mouseenter="mouseEnter" v-on:mouseleave="mouseLeave"
+    v-on:mousedown="mouseDown" v-on:mouseup="mouseUp" v-on:touchstart="mouseDown" v-on:touchend="mouseUp"
+    v-on:touchcancel="mouseUp" :ref="setContainerRef">
     <div v-if="!props.selectedFile.canceled" class="item-body">
       <div class="item-image">
-        <img
-          :src="props.selectedFile.thumbnail"
-          loading="lazy"
-          :alt="props.selectedFile.fullname()"
-        />
+        <img :src="props.selectedFile.thumbnail" loading="lazy" :alt="props.selectedFile.fullname()" />
       </div>
 
       <span class="item-tools" v-if="renderData.tools.show()">
-        <span
-          class="upload-icon icon-rename"
-          title="重命名"
-          v-on:click="rename()"
-          v-if="renderData.rename.enable() && !upload.getSettings().readonly"
-        ></span>
-        <span
-          class="upload-icon icon-view"
-          title="查看"
-          v-if="renderData.view.enable()"
-          v-on:click="view()"
-        ></span>
-        <span
-          class="upload-icon icon-download"
-          title="保存"
-          v-if="renderData.save.enable()"
-          v-on:click="save()"
-        ></span>
-        <span
-          class="upload-icon icon-remove"
-          title="删除"
-          v-on:click="remove()"
-          v-if="!upload.getSettings().readonly"
-        ></span>
+        <span class="upload-icon icon-rename" title="重命名" v-on:click="rename()"
+          v-if="renderData.rename.enable() && !upload.getSettings().readonly"></span>
+        <span class="upload-icon icon-view" title="查看" v-if="renderData.view.enable()" v-on:click="view()"></span>
+        <span class="upload-icon icon-download" title="保存" v-if="renderData.save.enable()" v-on:click="save()"></span>
+        <span class="upload-icon icon-remove" title="删除" v-on:click="remove()"
+          v-if="!upload.getSettings().readonly"></span>
       </span>
 
-      <slot
-        :selectedFile="props.selectedFile"
-        :rename="renderData.rename"
-        :funs="{
-          setRenameInputRef: setRenameInputRef,
-          renameKeydown: renameKeydown,
-          renameDone: renameDone,
-        }"
-        :loading="renderData.loading"
-      ></slot>
+      <slot :selectedFile="props.selectedFile" :rename="renderData.rename" :funs="{
+        setRenameInputRef: setRenameInputRef,
+        renameKeydown: renameKeydown,
+        renameDone: renameDone,
+      }" :loading="renderData.loading"></slot>
 
       <div v-if="props.selectedFile.paused" class="item-sub sub-paused">
         暂停
       </div>
-      <div
-        v-if="props.selectedFile.done && !upload.getSettings().readonly"
-        class="item-sub sub-done"
-      >
+      <div v-if="props.selectedFile.done && !upload.getSettings().readonly" class="item-sub sub-done">
         完成
       </div>
       <div v-if="props.selectedFile.error" class="item-sub sub-error">错误</div>
@@ -103,25 +67,20 @@ let renderData = reactive({
      * 样式
      */
     style: (): string =>
-      `item-container ${
-        props.selectedFile.done && !upload.getSettings().readonly
-          ? " item-done"
-          : ""
-      } ${props.selectedFile.error ? " item-error" : ""} ${
-        renderData.hover &&
+      `item-container ${props.selectedFile.done && !upload.getSettings().readonly
+        ? " item-done"
+        : ""
+      } ${props.selectedFile.error ? " item-error" : ""} ${renderData.hover &&
         !renderData.rename.active &&
         !props.selectedFile.checking &&
         !props.selectedFile.uploading &&
         !props.readyDrag &&
         !props.startDrag
-          ? " item-hover"
-          : ""
-      } ${props.selectedFile.checking ? " item-checking" : ""} ${
-        props.selectedFile.uploading ? " item-uploading" : ""
-      } ${props.selectedFile.canceled ? " item-canceled" : ""} ${
-        props.selectedFile.paused ? " item-paused" : ""
-      } ${props.readyDrag ? " item-ready-drag" : ""} ${
-        props.dragging ? " item-dragging" : ""
+        ? " item-hover"
+        : ""
+      } ${props.selectedFile.checking ? " item-checking" : ""} ${props.selectedFile.uploading ? " item-uploading" : ""
+      } ${props.selectedFile.canceled ? " item-canceled" : ""} ${props.selectedFile.paused ? " item-paused" : ""
+      } ${props.readyDrag ? " item-ready-drag" : ""} ${props.dragging ? " item-dragging" : ""
       } ${props.dragover ? " item-drag-over" : ""}`,
     /**
      * 容器样式中的变量
@@ -165,8 +124,7 @@ let renderData = reactive({
      * 信息
      */
     info: () =>
-      `${props.selectedFile.done ? "上传成功" : ""} ${
-        props.selectedFile.error ? props.selectedFile.errorMessage : ""
+      `${props.selectedFile.done ? "上传成功" : ""} ${props.selectedFile.error ? props.selectedFile.errorMessage : ""
       } ${props.selectedFile.paused ? "已暂停" : ""}`,
   },
 
@@ -185,14 +143,12 @@ let renderData = reactive({
      * 信息
      */
     info: () =>
-      `${
-        props.selectedFile.checking
-          ? "扫描中..." + props.selectedFile.percent + "%"
-          : ""
-      } ${
-        props.selectedFile.uploading
-          ? "上传中..." + props.selectedFile.percent + "%"
-          : ""
+      `${props.selectedFile.checking
+        ? "扫描中..." + props.selectedFile.percent + "%"
+        : ""
+      } ${props.selectedFile.uploading
+        ? "上传中..." + props.selectedFile.percent + "%"
+        : ""
       }`,
   },
 
@@ -276,7 +232,7 @@ let renderData = reactive({
  * 组件属性
  */
 const props = defineProps<{
-  key: number;
+  key?: number;
 
   /**
    * 选择的文件
@@ -461,8 +417,7 @@ const view = () => {
     case FileType.图片:
       let winImage = window.open();
       winImage?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img style="max-width: 100%;max-height: 100%;" src="${
-          file.objectURL
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><img style="max-width: 100%;max-height: 100%;" src="${file.objectURL
         }" alt="${props.selectedFile.fullname()}"></body>`
       );
       break;
@@ -471,32 +426,27 @@ const view = () => {
 
       let winAudio = window.open();
       winAudio?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio style="max-width: 100%;max-height: 100%;" src="${
-          file.objectURL
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><audio style="max-width: 100%;max-height: 100%;" src="${file.objectURL
         }" controls="controls">抱歉, 暂不支持</audio></body>`
       );
       break;
     case FileType.视频:
       let winVideo = window.open();
       winVideo?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video style="max-width: 100%;max-height: 100%;" src="${
-          file.objectURL
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};background-color: black;"><video style="max-width: 100%;max-height: 100%;" src="${file.objectURL
         }" controls="controls">抱歉, 暂不支持</video></body>`
       );
       break;
     default:
       let win = window.open();
       win?.document.write(
-        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};"><object style="max-width: 100%;max-height: 100%;" data="${
-          file.objectURL
-        }" type="${
-          props.selectedFile.extensionLower === ".txt"
-            ? "text/plain"
-            : props.selectedFile.extensionLower === ".pdf"
+        `<head><title>${props.selectedFile.fullname()}</title></head><body style="${bodyStyle};"><object style="max-width: 100%;max-height: 100%;" data="${file.objectURL
+        }" type="${props.selectedFile.extensionLower === ".txt"
+          ? "text/plain"
+          : props.selectedFile.extensionLower === ".pdf"
             ? "application/pdf"
             : "application/octet-stream"
-        }" width="100%" height="100%"><iframe src="${
-          file.objectURL
+        }" width="100%" height="100%"><iframe src="${file.objectURL
         }" width="100%" height="100%" ></iframe></object></body>`
       );
       break;

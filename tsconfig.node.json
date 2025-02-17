@@ -10,7 +10,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue3.vue"
-  ],
+, "vue3docs/utils/BrowserPatch.ts"  ],
   "exclude": [
     "*.json",
     "src/**/*.vue2.vue"

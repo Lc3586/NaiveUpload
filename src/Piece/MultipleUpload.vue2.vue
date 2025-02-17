@@ -1,19 +1,12 @@
 <template>
   <layout-index>
-    <template
-      v-if="!uploadInstance.getSettings().readonly"
-      v-slot:uploadContainer
-    >
+    <template v-if="!uploadInstance.getSettings().readonly" v-slot:uploadContainer>
       <drop-file-input class="upload-box-container">
         <p class="upload-icon icon-inbox"></p>
         <p class="upload-text" v-html="uploadInstance.getConfig().explain"></p>
         <p class="upload-hint" v-html="uploadInstance.getSettings().tip"></p>
         <div class="upload-error-list pretty-scrollbar">
-          <p
-            class="error-info"
-            v-for="(error, index) in renderData.errors"
-            :key="index"
-          >
+          <p class="error-info" v-for="(error, index) in renderData.errors" :key="index">
             {{ error }}
           </p>
         </div>
@@ -21,36 +14,22 @@
     </template>
 
     <template v-slot:listContainer>
-      <TransitionGroup
-        tag="div"
-        name="fade"
-        ref="listContainerRef"
-        class="scroll-container pretty-scrollbar"
-        v-on:mouseenter="renderData.scrollLock = true"
-        v-on:mouseleave="renderData.scrollLock = false"
-      >
-        <selected-file-info
-          v-for="sortKey in renderData.selectedFileSortMapSize"
+      <TransitionGroup tag="div" name="fade" ref="listContainerRef" class="scroll-container pretty-scrollbar"
+        v-on:mouseenter="renderData.scrollLock = true" v-on:mouseleave="renderData.scrollLock = false">
+        <selected-file-info v-for="sortKey in renderData.selectedFileSortMapSize"
           v-bind:key="uploadInstance.getSelectedFileSortMap().get(sortKey)"
           :selectedFile="uploadInstance.getSelectedFile(sortKey)"
           :readyDrag="renderData.readyDraggingSortKey === sortKey"
           :startDrag="renderData.currentDraggingSortKey !== null"
-          :dragging="renderData.currentDraggingSortKey === sortKey"
-          :dragover="
-            renderData.lastDraggingSortKey === sortKey &&
+          :dragging="renderData.currentDraggingSortKey === sortKey" :dragover="renderData.lastDraggingSortKey === sortKey &&
             renderData.currentDraggingSortKey !== sortKey
-          "
-          @setContainerRef="(el) => setContainerRef(sortKey, el)"
-          @mouseDown="(event) => containerMouseDown(sortKey, event)"
-          @mouseUp="(event) => containerMouseUp(sortKey, event)"
-          @mouseEnter="(event) => containerMouseEnter(sortKey, event)"
-          @mouseLeave="(event) => containerMouseLeave(sortKey, event)"
-          v-slot="slotProps"
-        >
-          <layout-info
-            class="item-info-container"
-            :slotProps="slotProps"
-          ></layout-info>
+            " @setContainerRef="(el) => setContainerRef(sortKey, el)"
+          @mouseDown="(event) => containerMouseDown(sortKey, event, false)"
+          @mouseUp="(event) => containerMouseUp(sortKey, event, false)"
+          @touchstart.native.prevent="(event) => containerMouseDown(sortKey, event, true)"
+          @touchend.native.prevent="(event) => containerMouseUp(sortKey, event, true)"
+          @touchcancel.native.prevent="(event) => containerMouseUp(sortKey, event, true)" v-slot="slotProps">
+          <layout-info class="item-info-container" :slotProps="slotProps"></layout-info>
         </selected-file-info>
       </TransitionGroup>
     </template>
@@ -239,9 +218,19 @@ export default defineComponent({
      *
      * @param sortKey
      * @param event
+     * @param touch 是否来自touch事件
      */
-    containerMouseDown(sortKey: number, event: MouseEvent) {
-      this.ready2start(sortKey, event.clientX, event.clientY);
+    containerMouseDown(sortKey: number, event: any, touch: boolean) {
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 按下鼠标的事件, sortKey: " + sortKey
+        )
+        : !1;
+
+      const clientX = touch ? (<TouchEvent>event).targetTouches[0].clientX : (<MouseEvent>event).clientX;
+      const clientY = touch ? (<TouchEvent>event).targetTouches[0].clientY : (<MouseEvent>event).clientY;
+
+      this.ready2start(sortKey, clientX, clientY);
     },
 
     /**
@@ -249,21 +238,33 @@ export default defineComponent({
      *
      * @param sortKey
      * @param event
+     * @param touch 是否来自touch事件
      */
-    containerMouseUp(sortKey: number, event: MouseEvent) {
+    containerMouseUp(sortKey: number, event: any, touch: boolean) {
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 松开鼠标的事件, sortKey: " + sortKey
+        )
+        : !1;
+
       this.end();
     },
 
     /**
-     * 鼠标进入的事件
+     * 进入目标范围的事件
      *
-     * @param sortKey
-     * @param event
+     * @param targetKey
      */
-    containerMouseEnter(sortKey: number, event: MouseEvent) {
+    containerMouseEnter(targetKey: number) {
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 进入目标范围的事件, targetKey: " + targetKey
+        )
+        : !1;
+
       //延时重新排序
 
-      this.renderData.lastDraggingSortKey = sortKey;
+      this.renderData.lastDraggingSortKey = targetKey;
 
       if (
         this.renderData.currentDraggingSortKey ===
@@ -271,12 +272,20 @@ export default defineComponent({
       )
         return;
 
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 延时重新排序, sortKey: " + targetKey
+        )
+        : !1;
+
       //TODO 自动将列表容器滚动至当前正在拖动的文件之处（注：此功能会和延迟重新排序功能冲突，暂不启用）
       // if (containerRefMap.get(renderData.lastDraggingSortKey).offsetTop + containerRefMap.get(renderData.lastDraggingSortKey).clientHeight + 20 > listContainerRef.clientHeight) {
       // listContainerRef.scrollTop = containerRefMap.get(renderData.lastDraggingSortKey).offsetTop + containerRefMap.get(renderData.lastDraggingSortKey).clientHeight * 2 + 20 - listContainerRef.clientHeight;//containerRefMap.get(renderData.lastDraggingSortKey).offsetTop + containerRefMap.get(renderData.lastDraggingSortKey).clientHeight + 20 > listContainerRef.clientHeight ? containerRefMap.get(renderData.lastDraggingSortKey).offsetTop - listContainerRef.offsetTop - 20 : 0;
       // drag4sort.draggingHelper.offset(0, listContainerRef.scrollTop);
       // console.debug('scrollTop', listContainerRef.scrollTop);
       // }
+
+      this.renderData.drag4sort.changeTick && clearTimeout(this.renderData.drag4sort.changeTick);
 
       this.renderData.drag4sort.changeTick = setTimeout(
         this.changeSort,
@@ -297,7 +306,7 @@ export default defineComponent({
 
       if (currentIndex > targetIndex) {
         for (let i = currentIndex; i > targetIndex; i--) {
-          setInterval(() => {}, 100);
+          setInterval(() => { }, 100);
           this.renderData.containerRefMap.set(
             i,
             this.renderData.containerRefMap.get(i - 1)!
@@ -318,12 +327,15 @@ export default defineComponent({
     },
 
     /**
-     * 鼠标离开的事件
-     *
-     * @param sortKey
-     * @param event
+     * 离开目标范围的事件
      */
-    containerMouseLeave(sortKey: number, event: MouseEvent) {
+    containerMouseLeave() {
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 离开目标范围的事件"
+        )
+        : !1;
+
       this.cancelChange();
     },
 
@@ -338,13 +350,21 @@ export default defineComponent({
       if (!this.uploadInstance.getSettings().enableDrag) {
         this.uploadInstance.getSettings().debug
           ? console.debug(
-              "Piece: Multiple Upload Component(vue2) 未启用拖动排序功能"
-            )
+            "Piece: Multiple Upload Component(vue2) 未启用拖动排序功能"
+          )
           : !1;
         return;
       }
 
       if (this.uploadInstance.getSelectedFileList(false).length <= 1) return;
+
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          "Piece: Multiple Upload Component(vue2) 延时开启拖动功能, sortKey: " + sortKey
+        )
+        : !1;
+
+      this.renderData.drag4sort.startTick && clearTimeout(this.renderData.drag4sort.startTick);
 
       this.renderData.drag4sort.startTick = setTimeout(() => {
         //准备拖动
@@ -357,22 +377,29 @@ export default defineComponent({
           this.renderData.currentDraggingSortKey = sortKey;
           this.renderData.drag4sort.draggingHelper = DraggingHelper.getInstance(
             this.listContainerRef() as HTMLElement,
-            this.renderData.containerRefMap.get(
-              this.renderData.currentDraggingSortKey
-            )!
+            this.renderData.containerRefMap,
+            this.renderData.currentDraggingSortKey,
+            this.uploadInstance.getSettings().isMobile
           );
           (<DraggingHelper>this.renderData.drag4sort.draggingHelper).start(
             clientX,
-            clientY
-          );
+            clientY, (targetKey, _clientX, _clientY) => {
+              this.uploadInstance.getSettings().debug
+                ? console.debug(
+                  "Piece: Multiple Upload Component(vue2) 鼠标移动事件, sortKey: " + sortKey + ", clientX: " + _clientX + ", clientY: " + _clientY + ", targetKey: " + targetKey
+                )
+                : !1;
 
-          //将拖动元素置于其他元素的底层
-          this.renderData.containerRefMap.forEach(
-            (item: HTMLDivElement, key: number) => {
-              if (key !== this.renderData.currentDraggingSortKey)
-                item.style.zIndex = "1";
-            }
-          );
+              targetKey == -1 ? this.containerMouseLeave() : this.containerMouseEnter(targetKey);
+            });
+
+          // //将拖动元素置于其他元素的底层
+          // this.renderData.containerRefMap.forEach(
+          //   (item: HTMLDivElement, key: number) => {
+          //     if (key == this.renderData.currentDraggingSortKey)
+          //       item.style.zIndex = "999";
+          //   }
+          // );
         }, this.uploadInstance.getSettings().dragPreparationTime);
       }, 500);
     },
@@ -381,6 +408,12 @@ export default defineComponent({
      * 取消重新排序
      */
     cancelChange() {
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          'Piece: Multiple Upload Component(vue2) 取消重新排序'
+        )
+        : !1;
+
       this.renderData.drag4sort.changeTick &&
         clearTimeout(this.renderData.drag4sort.changeTick);
       this.renderData.lastDraggingSortKey = null;
@@ -397,6 +430,12 @@ export default defineComponent({
       this.renderData.readyDraggingSortKey = null;
 
       if (!this.renderData.drag4sort.draggingHelper) return;
+
+      this.uploadInstance.getSettings().debug
+        ? console.debug(
+          'Piece: Multiple Upload Component(vue2) 结束拖动并复原容器位置'
+        )
+        : !1;
 
       //结束拖动并复原位置
       (<DraggingHelper>this.renderData.drag4sort.draggingHelper).end(true);

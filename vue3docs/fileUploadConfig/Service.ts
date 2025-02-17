@@ -11,7 +11,7 @@ import { IConfig } from "../../src/export.vue3";
  * @date 2022-09-22
  */
 export default class FileUploadConfigService {
-    private static readonly treeListData: ITreeList[] = [];
+    static readonly treeListData: Map<string, ITreeList> = new Map<string, ITreeList>();
     private static readonly detailData: Map<string, IDetail> = new Map<string, IDetail>();
     private static readonly configData: Map<string, IConfig> = new Map<string, IConfig>();
 
@@ -20,17 +20,28 @@ export default class FileUploadConfigService {
      *
      * @return 树状列表数据
      */
-    public static async getTreeList(): Promise<ITreeList[]> {
+    public static async getTreeList(id?: string): Promise<ITreeList[]> {
         return new Promise<ITreeList[]>((resolve, reject) => {
-            if (FileUploadConfigService.detailData.size != 0) {
-                resolve(FileUploadConfigService.treeListData);
+
+            const result: ITreeList[] = [];
+
+            if (FileUploadConfigService.treeListData.size != 0) {
+                if (id && FileUploadConfigService.treeListData.has(id)) {
+                    const data = FileUploadConfigService.treeListData.get(id);
+                    if (data!.hasChildren) {
+                        Array.prototype.push.apply(result, data!.children);
+                    }
+                }
+                resolve(result);
                 return;
             }
 
             axios.get('../data.json').then((response: { data: ITreeList[] }) => {
                 const addData = (data: ITreeList[], deep: boolean = false) => {
                     data.forEach(item => {
-                        !deep && FileUploadConfigService.treeListData.push(item);
+                        FileUploadConfigService.treeListData.set(item.id, item);
+
+                        !deep && result.push(item);
 
                         FileUploadConfigService.detailData.set(item.id, item);
 
@@ -40,7 +51,7 @@ export default class FileUploadConfigService {
                     });
                 }
                 addData(response.data);
-                resolve(Array.from(FileUploadConfigService.treeListData));
+                resolve(result);
             }).catch(error => {
                 console.error(error);
                 reject(new Error('获取树状列表数据失败.'));

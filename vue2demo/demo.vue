@@ -15,20 +15,10 @@
                     }}</el-button>
                     <span v-if="config.error">{{ config.error }}</span>
                   </template>
-                  <el-input
-                    placeholder="输入名称进行筛选"
-                    v-model="config.filter"
-                  ></el-input>
-                  <el-tree
-                    :props="config.props"
-                    :load="loadConfig"
-                    v-loading="config.loading"
-                    :filter-node-method="filterConfig"
-                    lazy
-                    ref="configTree"
-                    node-key="id"
-                    :expand-on-click-node="false"
-                  >
+                  <el-input placeholder="输入名称进行筛选" v-model="config.filter"></el-input>
+                  <el-tree :props="config.props" :load="loadConfig" v-loading="config.loading"
+                    :filter-node-method="filterConfig" lazy ref="configTree" node-key="id"
+                    :expand-on-click-node="false">
                     <template #default="{ node, data }">
                       <span class="config-tree-node">
                         <span>
@@ -37,48 +27,28 @@
                         （<span>
                           {{
                             data.childrenCount > 99 ? "99+" : data.childrenCount
-                          }} </span
-                        >）
+                          }} </span>）
                         <span class="tools">
-                          <el-link
-                            class="button"
-                            type="primary"
-                            @click="applyConfig(data)"
-                            >应用</el-link
-                          >
+                          <el-link class="button" type="primary" @click="applyConfig(data)">应用</el-link>
 
-                          <el-popover
-                            placement="right"
-                            :width="400"
-                            trigger="click"
-                            :value="config.detail.current == data.id"
-                          >
+                          <el-popover placement="button" :width="400" @show="loadConfigDetail(node, data)"
+                            :value="config.detail.current == data.id">
                             <template #reference>
-                              <el-link
-                                class="button"
-                                type="success"
-                                @click="loadConfigDetail(node, data)"
-                                :ref="`detailLink_${data.id}`"
-                                >详情</el-link
-                              >
+                              <el-link class="button" type="success" :ref="`detailLink_${data.id}`">详情</el-link>
                             </template>
 
-                            <div
-                              v-loading="
-                                config.detail.loadings.indexOf(data.id) >= 0
-                              "
-                              class="config-detail-container"
-                            >
+                            <el-button icon="el-icon-close" class="close-button" type="text" circle
+                              @click="closeConfigDetail()"></el-button>
+
+                            <div v-loading="config.detail.loadings.indexOf(data.id) >= 0
+                              " class="config-detail-container">
                               <div v-show="config.detail.error !== null">
                                 <span>{{ config.detail.error }}</span>
                               </div>
-                              <div
-                                v-if="
-                                  config.detail.current == data.id &&
-                                  config.detail.loadings.indexOf(data.id) < 0
-                                "
-                                class="config-detail"
-                              >
+                              <div v-if="
+                                config.detail.current == data.id &&
+                                config.detail.loadings.indexOf(data.id) < 0
+                              " class="config-detail">
                                 <el-descriptions title="基础信息" :column="1">
                                   <el-descriptions-item label="名称">{{
                                     getConfigDetail(data).name
@@ -100,58 +70,34 @@
                                   <el-descriptions-item label="公共配置">{{
                                     getConfigDetail(data).public_ ? "是" : "否"
                                   }}</el-descriptions-item>
-                                  <el-descriptions-item
-                                    label="级联引用编码"
-                                    v-if="getConfigDetail(data).referenceTree"
-                                    >{{
-                                      getConfigDetail(data).referenceCode
-                                    }}</el-descriptions-item
-                                  >
+                                  <el-descriptions-item label="级联引用编码" v-if="getConfigDetail(data).referenceTree">{{
+                                    getConfigDetail(data).referenceCode
+                                  }}</el-descriptions-item>
                                   <el-descriptions-item label="文件数量下限">{{
                                     getConfigDetail(data).lowerLimit
                                   }}</el-descriptions-item>
                                   <el-descriptions-item label="文件数量上限">{{
                                     getConfigDetail(data).upperLimit
                                   }}</el-descriptions-item>
-                                  <el-descriptions-item
-                                    label="单个文件大小下限（单位 KB）"
-                                    >{{
-                                      getConfigDetail(data).lowerSingleSize
-                                    }}</el-descriptions-item
-                                  >
-                                  <el-descriptions-item
-                                    label="单个文件大小上限（单位 KB）"
-                                    >{{
-                                      getConfigDetail(data).upperSingleSize
-                                    }}</el-descriptions-item
-                                  >
-                                  <el-descriptions-item
-                                    label="所有文件整体大小下限（单位 KB）"
-                                    >{{
-                                      getConfigDetail(data).lowerTotalSize
-                                    }}</el-descriptions-item
-                                  >
-                                  <el-descriptions-item
-                                    label="所有文件整体大小上限（单位 KB）"
-                                    >{{
-                                      getConfigDetail(data).upperTotalSize
-                                    }}</el-descriptions-item
-                                  >
+                                  <el-descriptions-item label="单个文件大小下限（单位 KB）">{{
+                                    getConfigDetail(data).lowerSingleSize
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="单个文件大小上限（单位 KB）">{{
+                                    getConfigDetail(data).upperSingleSize
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="所有文件整体大小下限（单位 KB）">{{
+                                    getConfigDetail(data).lowerTotalSize
+                                  }}</el-descriptions-item>
+                                  <el-descriptions-item label="所有文件整体大小上限（单位 KB）">{{
+                                    getConfigDetail(data).upperTotalSize
+                                  }}</el-descriptions-item>
                                   <el-descriptions-item label="允许的MIME类型">
-                                    <simple-tag-list
-                                      v-model="
-                                        getConfigDetail(data).allowedTypeList
-                                      "
-                                      :readonly="true"
-                                    ></simple-tag-list>
+                                    <simple-tag-list v-model="getConfigDetail(data).allowedTypeList
+                                      " :readonly="true"></simple-tag-list>
                                   </el-descriptions-item>
                                   <el-descriptions-item label="禁止的MIME类型">
-                                    <simple-tag-list
-                                      v-model="
-                                        getConfigDetail(data).prohibitedTypeList
-                                      "
-                                      :readonly="true"
-                                    ></simple-tag-list>
+                                    <simple-tag-list v-model="getConfigDetail(data).prohibitedTypeList
+                                      " :readonly="true"></simple-tag-list>
                                   </el-descriptions-item>
                                 </el-descriptions>
                                 <el-descriptions title="其他信息" :column="1">
@@ -185,40 +131,24 @@
             <el-row :gutter="20">
               <el-col :span="2" class="label">文件并发数</el-col>
               <el-col :span="4" class="content">
-                <el-input-number
-                  v-model="settings.concurrentFile"
-                  :min="1"
-                  :max="99"
-                />
+                <el-input-number v-model="settings.concurrentFile" :min="1" :max="99" />
               </el-col>
 
-              <el-col :span="2" class="label" title="发生错误时的重试次数"
-                >重试次数</el-col
-              >
+              <el-col :span="2" class="label" title="发生错误时的重试次数">重试次数</el-col>
               <el-col :span="4" class="content">
                 <el-input-number v-model="settings.retry" :min="1" :max="10" />
               </el-col>
             </el-row>
 
             <el-row v-if="settings.enableChunk" :gutter="20">
-              <el-col :span="2" class="label" title="文件字节数"
-                >切片规格</el-col
-              >
+              <el-col :span="2" class="label" title="文件字节数">切片规格</el-col>
               <el-col :span="4" class="content">
-                <el-input-number
-                  v-model="settings.chunkSize"
-                  placeholder="文件字节数"
-                  :min="2097152"
-                />
+                <el-input-number v-model="settings.chunkSize" placeholder="文件字节数" :min="2097152" />
               </el-col>
 
               <el-col :span="2" class="label">切片文件并发数</el-col>
               <el-col :span="4" class="content">
-                <el-input-number
-                  v-model="settings.concurrentChunkFile"
-                  :min="1"
-                  :max="99"
-                />
+                <el-input-number v-model="settings.concurrentChunkFile" :min="1" :max="99" />
               </el-col>
             </el-row>
 
@@ -228,12 +158,7 @@
                 <el-switch v-model="settings.enableChunk" />
               </el-col>
 
-              <el-col
-                :span="2"
-                class="label"
-                title="在浏览器不支持时此设置不会生效"
-                >Web Worker</el-col
-              >
+              <el-col :span="2" class="label" title="在浏览器不支持时此设置不会生效">Web Worker</el-col>
               <el-col :span="2" class="content">
                 <el-switch v-model="settings.enableWorker" />
               </el-col>
@@ -245,10 +170,7 @@
 
               <el-col :span="2" class="label">调试模式</el-col>
               <el-col :span="2" class="content">
-                <el-switch
-                  v-model="settings.debug"
-                  title="将在控制台输出调试信息"
-                />
+                <el-switch v-model="settings.debug" title="将在控制台输出调试信息" />
               </el-col>
             </el-row>
 
@@ -256,26 +178,17 @@
               <el-col :span="2" class="label">运行模式</el-col>
               <el-col :span="22" class="content">
                 <el-radio-group class="item" v-model="settings.runMode">
-                  <el-radio-button
-                    label="AT"
-                    title="全自动（添加文件后会自动校验，自动上传）"
-                  ></el-radio-button>
-                  <el-radio-button
-                    label="AMT"
-                    title="半自动（添加文件后会自动校验，但需要主动调用上传方法）"
-                  ></el-radio-button>
-                  <el-radio-button
-                    label="MT"
-                    title="手动挡（添加文件后需要主动调用校验方法以及上传方法）"
-                  ></el-radio-button>
+                  <el-radio-button label="AT" title="全自动（添加文件后会自动校验，自动上传）"></el-radio-button>
+                  <el-radio-button label="AMT" title="半自动（添加文件后会自动校验，但需要主动调用上传方法）"></el-radio-button>
+                  <el-radio-button label="MT" title="手动挡（添加文件后需要主动调用校验方法以及上传方法）"></el-radio-button>
                 </el-radio-group>
                 <br />
                 <span>{{
                   settings.runMode === "AT"
                     ? "全自动（添加文件后会自动校验，自动上传）"
                     : settings.runMode === "MT"
-                    ? "手动挡（添加文件后需要主动调用校验方法以及上传方法）"
-                    : "半自动（添加文件后会自动校验，但需要主动调用上传方法）"
+                      ? "手动挡（添加文件后需要主动调用校验方法以及上传方法）"
+                      : "半自动（添加文件后会自动校验，但需要主动调用上传方法）"
                 }}</span>
               </el-col>
             </el-row>
@@ -285,31 +198,17 @@
             <el-row :gutter="20">
               <el-col :span="4" class="label">小贴士</el-col>
               <el-col :span="20" class="content">
-                <el-input
-                  v-model="settings.tip"
-                  :rows="2"
-                  type="textarea"
-                  placeholder="小贴士"
-                />
+                <el-input v-model="settings.tip" :rows="2" type="textarea" placeholder="小贴士" />
               </el-col>
             </el-row>
 
             <el-row :gutter="20">
               <el-col :span="4" class="label">布局</el-col>
               <el-col :span="4" class="content">
-                <el-switch
-                  class="item"
-                  v-model="settings.layout"
-                  active-color="#00bcd4"
-                  inactive-color="#ff9800"
-                  active-text="清单式"
-                  inactive-text="卡片式"
-                  active-value="Detailedly"
-                  inactive-value="Card"
-                  @change="
+                <el-switch class="item" v-model="settings.layout" active-color="#00bcd4" inactive-color="#ff9800"
+                  active-text="清单式" inactive-text="卡片式" active-value="Detailedly" inactive-value="Card" @change="
                     settings.layout === 'Detailedly' ? 'Card' : 'Detailedly'
-                  "
-                >
+                    ">
                 </el-switch>
               </el-col>
             </el-row>
@@ -319,186 +218,111 @@
               <el-col :span="20" class="content">
                 <el-row :gutter="20">
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >校验{{ settings.statusCheckingColor.toString() }}</span
-                    >
+                    <span class="demonstration">校验{{ settings.statusCheckingColor.toString() }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusCheckingColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusCheckingColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusCheckingColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusCheckingColor" title="颜色" />
                     </el-popover>
                   </el-col>
 
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >上传{{ settings.statusUploadingColor.toString() }}</span
-                    >
+                    <span class="demonstration">上传{{ settings.statusUploadingColor.toString() }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusUploadingColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusUploadingColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusUploadingColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusUploadingColor" title="颜色" />
                     </el-popover>
                   </el-col>
 
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >暂停{{ settings.statusPausedColor.toString() }}，标签{{
-                        settings.statusPausedSubColor.toString()
-                      }}</span
-                    >
+                    <span class="demonstration">暂停{{ settings.statusPausedColor.toString() }}，标签{{
+                      settings.statusPausedSubColor.toString()
+                    }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusPausedColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusPausedColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusPausedColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusPausedColor" title="颜色" />
                     </el-popover>
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusPausedSubColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusPausedSubColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusPausedSubColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusPausedSubColor" title="颜色" />
                     </el-popover>
                   </el-col>
                 </el-row>
                 <el-row :gutter="20">
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >完成{{ settings.statusDoneColor.toString() }}，标签{{
-                        settings.statusDoneSubColor.toString()
-                      }}</span
-                    >
+                    <span class="demonstration">完成{{ settings.statusDoneColor.toString() }}，标签{{
+                      settings.statusDoneSubColor.toString()
+                    }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusDoneColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusDoneColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusDoneColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusDoneColor" title="颜色" />
                     </el-popover>
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusDoneSubColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusDoneSubColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusDoneSubColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusDoneSubColor" title="颜色" />
                     </el-popover>
                   </el-col>
 
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >错误{{ settings.statusErrorColor.toString() }}，标签{{
-                        settings.statusErrorSubColor.toString()
-                      }}</span
-                    >
+                    <span class="demonstration">错误{{ settings.statusErrorColor.toString() }}，标签{{
+                      settings.statusErrorSubColor.toString()
+                    }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusErrorColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusErrorColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusErrorColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusErrorColor" title="颜色" />
                     </el-popover>
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.statusErrorSubColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.statusErrorSubColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.statusErrorSubColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.statusErrorSubColor" title="颜色" />
                     </el-popover>
                   </el-col>
 
                   <el-col :span="8" class="content">
-                    <span class="demonstration"
-                      >错误{{ settings.dragReadyColor.toString() }}</span
-                    >
+                    <span class="demonstration">错误{{ settings.dragReadyColor.toString() }}</span>
                     <br />
                     <el-popover placement="top" trigger="click">
                       <template #reference>
-                        <el-button
-                          class="color-block"
-                          title="点击切换颜色"
-                          :style="{
-                            '--color': settings.dragReadyColor.toString(),
-                          }"
-                        ></el-button>
+                        <el-button class="color-block" title="点击切换颜色" :style="{
+                          '--color': settings.dragReadyColor.toString(),
+                        }"></el-button>
                       </template>
-                      <sketch-picker
-                        v-model="colors.dragReadyColor"
-                        title="颜色"
-                      />
+                      <sketch-picker v-model="colors.dragReadyColor" title="颜色" />
                     </el-popover>
                   </el-col>
                 </el-row>
@@ -510,110 +334,70 @@
               <el-col :span="20" class="content">
                 <el-row :gutter="20">
                   <el-col :span="2" class="content">
-                    <el-switch v-model="settings.enableDrag" /> </el-col
-                ></el-row>
+                    <el-switch v-model="settings.enableDrag" /> </el-col></el-row>
                 <el-row :gutter="20">
                   <el-col :span="18">
                     <el-row :gutter="20" v-if="settings.enableDrag">
                       <el-col :span="12" class="content">
-                        <span class="demonstration"
-                          >准备开始拖动的时间（{{
-                            settings.dragPreparationTime
-                          }}ms）</span
-                        >
-                        <el-slider
-                          v-model="settings.dragPreparationTime"
-                          :step="100"
-                          :max="10000"
-                          :show-tooltip="false"
-                        ></el-slider>
+                        <span class="demonstration">准备开始拖动的时间（{{
+                          settings.dragPreparationTime
+                        }}ms）</span>
+                        <el-slider v-model="settings.dragPreparationTime" :step="100" :max="10000"
+                          :show-tooltip="false"></el-slider>
                       </el-col>
                       <el-col :span="12" class="content">
-                        <span class="demonstration"
-                          >拖动时变换位置的等待时间（{{
-                            settings.dragChangePositionTime
-                          }}ms）</span
-                        >
-                        <el-slider
-                          v-model="settings.dragChangePositionTime"
-                          :step="100"
-                          :max="10000"
-                          :show-tooltip="false"
-                        ></el-slider>
+                        <span class="demonstration">拖动时变换位置的等待时间（{{
+                          settings.dragChangePositionTime
+                        }}ms）</span>
+                        <el-slider v-model="settings.dragChangePositionTime" :step="100" :max="10000"
+                          :show-tooltip="false"></el-slider>
                       </el-col>
                     </el-row>
 
                     <el-row :gutter="20" v-if="settings.enableDrag">
                       <el-col :span="12" class="content">
-                        <span class="demonstration"
-                          >准备拖动时的动画颜色{{
-                            settings.dragReadyColor.toString()
-                          }}</span
-                        >
+                        <span class="demonstration">准备拖动时的动画颜色{{
+                          settings.dragReadyColor.toString()
+                        }}</span>
                         <br />
                         <el-popover placement="top" trigger="click">
                           <template #reference>
-                            <el-button
-                              class="color-block"
-                              title="点击切换颜色"
-                              :style="{
-                                '--color': settings.dragReadyColor.toString(),
-                              }"
-                            ></el-button>
+                            <el-button class="color-block" title="点击切换颜色" :style="{
+                              '--color': settings.dragReadyColor.toString(),
+                            }"></el-button>
                           </template>
-                          <sketch-picker
-                            v-model="colors.dragReadyColor"
-                            title="颜色"
-                          />
+                          <sketch-picker v-model="colors.dragReadyColor" title="颜色" />
                         </el-popover>
                       </el-col>
                       <el-col :span="12" class="content">
-                        <span class="demonstration"
-                          >拖动时的动画颜色{{
-                            settings.dragMovingColor.toString()
-                          }}</span
-                        >
+                        <span class="demonstration">拖动时的动画颜色{{
+                          settings.dragMovingColor.toString()
+                        }}</span>
                         <br />
                         <el-popover placement="top" trigger="click">
                           <template #reference>
-                            <el-button
-                              class="color-block"
-                              title="点击切换颜色"
-                              :style="{
-                                '--color': settings.dragMovingColor.toString(),
-                              }"
-                            ></el-button>
+                            <el-button class="color-block" title="点击切换颜色" :style="{
+                              '--color': settings.dragMovingColor.toString(),
+                            }"></el-button>
                           </template>
-                          <sketch-picker
-                            v-model="colors.dragMovingColor"
-                            title="颜色"
-                          />
+                          <sketch-picker v-model="colors.dragMovingColor" title="颜色" />
                         </el-popover>
                       </el-col>
                     </el-row>
 
                     <el-row :gutter="20" v-if="settings.enableDrag">
                       <el-col :span="12" class="content">
-                        <span class="demonstration"
-                          >结束拖动时的动画颜色{{
-                            settings.dragOverColor.toString()
-                          }}</span
-                        >
+                        <span class="demonstration">结束拖动时的动画颜色{{
+                          settings.dragOverColor.toString()
+                        }}</span>
                         <br />
                         <el-popover placement="top" trigger="click">
                           <template #reference>
-                            <el-button
-                              class="color-block"
-                              title="点击切换颜色"
-                              :style="{
-                                '--color': settings.dragOverColor.toString(),
-                              }"
-                            ></el-button>
+                            <el-button class="color-block" title="点击切换颜色" :style="{
+                              '--color': settings.dragOverColor.toString(),
+                            }"></el-button>
                           </template>
-                          <sketch-picker
-                            v-model="colors.dragOverColor"
-                            title="颜色"
-                          />
+                          <sketch-picker v-model="colors.dragOverColor" title="颜色" />
                         </el-popover>
                       </el-col>
                     </el-row>
@@ -648,45 +432,33 @@
     <el-row :gutter="20">
       <el-col :span="4" class="label">设置初始值</el-col>
       <el-col :span="20" class="content">
-        <simple-tag-list
-          v-model="preFileIds"
-          :name="'已上传的文件ID'"
-        ></simple-tag-list>
+        <simple-tag-list v-model="preFileIds" :name="'已上传的文件ID'"></simple-tag-list>
       </el-col>
     </el-row>
 
     <el-row :gutter="20">
       <el-col :span="4" class="label">组件预览</el-col>
       <el-col :span="20" class="content">
-        <naive-upload
-          v-if="show"
-          v-model="fileIds"
-          :settings="settings"
-          :api-service="apiService"
-          @setOpenApi="setUploadApi"
-          @beforeCheck="beforeCheck"
-          @afterCheck="afterCheck"
-          @afterCheckAll="afterCheckAll"
-          @afterUpload="afterUpload"
-          @afterUploadAll="afterUploadAll"
-          @error="handlerError"
-        ></naive-upload>
+        <naive-upload v-if="show" v-model="fileIds" :settings="settings" :api-service="apiService"
+          @setOpenApi="setUploadApi" @beforeCheck="beforeCheck" @afterCheck="afterCheck" @afterCheckAll="afterCheckAll"
+          @afterUpload="afterUpload" @afterUploadAll="afterUploadAll" @error="handlerError"></naive-upload>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-//局部引用示例
+//本地调试
 import { NaiveUpload } from "../src/export.vue2";
-// //测试打包代码
-// import { NaiveUpload } from "../lib/export";
-// import "../dist/style.css";
-import NaiveApiService from "./naiveApiService";
+//打包发布
+// import { NaiveUpload } from 'naive-upload';
+// import 'naive-upload/dist/style.css';
+import NaiveApiService from "./NaiveApiService";
 import FileUploadConfigService from "./fileUploadConfig/Service";
 import SimpleTagList from "./SimpleTagList/index.vue";
-import { RunMode, Settings, UploadError } from "../src/export.base";
+import { Layout, RunMode, Settings, UploadError } from "../src/export.base";
 import { Sketch } from "vue-color";
 import RGBAColor from "../src/Model/RGBAColor";
+import { reactive } from "vue-demi";
 
 export default {
   name: "FileUploadDemo",
@@ -699,12 +471,12 @@ export default {
    * 渲染数据
    */
   data() {
-    const settings = Settings.defaultWithConfigCode("multiple-file").setup(
+    const settings = reactive(Settings.defaultWithConfigCode("multiple-file").setup(
       (x) => {
         x.debug = true;
         x.runMode = RunMode.半自动;
       }
-    );
+    ));
 
     const renderData = {
       fileIds: [],
@@ -746,7 +518,7 @@ export default {
       /**
        * 上传组件的设置
        */
-      settings: settings,
+      settings,
       /**
        * 上传服务
        */
@@ -814,7 +586,7 @@ export default {
       deep: true,
     },
   },
-  setup() {},
+  setup() { },
   /**
    * 初始化方法
    */
@@ -901,11 +673,12 @@ export default {
     loadConfig(node, resolve) {
       this.config.loading = true;
       this.config.error = null;
-      FileUploadConfigService.getTreeList()
+
+      FileUploadConfigService.getTreeList(node?.data?.id)
         .then((result) => {
           this.config.loading = false;
           resolve(
-            result.rows.map((x) => Object.assign(x, { leaf: !x.hasChildren }))
+            result.map((x) => Object.assign(x, { leaf: !x.hasChildren }))
           );
         })
         .catch((e) => {
@@ -936,9 +709,6 @@ export default {
      * @param data 当前数据
      */
     loadConfigDetail(node, data) {
-      if (this.config.detail.current)
-        this.$refs[`detailLink_${this.config.detail.current}`].$el.click();
-
       this.config.detail.dataMap.set(data.id, {});
       this.config.detail.current = data.id;
       if (this.config.detail.loadings.indexOf(data.id) >= 0) {
@@ -951,7 +721,7 @@ export default {
       }
 
       this.config.detail.loadings.push(data.id);
-      FileUploadConfigService.detail(data.id)
+      FileUploadConfigService.getDetail(data.id)
         .then((result) => {
           this.config.detail.dataMap.set(data.id, result);
           this.config.detail.loadings.splice(
@@ -966,6 +736,14 @@ export default {
           );
           this.config.detail.error = `加载文件上传配置详情时发生异常：${e.message}`;
         });
+    },
+
+    /**
+     * 关闭文件上传配置详情
+     */
+    closeConfigDetail() {
+      if (this.config.detail.current)
+        this.$refs[`detailLink_${this.config.detail.current}`].$el.click();
     },
 
     /**
@@ -1050,5 +828,15 @@ export default {
   width: 30px;
   height: 30px;
   background-color: var(--color) !important;
+}
+
+.close-button {
+  float: right;
+}
+
+.config-detail .el-descriptions-item__container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 </style>

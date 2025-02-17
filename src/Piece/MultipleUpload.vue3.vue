@@ -6,11 +6,7 @@
         <p class="upload-text" v-html="upload.getConfig().explain"></p>
         <p class="upload-hint" v-html="upload.getSettings().tip"></p>
         <div class="upload-error-list pretty-scrollbar">
-          <p
-            class="error-info"
-            v-for="(error, index) in renderData.errors"
-            :key="index"
-          >
+          <p class="error-info" v-for="(error, index) in renderData.errors" :key="index">
             {{ error }}
           </p>
         </div>
@@ -18,35 +14,22 @@
     </template>
 
     <template v-slot:listContainer>
-      <div
-        class="scroll-container pretty-scrollbar"
-        :ref="setListRef"
-        v-on:mouseenter="renderData.scrollLock = true"
-        v-on:mouseleave="renderData.scrollLock = false"
-      >
+      <div class="scroll-container pretty-scrollbar" :ref="setListRef" v-on:mouseenter="renderData.scrollLock = true"
+        v-on:mouseleave="renderData.scrollLock = false">
         <TransitionGroup name="fade">
-          <selected-file-info
-            v-for="sortKey in upload.getSelectedFileSortMap().size"
-            :key="upload.getSelectedFileSortMap().get(sortKey) ?? -1"
-            :selectedFile="upload.getSelectedFile(sortKey)"
+          <selected-file-info v-for="sortKey in upload.getSelectedFileSortMap().size"
+            :key="upload.getSelectedFileSortMap().get(sortKey) ?? -1" :selectedFile="upload.getSelectedFile(sortKey)"
             :readyDrag="renderData.readyDraggingSortKey === sortKey"
             :startDrag="renderData.currentDraggingSortKey !== null"
-            :dragging="renderData.currentDraggingSortKey === sortKey"
-            :dragover="
-              renderData.lastDraggingSortKey === sortKey &&
+            :dragging="renderData.currentDraggingSortKey === sortKey" :dragover="renderData.lastDraggingSortKey === sortKey &&
               renderData.currentDraggingSortKey !== sortKey
-            "
-            @setContainerRef="(el) => setContainerRef(sortKey, el)"
-            @mouseDown="(event) => containerMouseDown(sortKey, event)"
-            @mouseUp="(event) => containerMouseUp(sortKey, event)"
-            @mouseEnter="(event) => containerMouseEnter(sortKey, event)"
-            @mouseLeave="(event) => containerMouseLeave(sortKey, event)"
-            v-slot="slotProps"
-          >
-            <layout-info
-              class="item-info-container"
-              :slotProps="slotProps"
-            ></layout-info>
+              " @setContainerRef="(el) => setContainerRef(sortKey, el)"
+            @mouseDown="(event) => containerMouseDown(sortKey, event, false)"
+            @mouseUp="(event) => containerMouseUp(sortKey, event, false)"
+            @touchstart="(event: TouchEvent) => containerMouseDown(sortKey, event, true)"
+            @touchend="(event: TouchEvent) => containerMouseUp(sortKey, event, true)"
+            @touchcancel="(event: TouchEvent) => containerMouseUp(sortKey, event, true)" v-slot="slotProps">
+            <layout-info class="item-info-container" :slotProps="slotProps"></layout-info>
           </selected-file-info>
         </TransitionGroup>
       </div>
@@ -68,6 +51,7 @@ import LayoutIndex from "../Layout/index.vue3.vue";
 import LayoutInfo from "../Layout/info.vue3.vue";
 import SelectedFile from "../Model/SelectedFile";
 import DraggingHelper from "../Extention/DraggingHelper";
+import r from "../../lib/vue2/Piece/DropFileInput.vue2.vue_vue_type_script_lang";
 
 // 获取vue实例
 const { proxy } = getCurrentInstance() as any;
@@ -144,12 +128,20 @@ let drag4sort = {
     if (!upload.getSettings().enableDrag) {
       upload.getSettings().debug
         ? console.debug(
-            "Piece: Multiple Upload Component(vue3) 未启用拖动排序功能"
-          )
+          "Piece: Multiple Upload Component(vue3) 未启用拖动排序功能"
+        )
         : !1;
       return;
     }
     if (upload.getSelectedFileList(false).length <= 1) return;
+
+    upload.getSettings().debug
+      ? console.debug(
+        `Piece: Multiple Upload Component(vue3) 延时开启拖动功能, sortKey: ${sortKey}`
+      )
+      : !1;
+
+    drag4sort.startTick && clearTimeout(drag4sort.startTick);
 
     drag4sort.startTick = setTimeout(() => {
       //准备拖动
@@ -162,15 +154,25 @@ let drag4sort = {
         renderData.currentDraggingSortKey = sortKey;
         drag4sort.draggingHelper = DraggingHelper.getInstance(
           listContainerRef,
-          containerRefMap.get(renderData.currentDraggingSortKey)!
+          containerRefMap,
+          renderData.currentDraggingSortKey,
+          upload.getSettings().isMobile
         );
-        drag4sort.draggingHelper.start(clientX, clientY);
+        drag4sort.draggingHelper.start(clientX, clientY, (targetKey, _clientX, _clientY) => {
+          upload.getSettings().debug
+            ? console.debug(
+              `Piece: Multiple Upload Component(vue3) 鼠标移动事件, sortKey: ${sortKey}, clientX: ${_clientX}, clientY: ${_clientY}, targetKey: ${targetKey}`
+            )
+            : !1;
 
-        //将拖动元素置于其他元素的底层
-        containerRefMap.forEach((item: HTMLDivElement, key: number) => {
-          if (key !== renderData.currentDraggingSortKey)
-            item.style.zIndex = "1";
+          targetKey == -1 ? containerMouseLeave() : containerMouseEnter(targetKey);
         });
+
+        // //将拖动元素置于其他元素的底层
+        // containerRefMap.forEach((item: HTMLDivElement, key: number) => {
+        //   if (key == renderData.currentDraggingSortKey)
+        //     item.style.zIndex = "999";
+        // });
       }, upload.getSettings().dragPreparationTime);
     }, 500);
   },
@@ -180,11 +182,17 @@ let drag4sort = {
    *
    * @param sortKey
    */
-  ready2change: (sortKey: number) => {
-    renderData.lastDraggingSortKey = sortKey;
+  ready2change: (targetKey: number) => {
+    renderData.lastDraggingSortKey = targetKey;
 
     if (renderData.currentDraggingSortKey === renderData.lastDraggingSortKey)
       return;
+
+    upload.getSettings().debug
+      ? console.debug(
+        `Piece: Multiple Upload Component(vue3) 延时重新排序, targetKey: ${targetKey}`
+      )
+      : !1;
 
     //TODO 自动将列表容器滚动至当前正在拖动的文件之处（注：此功能会和延迟重新排序功能冲突，暂不启用）
     // if (containerRefMap.get(renderData.lastDraggingSortKey).offsetTop + containerRefMap.get(renderData.lastDraggingSortKey).clientHeight + 20 > listContainerRef.clientHeight) {
@@ -192,6 +200,8 @@ let drag4sort = {
     // drag4sort.draggingHelper.offset(0, listContainerRef.scrollTop);
     // console.debug('scrollTop', listContainerRef.scrollTop);
     // }
+
+    drag4sort.changeTick && clearTimeout(drag4sort.changeTick);
 
     drag4sort.changeTick = setTimeout(() => {
       //重新排序
@@ -207,6 +217,12 @@ let drag4sort = {
    * 取消重新排序
    */
   cancelChange: () => {
+    upload.getSettings().debug
+      ? console.debug(
+        'Piece: Multiple Upload Component(vue3) 取消重新排序'
+      )
+      : !1;
+
     drag4sort.changeTick && clearTimeout(drag4sort.changeTick);
     renderData.lastDraggingSortKey = null;
   },
@@ -220,6 +236,12 @@ let drag4sort = {
     renderData.readyDraggingSortKey = null;
 
     if (!drag4sort.draggingHelper) return;
+
+    upload.getSettings().debug
+      ? console.debug(
+        'Piece: Multiple Upload Component(vue3) 结束拖动并复原容器位置'
+      )
+      : !1;
 
     //结束拖动并复原位置
     drag4sort.draggingHelper.end(true);
@@ -261,9 +283,19 @@ const setContainerRef = (sortKey: number, el: HTMLDivElement) => {
  *
  * @param sortKey
  * @param event
+ * @param touch 是否来自touch事件
  */
-const containerMouseDown = (sortKey: number, event: MouseEvent) => {
-  drag4sort.ready2start(sortKey, event.clientX, event.clientY);
+const containerMouseDown = (sortKey: number, event: MouseEvent | TouchEvent, touch: boolean) => {
+  upload.getSettings().debug
+    ? console.debug(
+      `Piece: Multiple Upload Component(vue3) 按下鼠标的事件, sortKey: ${sortKey}`
+    )
+    : !1;
+
+  const clientX = touch ? (<TouchEvent>event).targetTouches[0].clientX : (<MouseEvent>event).clientX;
+  const clientY = touch ? (<TouchEvent>event).targetTouches[0].clientY : (<MouseEvent>event).clientY;
+
+  drag4sort.ready2start(sortKey, clientX, clientY);
 };
 
 /**
@@ -271,28 +303,43 @@ const containerMouseDown = (sortKey: number, event: MouseEvent) => {
  *
  * @param sortKey
  * @param event
+ * @param touch 是否来自touch事件
  */
-const containerMouseUp = (sortKey: number, event: MouseEvent) => {
+const containerMouseUp = (sortKey: number, event: MouseEvent | TouchEvent, touch: boolean) => {
+  upload.getSettings().debug
+    ? console.debug(
+      `Piece: Multiple Upload Component(vue3) 松开鼠标的事件, sortKey: ${sortKey}`
+    )
+    : !1;
+
   drag4sort.end();
 };
 
 /**
- * 鼠标进入的事件
+ * 进入目标范围的事件
  *
- * @param sortKey
- * @param event
+ * @param targetKey
  */
-const containerMouseEnter = (sortKey: number, event: MouseEvent) => {
-  drag4sort.ready2change(sortKey);
+const containerMouseEnter = (targetKey: number) => {
+  upload.getSettings().debug
+    ? console.debug(
+      `Piece: Multiple Upload Component(vue3) 进入目标范围的事件, targetKey: ${targetKey}`
+    )
+    : !1;
+
+  drag4sort.ready2change(targetKey);
 };
 
 /**
- * 鼠标离开的事件
- *
- * @param sortKey
- * @param event
+ * 离开目标范围的事件
  */
-const containerMouseLeave = (sortKey: number, event: MouseEvent) => {
+const containerMouseLeave = () => {
+  upload.getSettings().debug
+    ? console.debug(
+      `Piece: Multiple Upload Component(vue3) 离开目标范围的事件`
+    )
+    : !1;
+
   drag4sort.cancelChange();
 };
 
