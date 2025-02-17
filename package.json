@@ -2,11 +2,11 @@
     "name": "naive-upload",
     "author": "LCTR",
     "license": "Apache-2.0",
-    "version": "0.0.46",
+    "version": "0.0.47",
     "description": "",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Lc3586/NaiveUpload.git"
+        "url": "git+https://github.com/Lc3586/NaiveUpload.git"
     },
     "bugs": {
         "url": "https://github.com/Lc3586/NaiveUpload/issues"
