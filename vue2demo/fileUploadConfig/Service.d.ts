@@ -1,5 +1,5 @@
-import { IDetail } from "../../docs/fileUploadConfig/IDetail";
-import { ITreeList } from "../../docs/fileUploadConfig/ITreeList";
+import { IDetail } from "./IDetail";
+import { ITreeList } from "./ITreeList";
 import { IConfig } from "../../src/export.base";
 /**
  * 文件上传配置信息服务
@@ -8,15 +8,15 @@ import { IConfig } from "../../src/export.base";
  * @date 2022-09-22
  */
 export default class FileUploadConfigService {
-    private static readonly treeListData;
-    private static readonly detailData;
-    private static readonly configData;
+    static readonly treeListData: Map<string, ITreeList>;
+    static readonly detailData: Map<string, IDetail>;
+    static readonly configData: Map<string, IConfig>;
     /**
      * 获取树状列表数据
      *
      * @return 树状列表数据
      */
-    static getTreeList(): Promise<ITreeList[]>;
+    static getTreeList(id?: string): Promise<ITreeList[]>;
     /**
      * 获取详情数据
      *

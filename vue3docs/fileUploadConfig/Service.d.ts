@@ -8,7 +8,7 @@ import { IConfig } from "../../src/export.vue3";
  * @date 2022-09-22
  */
 export default class FileUploadConfigService {
-    private static readonly treeListData;
+    static readonly treeListData: Map<string, ITreeList>;
     private static readonly detailData;
     private static readonly configData;
     /**
@@ -16,7 +16,7 @@ export default class FileUploadConfigService {
      *
      * @return 树状列表数据
      */
-    static getTreeList(): Promise<ITreeList[]>;
+    static getTreeList(id?: string): Promise<ITreeList[]>;
     /**
      * 获取详情数据
      *
