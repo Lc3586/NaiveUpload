@@ -1,14 +1,8 @@
 # 初级上传组件（NaiveUpload）
 
 <p align="left">
-  <a href="https://cdnjs.com/libraries/naive-upload">
-    <img src="https://img.shields.io/cdnjs/v/naive-upload.svg">
-  </a>
   <a href="https://www.npmjs.org/package/naive-upload">
     <img src="https://img.shields.io/npm/v/naive-upload.svg">
-  </a>
-  <a href="https://packagephobia.com/result?p=naive-upload@latest">
-    <img src="https://packagephobia.com/badge?p=naive-upload@latest">
   </a>
   <a href="https://bundlephobia.com/package/naive-upload@latest">
     <img src="https://img.shields.io/bundlephobia/minzip/naive-upload?style=flat-square">
@@ -56,8 +50,6 @@
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
 | Chrome                                                                     | Firefox                                                                          | Safari                                          | Opera                                                                                                              | Edge                                                                 |
 | Latest ✔                                                                   | Latest ❓                                                                         | Latest ❓                                        | Latest ❓                                                                                                           | Latest ❓                                                             |
-
-[![Browser Matrix](https://saucelabs.com/open_sauce/build_matrix/naive-upload.svg)](https://saucelabs.com/u/naive-upload)
 
 ## 安装 Installing
 
@@ -322,10 +314,6 @@ const handlerError = (e: Error) => {
 ```
 
 ## 贡献者 Contributors
-
-This project exists thanks to all the people who contribute.
-
-And thank you to all our backers! 🙏
 
 <a href="https://github.com/Lc3586/NaiveUpload/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Lc3586/NaiveUpload" />
